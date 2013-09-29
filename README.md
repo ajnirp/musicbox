@@ -31,6 +31,10 @@ Cleaning Up
 Quick Walkthrough
 -----------------
 
+Keybindings:
+
+1 Press `Esc` to exit
+
 Credits
 -------
 
@@ -43,3 +47,8 @@ License
 -------
 
 This code is licensed under the [WTFPL](http://www.wtfpl.net/about/), which means that you can take it and do whatever the fudge you wish to with it. Enjoy!
+
+References
+----------
+
+www.swiftless.com/tutorials/opengl/smooth_rotation.html

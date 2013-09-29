@@ -8,9 +8,7 @@ ECHO    = /bin/echo
 CAT     = cat
 PRINTF  = printf
 MV      = mv
-UNTAR   = tar xf
 CD      = cd
-MAKE    = make
 
 #=================================================================
 
