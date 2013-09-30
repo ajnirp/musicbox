@@ -107,13 +107,19 @@ void define_lid() {
 	glEndList();
 }
 
-void draw_box(double degrees) {
-	glCallList(base_and_walls);
+void draw_box(double lid_degrees, double box_degrees) {
 	glPushMatrix();
-		glTranslatef(0, -2, -5);
-		glRotatef(degrees, 1, 0, 0);
-		glTranslatef(0, 2, 5);
-		glCallList(lid);
-	
+		glTranslatef(0, 0, -2);
+		glRotatef(box_degrees, 0, 1, 0);
+		glTranslatef(0, 0, 2);
+		// draw the lid
+		glPushMatrix();
+			glTranslatef(0, -2, -5);
+			glRotatef(lid_degrees, 1, 0, 0);
+			glTranslatef(0, 2, 5);
+			glCallList(lid);
+		glPopMatrix();
+		// draw the base and walls
+		glCallList(base_and_walls);
 	glPopMatrix();
 }

@@ -8,11 +8,13 @@ using namespace std;
 
 /* Global vars */
 double lid_angle = 0;
-float lid_angle_increment = 5.f;
+double box_angle = 0;
+float lid_angle_increment = 3.f;
+float box_angle_increment = 3.f;
 
 /* Window Parameters */
-int win_width = 1024;
-int win_height = 768;
+// int win_width = glutGet(GLUT_SCREEN_WIDTH);
+// int win_height = glutGet(GLUT_SCREEN_HEIGHT);
 int window_id;
 
 /* Callback Declarations */
@@ -36,7 +38,7 @@ void initGL() {
 /* Callback Definitions */
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	draw_box(lid_angle);
+	draw_box(lid_angle, box_angle);
 	glutSwapBuffers();
 }
 
@@ -54,7 +56,7 @@ void reshape(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0,0,1,0,0,0,0,1,0);
+	gluLookAt(0,0,3,0,0,0,0,1,0);
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -85,6 +87,24 @@ void keyboard(unsigned char key, int x, int y) {
 			}
 		}
 		break;
+
+		// rotate clockwise as seen from above
+		case 'a': {
+			if (box_angle + box_angle_increment <= 45) {
+				box_angle += box_angle_increment;
+				glutPostRedisplay();
+			}
+		}
+		break;
+
+		// rotate anti-clockwise as seen from above
+		case 'd': {
+			if (box_angle - box_angle_increment >= -45) {
+				box_angle -= box_angle_increment;
+				glutPostRedisplay();
+			}
+		}
+		break;
 	}
 }
 
@@ -94,8 +114,8 @@ void mouse(int button, int state, int x, int y) {
 void renderGL(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_RGBA | GLUT_DOUBLE);
-	glutInitWindowSize(win_width, win_height);
-	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH)-win_width)/2, (glutGet(GLUT_SCREEN_HEIGHT)-win_height)/2);
+	glutInitWindowSize(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
+	glutInitWindowPosition(0, 0);
 
 	window_id = glutCreateWindow("Music Box");
 

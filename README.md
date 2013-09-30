@@ -11,7 +11,7 @@ The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox.html).
 Installation
 ------------
 
-OpenGL and g++ are required. We used g++ v4.7.3 Once you have those two:
+OpenGL and `g++` are required. We used g++ v4.7.3. Once you have those two:
 
 1. Download this repo
 2. Unzip
@@ -33,12 +33,16 @@ Quick Walkthrough
 
 Keybindings:
 
-1 Press `Esc` to exit
+1 Exit program: `Esc`
+2 Open the box : `o`
+3 Close the box: `c`
 
 Credits
 -------
 
 All of the code was written entirely by the two of us, except for the following parts:
+
+1 `Makefile` is a modified version of the Makefile given to us in the Software Systems Lab course at IIT Bombay
 
 Roadmap
 -------
@@ -47,8 +51,3 @@ License
 -------
 
 This code is licensed under the [WTFPL](http://www.wtfpl.net/about/), which means that you can take it and do whatever the fudge you wish to with it. Enjoy!
-
-References
-----------
-
-www.swiftless.com/tutorials/opengl/smooth_rotation.html
