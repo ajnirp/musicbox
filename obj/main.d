@@ -17,7 +17,8 @@
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h \
- /usr/include/xlocale.h /usr/include/c++/4.7/exception \
+ /usr/include/xlocale.h /usr/include/x86_64-linux-gnu/bits/wchar2.h \
+ /usr/include/c++/4.7/exception \
  /usr/include/c++/4.7/bits/atomic_lockfree_defines.h \
  /usr/include/c++/4.7/bits/char_traits.h \
  /usr/include/c++/4.7/bits/stl_algobase.h \
@@ -84,7 +85,11 @@
  /usr/include/x86_64-linux-gnu/sys/select.h \
  /usr/include/x86_64-linux-gnu/bits/select.h \
  /usr/include/x86_64-linux-gnu/bits/sigset.h \
+ /usr/include/x86_64-linux-gnu/bits/select2.h \
  /usr/include/x86_64-linux-gnu/sys/sysmacros.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h \
  /host/Academic/5/cs475/assignments/musicbox/src/required.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/box.hpp
+ /host/Academic/5/cs475/assignments/musicbox/src/box.hpp \
+ /host/Academic/5/cs475/assignments/musicbox/src/dancer.hpp \
+ /host/Academic/5/cs475/assignments/musicbox/src/table.hpp

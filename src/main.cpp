@@ -38,6 +38,7 @@ void initGL() {
 /* Callback Definitions */
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// draw_table();
 	draw_box(lid_angle, box_angle);
 	glutSwapBuffers();
 }
@@ -69,7 +70,7 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 
 		// close the box
-		case 'c': {
+		case 's': {
 			// don't change the angle if it is already shut
 			if (-1*lid_angle >= lid_angle_increment) {
 				lid_angle += lid_angle_increment;
@@ -79,7 +80,7 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 
 		// open the box
-		case 'o': {
+		case 'w': {
 			// don't change the angle if it is already fully open
 			if (-1*lid_angle <= 180-lid_angle_increment) {
 				lid_angle -= lid_angle_increment;
@@ -90,7 +91,7 @@ void keyboard(unsigned char key, int x, int y) {
 
 		// rotate clockwise as seen from above
 		case 'a': {
-			if (box_angle + box_angle_increment <= 45) {
+			if (box_angle + box_angle_increment <= 90) {
 				box_angle += box_angle_increment;
 				glutPostRedisplay();
 			}
@@ -99,7 +100,7 @@ void keyboard(unsigned char key, int x, int y) {
 
 		// rotate anti-clockwise as seen from above
 		case 'd': {
-			if (box_angle - box_angle_increment >= -45) {
+			if (box_angle - box_angle_increment >= -90) {
 				box_angle -= box_angle_increment;
 				glutPostRedisplay();
 			}

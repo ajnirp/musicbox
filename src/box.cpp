@@ -1,12 +1,8 @@
 #include <GL/glut.h>
-#include <iostream>
 #include "box.hpp"
 
-int base_and_walls;
-int lid;
-
-void define_base_and_walls() {
-	base_and_walls = glGenLists(1);
+int define_base_and_walls() {
+	int base_and_walls = glGenLists(1);
 	glNewList(base_and_walls, GL_COMPILE);
 		glPushMatrix();
 			// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
@@ -55,10 +51,11 @@ void define_base_and_walls() {
 			glEnd();
 		glPopMatrix();
 	glEndList();
+	return base_and_walls;
 }
 
-void define_lid() {
-	lid = glGenLists(1);
+int define_lid() {
+	int lid = glGenLists(1);
 	glNewList(lid, GL_COMPILE);
 		glPushMatrix();
 			// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
@@ -105,9 +102,13 @@ void define_lid() {
 			glEnd();
 		glPopMatrix();
 	glEndList();
+	return lid;
 }
 
 void draw_box(double lid_degrees, double box_degrees) {
+	int base_and_walls = define_base_and_walls();
+	int lid = define_lid();
+
 	glPushMatrix();
 		glTranslatef(0, 0, -2);
 		glRotatef(box_degrees, 0, 1, 0);

@@ -1,11 +1,11 @@
 #ifndef BOX_H
 #define BOX_H
 
-// Components
-void define_base_and_walls();
-void define_lid();
+// Components of the box
+int define_base_and_walls();
+int define_lid();
 
-// Drawing function
-void draw_box(double, double);
+// Drawing function for the box
+void draw_box(double lid_degrees, double box_degrees);
 
 #endif
