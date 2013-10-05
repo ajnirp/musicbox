@@ -12,6 +12,9 @@ double box_angle = 0;
 float lid_angle_increment = 3.f;
 float box_angle_increment = 3.f;
 
+double neck_angle = 0;
+float neck_angle_increment = 3.f;
+
 /* Window Parameters */
 // int win_width = glutGet(GLUT_SCREEN_WIDTH);
 // int win_height = glutGet(GLUT_SCREEN_HEIGHT);
@@ -27,7 +30,7 @@ void renderGL(int, char**);
 
 void initGL() {
   // glClearColor(0.2, 0.5, 1.f, 1.f); // light blue background color
-  glClearColor(1, 1, 1, 1.f);
+  glClearColor(0, 0, 0, 1.f);
   glClearDepth(1.0);
   glEnable(GL_DEPTH_TEST); // enable Z-buffer algorithm
 
@@ -38,8 +41,8 @@ void initGL() {
 /* Callback Definitions */
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// draw_table();
-	draw_box(lid_angle, box_angle);
+	// draw_box(lid_angle, box_angle);
+	draw_dancer(neck_angle);
 	glutSwapBuffers();
 }
 
@@ -106,6 +109,21 @@ void keyboard(unsigned char key, int x, int y) {
 			}
 		}
 		break;
+
+		case 'j': {
+			if (neck_angle - neck_angle_increment >= -60) {
+				neck_angle -= neck_angle_increment;
+				glutPostRedisplay();
+			}
+		}
+		break;
+
+		case 'k': {
+			if (neck_angle + neck_angle_increment <= 60) {
+				neck_angle += neck_angle_increment;
+				glutPostRedisplay();
+			}
+		}
 	}
 }
 
