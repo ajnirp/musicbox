@@ -44,6 +44,12 @@ All of the code was written entirely by the two of us, except for the following 
 
 1 `Makefile` is a modified version of the Makefile given to us in the Software Systems Lab course at IIT Bombay
 
+References
+----------
+
+1. http://www.opengl-tutorial.org/beginners-tutorials/tutorial-5-a-textured-cube/
+2. http://www.glprogramming.com/red/chapter09.html#name2
+
 Roadmap
 -------
 
