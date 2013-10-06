@@ -214,9 +214,9 @@ int define_hip() {
 	int hip = glGenLists(1);
 	glNewList(hip, GL_COMPILE);
 		glColor3ub(150, 124, 148);
-		glScalef(0.25, 0.25, 0.25);
-		glutSolidCube(1);
-		glScalef(4,4,4);
+		glScalef(0.125, 0.125, 0.125);
+		glutSolidSphere(1,10,10);
+		glScalef(8,8,8);
 	glEndList();
 	return hip;
 }
@@ -238,9 +238,9 @@ int define_knee() {
 	int knee = glGenLists(1);
 	glNewList(knee, GL_COMPILE);
 		glColor3ub(200, 200, 50);
-		glScalef(0.2, 0.2, 0.2);
-		glutSolidCube(1);
-		glScalef(5,5,5);
+		glScalef(0.1, 0.1, 0.1);
+		glutSolidSphere(1,10,10);
+		glScalef(10,10,10);
 	glEndList();
 	return knee;
 }
@@ -307,6 +307,72 @@ int define_foot() {
 	return feet;
 }
 
+int define_shoulder() {
+	int shoulder = glGenLists(1);
+	glNewList(shoulder, GL_COMPILE);
+		glColor3ub(56,56,200);
+		glScalef(0.125,0.125,0.125);
+		glutSolidSphere(1,10,10);
+		glScalef(8,8,8);
+	glEndList();
+	return shoulder;
+}
+
+int define_upper_arm() {
+	int upper_arm = glGenLists(1);
+	glNewList(upper_arm, GL_COMPILE);
+		glColor3ub(160,20,90);
+		glScalef(0.2,0.8,0.2);
+		glutSolidCube(1);
+		glScalef(5,1.25,5);
+	glEndList();
+	return upper_arm;
+}
+
+int define_elbow() {
+	int elbow = glGenLists(1);
+	glNewList(elbow, GL_COMPILE);
+		glColor3ub(45,234,90);
+		glScalef(0.1,0.1,0.1);
+		glutSolidSphere(1,10,10);
+		glScalef(10,10,10);
+	glEndList();
+	return elbow;
+}
+
+int define_lower_arm() {
+	int lower_arm = glGenLists(1);
+	glNewList(lower_arm, GL_COMPILE);
+		glColor3ub(20,20,90);
+		glScalef(0.2,0.6,0.2);
+		glutSolidCube(1);
+		glScalef(5,1.67,5);
+	glEndList();
+	return lower_arm;
+}
+
+int define_wrist() {
+	int wrist = glGenLists(1);
+	glNewList(wrist, GL_COMPILE);
+		glColor3ub(94,87,218);
+		glScalef(0.1,0.1,0.1);
+		glutSolidSphere(1,10,10);
+		glScalef(10,10,10);
+	glEndList();
+	return wrist;
+}
+
+int define_hand() {
+	int hand = glGenLists(1);
+	glNewList(hand, GL_COMPILE);
+		glColor3ub(200,200,10);
+		GLUquadric* quad = gluNewQuadric();
+		glRotatef(90,1,0,0);
+		gluCylinder(quad,0.1,0.15,0.2,10,10);
+	glEndList();
+	return hand;
+}
+
 // Drawing function for the box
 void draw_box(double lid_degrees, double box_degrees) {
 	int base_and_walls = define_base_and_walls();
@@ -358,10 +424,28 @@ void draw_dancer(double angle) {
 	int left_foot = define_foot();
 	int right_foot = define_foot();
 
+	int left_shoulder = define_shoulder();
+	int right_shoulder = define_shoulder();
+
+	int left_upper_arm = define_upper_arm();
+	int right_upper_arm = define_upper_arm();
+
+	int left_elbow = define_elbow();
+	int right_elbow = define_elbow();
+
+	int left_lower_arm = define_lower_arm();
+	int right_lower_arm = define_lower_arm();
+
+	int left_wrist = define_wrist();
+	int right_wrist = define_wrist();
+
+	int left_hand = define_hand();
+	int right_hand = define_hand();
+
 	// torso3 and onwards
 	glPushMatrix();
 		// glScalef(1.4,1.4,1.4); // scale the dancer
-		// glRotatef(angle, 0, 1, 0);
+		glRotatef(angle, 0, 1, 0);
 		glScalef(1,0.5,0.5);
 		glCallList(torso3); // draw torso3
 		glScalef(1,2,2);
@@ -372,22 +456,72 @@ void draw_dancer(double angle) {
 			//torso1 and onwards
 			glPushMatrix();
 				glTranslatef(0,0.625,0); // translation of torso1 wrt torso2
-				// glTranslatef(0,-0.6875,0.25);
 				glScalef(1,1,0.5);
 				glCallList(torso1); //draw torso1
 				glScalef(1,1,2); // anti-scale to prevent the other dependent parts from scaling
-				// glTranslatef(0,0.6875,-0.25); // anti-translate
-				// left arm
+				// left shoulder
 				glPushMatrix();
-					// draw left arm
+					glTranslatef(-0.625,0.375,0);
+					glCallList(left_shoulder);
+					// left upper arm
+					glPushMatrix();
+						glTranslatef(0,-0.125-0.4,0);
+						glCallList(left_upper_arm);
+						// left elbow
+						glPushMatrix();
+							glTranslatef(0,-0.4-0.1,0);
+							glCallList(left_elbow);
+							// left lower arm
+							glPushMatrix();
+								glTranslatef(0,-0.1-0.3,0);
+								glCallList(left_lower_arm);
+								// left wrist
+								glPushMatrix();
+									glTranslatef(0,-0.3-0.1,0);
+									glCallList(left_wrist);
+									// left hand
+									glPushMatrix();
+										glTranslatef(0,-0.1,0);
+										glCallList(left_hand);
+									glPopMatrix();
+								glPopMatrix();
+							glPopMatrix();
+						glPopMatrix();
+					glPopMatrix();
 				glPopMatrix();
-				// right arm
+				// right shoulder
 				glPushMatrix();
-					// draw right arm
+					glTranslatef(0.625,0.375,0);
+					glCallList(right_shoulder);
+					// right upper arm
+					glPushMatrix();
+						glTranslatef(0,-0.125-0.4,0);
+						glCallList(left_upper_arm);
+						// right elbow
+						glPushMatrix();
+							glTranslatef(0,-0.4-0.1,0);
+							glCallList(right_elbow);
+							// right lower arm
+							glPushMatrix();
+								glTranslatef(0,-0.1-0.3,0);
+								glCallList(right_lower_arm);
+								// right wrist
+								glPushMatrix();
+									glTranslatef(0,-0.3-0.1,0);
+									glCallList(left_wrist);
+									// right hand
+									glPushMatrix();
+										glTranslatef(0,-0.1,0);
+										glCallList(left_hand);
+									glPopMatrix();
+								glPopMatrix();
+							glPopMatrix();
+						glPopMatrix();
+					glPopMatrix();
 				glPopMatrix();
 				// neck
 				glPushMatrix();
-					glRotatef(angle, 0, 1, 0);
+					// glRotatef(angle, 0, 1, 0);
 					glTranslatef(0,0.6875,0); // translation of neck wrt torso1
 					glCallList(neck); // draw the neck
 					// head
