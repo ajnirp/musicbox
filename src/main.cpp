@@ -1,6 +1,6 @@
 #include <iostream>
-#include <GL/gl.h>
-#include <GL/glut.h>
+//#include <GL/gl.h>
+#include <GLUT/glut.h>
 
 #include "required.hpp"
 
@@ -41,8 +41,8 @@ void initGL() {
 /* Callback Definitions */
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// draw_box(lid_angle, box_angle);
-	draw_dancer(neck_angle);
+	draw_box(lid_angle, box_angle);
+	//draw_dancer(neck_angle);
 	glutSwapBuffers();
 }
 

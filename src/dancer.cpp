@@ -1,2 +1,2 @@
-#include <GL/glut.h>
+#include <GLUT/glut.h>
 #include "dancer.hpp"
