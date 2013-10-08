@@ -1,102 +1,151 @@
 #include <GL/glut.h>
 #include "box.hpp"
+#include<string>
+#include <stdio.h>
+
+using namespace std;
+
+GLuint LoadTexture(const char* filepath) {
+  GLuint texture; 
+  unsigned char header[54]; //Supposedly every bmp file has a 54bytes header
+  unsigned int position = 54;
+  unsigned int width;
+  unsigned int height;
+  unsigned int imagesize; 
+  unsigned char* pixel;
+
+  FILE * bmpfile;
+  bmpfile  = fopen(filepath, "rb"); //read a binary file
+  if(!bmpfile) {printf("Image not found\n"); return 0;}
+  fread(header,1,54,bmpfile);
+  width = *(int*)&(header[18]);
+  height = *(int*)&(header[22]);
+  imagesize = width*height*3;
+
+  pixel = new unsigned char[imagesize];
+  fread(pixel,1,imagesize,bmpfile);
+  fclose(bmpfile);
+
+  glGenTextures(1, &texture);
+  glBindTexture(GL_TEXTURE_2D, texture);
+  
+  glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, pixel);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  return texture;
+}
 
 // Definitions for the components of the box
 int define_base_and_walls() {
 	int base_and_walls = glGenLists(1);
+	
+	GLuint texture = LoadTexture("src/wood.bmp");
 	glNewList(base_and_walls, GL_COMPILE);
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glBindTexture(GL_TEXTURE_2D, texture);
+
 		glTranslatef(-1.5,-3.5,-2);
 		glScalef(3,3,3);
 		glColor3ub(140,60,200);
 		// Front wall
 		glBegin(GL_QUADS);
-			glVertex3f(0,0,0);
-			glVertex3f(1,0,0);
-			glVertex3f(1,0.5,0);
-			glVertex3f(0,0.5,0);
+		glTexCoord2f(0.0, 0.0);glVertex3f(0,0,0);
+		glTexCoord2f(0.0, 1.0);glVertex3f(1,0,0);
+		glTexCoord2f(1.0, 1.0);glVertex3f(1,0.5,0);
+		glTexCoord2f(1.0, 0.0);glVertex3f(0,0.5,0);
 		glEnd();
 		glColor3ub(100,120,100);
 		// Right wall
 		glBegin(GL_QUADS);
-			glVertex3f(1,0,0);
-			glVertex3f(1,0,-1);
-			glVertex3f(1,0.5,-1);
-			glVertex3f(1,0.5,0);
+		glTexCoord2f(0.0, 0.0);glVertex3f(1,0,0);
+		glTexCoord2f(0.0, 1.0);glVertex3f(1,0,-1);
+		glTexCoord2f(1.0, 1.0);glVertex3f(1,0.5,-1);
+		glTexCoord2f(1.0, 0.0);glVertex3f(1,0.5,0);
 		glEnd();
 		// Left wall
 		glBegin(GL_QUADS);
-			glVertex3f(0,0,0);
-			glVertex3f(0,0.5,0);
-			glVertex3f(0,0.5,-1);
-			glVertex3f(0,0,-1);
+		glTexCoord2f(0.0, 0.0);glVertex3f(0,0,0);
+		glTexCoord2f(0.0, 1.0);glVertex3f(0,0.5,0);
+		glTexCoord2f(1.0, 1.0);glVertex3f(0,0.5,-1);
+		glTexCoord2f(1.0, 0.0);glVertex3f(0,0,-1);
 		glEnd();
 		glColor3ub(100,170,50);
 		// Back wall
 		glBegin(GL_QUADS);
-			glVertex3f(0,0,-1);
-			glVertex3f(1,0,-1);
-			glVertex3f(1,0.5,-1);
-			glVertex3f(0,0.5,-1);
+		glTexCoord2f(0.0, 0.0);glVertex3f(0,0,-1);
+		glTexCoord2f(0.0, 1.0);glVertex3f(1,0,-1);
+		glTexCoord2f(1.0, 1.0);glVertex3f(1,0.5,-1);
+		glTexCoord2f(1.0, 0.0);glVertex3f(0,0.5,-1);
 		glEnd();
 		glColor3ub(200,170,50);
 
 		// Base
 		glBegin(GL_QUADS);
-			glVertex3f(0,0,0);
-			glVertex3f(1,0,0);
-			glVertex3f(1,0,-1);
-			glVertex3f(0,0,-1);
+		glTexCoord2f(0.0, 0.0);glVertex3f(0,0,0);
+		glTexCoord2f(0.0, 1.0);glVertex3f(1,0,0);
+		glTexCoord2f(1.0, 1.0);glVertex3f(1,0,-1);
+		glTexCoord2f(1.0, 0.0);glVertex3f(0,0,-1);
 		glEnd();
+
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
+	
 	return base_and_walls;
 }
 
 int define_lid() {
 	int lid = glGenLists(1);
+	GLuint texturelid = LoadTexture("src/wood2.bmp");
 	glNewList(lid, GL_COMPILE);
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glBindTexture(GL_TEXTURE_2D, texturelid);
+
 		glTranslatef(-1.5,-2,-2); // at y = -2 the lid exactly covers the box
 		glScalef(3,3,3);
 		glColor3ub(220,70,100);
 		// glColor3i(1,1,1);
 		// Front wall
 		glBegin(GL_QUADS);
-			glVertex3f(0,0,0);
-			glVertex3f(1,0,0);
-			glVertex3f(1,0.05,0);
-			glVertex3f(0,0.05,0);
+			glTexCoord2f(0.0, 0.0);glVertex3f(0,0,0);
+			glTexCoord2f(0.0, 1.0);glVertex3f(1,0,0);
+			glTexCoord2f(1.0, 1.0);glVertex3f(1,0.05,0);
+			glTexCoord2f(1.0, 0.0);glVertex3f(0,0.05,0);
 		glEnd();
 		glColor3ub(100,20,100);
 		// Right wall
 		glBegin(GL_QUADS);
-			glVertex3f(1,0,0);
-			glVertex3f(1,0,-1);
-			glVertex3f(1,0.05,-1);
-			glVertex3f(1,0.05,0);
+			glTexCoord2f(0.0, 0.0);glVertex3f(1,0,0);
+			glTexCoord2f(0.0, 1.0);glVertex3f(1,0,-1);
+			glTexCoord2f(1.0, 1.0);glVertex3f(1,0.05,-1);
+			glTexCoord2f(1.0, 0.0);glVertex3f(1,0.05,0);
 		glEnd();
 		// Left wall
 		glBegin(GL_QUADS);
-			glVertex3f(0,0,0);
-			glVertex3f(0,0.05,0);
-			glVertex3f(0,0.05,-1);
-			glVertex3f(0,0,-1);
+			glTexCoord2f(0.0, 0.0);glVertex3f(0,0,0);
+			glTexCoord2f(0.0, 1.0);glVertex3f(0,0.05,0);
+			glTexCoord2f(1.0, 1.0);glVertex3f(0,0.05,-1);
+			glTexCoord2f(1.0, 0.0);glVertex3f(0,0,-1);
 		glEnd();
 		// Back wall
 		glBegin(GL_QUADS);
-			glVertex3f(0,0,-1);
-			glVertex3f(1,0,-1);
-			glVertex3f(1,0.05,-1);
-			glVertex3f(0,0.05,-1);
+			glTexCoord2f(0.0, 0.0);glVertex3f(0,0,-1);
+			glTexCoord2f(0.0, 1.0);glVertex3f(1,0,-1);
+			glTexCoord2f(1.0, 1.0);glVertex3f(1,0.05,-1);
+			glTexCoord2f(1.0, 0.0);glVertex3f(0,0.05,-1);
 		glEnd();
 		glColor3ub(130,140,50);
 		// Top
 		glBegin(GL_QUADS);
-			glVertex3f(0,0.05,0);
-			glVertex3f(1,0.05,0);
-			glVertex3f(1,0.05,-1);
-			glVertex3f(0,0.05,-1);
+			glTexCoord2f(0.0, 0.0);glVertex3f(0,0.05,0);
+			glTexCoord2f(0.0, 1.0);glVertex3f(1,0.05,0);
+			glTexCoord2f(1.0, 1.0);glVertex3f(1,0.05,-1);
+			glTexCoord2f(1.0, 0.0);glVertex3f(0,0.05,-1);
 		glEnd();
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return lid;
 }
@@ -378,6 +427,7 @@ void draw_box(double lid_degrees, double box_degrees) {
 	int base_and_walls = define_base_and_walls();
 	int lid = define_lid();
 	glPushMatrix();
+		glTranslatef(-2,0,0);
 		// glScalef(1,1,2);
 		glTranslatef(0, 0, -2);
 		glRotatef(box_degrees, 0, 1, 0);
@@ -395,7 +445,7 @@ void draw_box(double lid_degrees, double box_degrees) {
 }
 
 // Drawing function for the dancer
-void draw_dancer(double angle) {
+void draw_dancer(float* angles) {
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 
 	// define the various components of the dancer
@@ -444,8 +494,9 @@ void draw_dancer(double angle) {
 
 	// torso3 and onwards
 	glPushMatrix();
+		// glTranslatef(2,0,0);
 		// glScalef(1.4,1.4,1.4); // scale the dancer
-		glRotatef(angle, 0, 1, 0);
+		// glRotatef(angle, 0, 1, 0);
 		glScalef(1,0.5,0.5);
 		glCallList(torso3); // draw torso3
 		glScalef(1,2,2);
@@ -496,7 +547,7 @@ void draw_dancer(double angle) {
 					// right upper arm
 					glPushMatrix();
 						glTranslatef(0,-0.125-0.4,0);
-						glCallList(left_upper_arm);
+						glCallList(right_upper_arm);
 						// right elbow
 						glPushMatrix();
 							glTranslatef(0,-0.4-0.1,0);
@@ -508,11 +559,11 @@ void draw_dancer(double angle) {
 								// right wrist
 								glPushMatrix();
 									glTranslatef(0,-0.3-0.1,0);
-									glCallList(left_wrist);
+									glCallList(right_wrist);
 									// right hand
 									glPushMatrix();
 										glTranslatef(0,-0.1,0);
-										glCallList(left_hand);
+										glCallList(right_hand);
 									glPopMatrix();
 								glPopMatrix();
 							glPopMatrix();
@@ -521,11 +572,14 @@ void draw_dancer(double angle) {
 				glPopMatrix();
 				// neck
 				glPushMatrix();
-					// glRotatef(angle, 0, 1, 0);
+					glRotatef(angles[3],1,0,0);
 					glTranslatef(0,0.6875,0); // translation of neck wrt torso1
 					glCallList(neck); // draw the neck
 					// head
 					glPushMatrix();
+						glRotatef(angles[1], 0, 1, 0);
+						glRotatef(angles[0], 1, 0, 0);
+						glRotatef(angles[2], 0, 0, 1);
 						glTranslatef(0,0.1875,0.25); // translation of head wrt neck
 						glScalef(1,1.5,1);
 						glCallList(head); // draw the head
@@ -556,6 +610,9 @@ void draw_dancer(double angle) {
 							glCallList(left_ankle);
 							// left foot
 							glPushMatrix();
+								glRotatef(angles[24],1,0,0);
+								glRotatef(angles[25],0,1,0);
+								glRotatef(angles[26],0,0,1);
 								glTranslatef(0,-0.025,0.125);
 								glCallList(left_foot);
 							glPopMatrix();
@@ -586,6 +643,9 @@ void draw_dancer(double angle) {
 							glCallList(right_ankle);
 							// right foot
 							glPushMatrix();
+								glRotatef(angles[27],1,0,0);
+								glRotatef(angles[28],0,1,0);
+								glRotatef(angles[29],0,0,1);
 								glTranslatef(0,-0.025,0.125);
 								glCallList(right_foot);
 							glPopMatrix();

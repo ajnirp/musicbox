@@ -5,34 +5,47 @@
 	<title>Computer Graphics Assignment 2</title>
 	<style type="text/css">
 	body {
-		font-family: sans-serif;
-		width: 960px;
-		margin-right: auto;
-		margin-left: auto;
-		background-color: #ccc;
-		text-align: center;
+		font-family:sans-serif;
+		width:960px;
+		margin-right:auto;
+		margin-left:auto;
+		background-color:#ccc;
+		text-align:center;
 	}
 	section {
-		padding-left: 50px;
-		padding-right: 50px;
-		padding-top: 5px;
-		padding-bottom: 5px;
-		background-color: #fff;
-		border-radius: 10px;
-		/*border: solid;*/
-		border-width: 1px;
+		padding-left:50px;
+		padding-right:50px;
+		padding-top:5px;
+		padding-bottom:5px;
+		background-color:#fff;
+		border-radius:10px;
+		/*border</td><td>solid;*/
+		border-width:1px;
 	}
 	a {
-		text-decoration: none;
+		text-decoration:none;
 	}
 
 	img {
-		width: 100%;
-		height: 100%;
+		width:100%;
+		height:100%;
 	}
 
 	h1 {
-		font-size: 36px;
+		font-size:36px;
+	}
+	table {
+		margin-right:auto;
+		margin-left:auto;
+		border:1px solid black;
+		border-collapse:collapse;
+	}
+	td {
+		border:1px solid black;
+		width:150px;
+	}
+	th {
+		border:1px solid black;
 	}
 	</style>
 </head>
@@ -44,11 +57,36 @@
 
 		<h2>Hierarchical Model</h2>
 
+		<h2>Moving the Dancer</h2>
+
+		<p>The dancer is drawn with the function <code>draw_dancer()</code>. This function takes an input an array of 40 floats. Each element in the array corresponds to one of the degrees of freedom of the dancer. Here is the mapping of the array elements to the degrees of the freedom that they represent:</p>
+
+		<table>
+			<th>Array Elements</th>
+			<th>Joint</th>
+			<tr><td>0 to 2</td><td>head-neck joint</td></tr>
+			<tr><td>3 to 5</td><td>left shoulder</td></tr>
+			<tr><td>6 to 8</td><td>right shoulder</td></tr>
+			<tr><td>9 to 11</td><td>neck-torso1 joint</td></tr>
+			<tr><td>12 to 14</td><td>torso1-torso2 joint</td></tr>
+			<tr><td>15 to 17</td><td>torso2-torso3 joint</td></tr>
+			<tr><td>18 to 20</td><td>left hip</td></tr>
+			<tr><td>21 to 23</td><td>right hip</td></tr>
+			<tr><td>24 to 26</td><td>left ankle</td></tr>
+			<tr><td>27 to 29</td><td>right ankle</td></tr>
+			<tr><td>30 to 32</td><td>left wrist</td></tr>
+			<tr><td>33 to 35</td><td>right wrist</td></tr>
+			<tr><td>36</td><td>left knee</td></tr>
+			<tr><td>37</td><td>right knee</td></tr>
+			<tr><td>38</td><td>left elbow</td></tr>
+			<tr><td>39</td><td>right elbow</td></tr>
+		</table>
+
 		<h2>Help</h2>
-		<p>Please see the README.md file in the <a href="https://github.com/wenderen/musicbox">source</a> for an explanation of the program.</p>
+		<p>See the README in the <a href="https://github.com/wenderen/musicbox">source</a> for an explanation of the program.</p>
 
 		<h2>Source Code</h2>
-		<p>This program was coded in C++ using OpenGL. The source code is on <a href="https://github.com/wenderen/mydraw">github</a></p>
+		<p>This program was coded in C++ using OpenGL. The source code is on <a href="https://github.com/wenderen/musicbox">github</a></p>
 	</section>
 </body>
 </html>
