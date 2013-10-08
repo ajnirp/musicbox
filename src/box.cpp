@@ -1,4 +1,4 @@
-#include <GL/glut.h>
+#include <GLUT/glut.h>
 #include "box.hpp"
 #include<string>
 #include <stdio.h>
@@ -502,10 +502,16 @@ void draw_dancer(float* angles) {
 		glScalef(1,2,2);
 		// torso2 and onwards
 		glPushMatrix();
+			glRotatef(angles[15],1,0,0);
+			glRotatef(angles[16],0,1,0);
+			glRotatef(angles[17],0,0,1);
 			glTranslatef(0,0.375,0);
 			glCallList(torso2); // draw torso2
 			//torso1 and onwards
 			glPushMatrix();
+				glRotatef(angles[12],1,0,0);
+				glRotatef(angles[13],0,1,0);
+				glRotatef(angles[14],0,0,1);
 				glTranslatef(0,0.625,0); // translation of torso1 wrt torso2
 				glScalef(1,1,0.5);
 				glCallList(torso1); //draw torso1
@@ -516,6 +522,9 @@ void draw_dancer(float* angles) {
 					glCallList(left_shoulder);
 					// left upper arm
 					glPushMatrix();
+						glRotatef(angles[3],1,0,0);
+						glRotatef(angles[4],0,1,0);
+						glRotatef(angles[5],0,0,1);
 						glTranslatef(0,-0.125-0.4,0);
 						glCallList(left_upper_arm);
 						// left elbow
@@ -524,6 +533,7 @@ void draw_dancer(float* angles) {
 							glCallList(left_elbow);
 							// left lower arm
 							glPushMatrix();
+								glRotatef(angles[38],1,0,0);
 								glTranslatef(0,-0.1-0.3,0);
 								glCallList(left_lower_arm);
 								// left wrist
@@ -532,6 +542,9 @@ void draw_dancer(float* angles) {
 									glCallList(left_wrist);
 									// left hand
 									glPushMatrix();
+										glRotatef(angles[30],1,0,0);
+										glRotatef(angles[31],0,1,0);
+										glRotatef(angles[32],0,0,1);
 										glTranslatef(0,-0.1,0);
 										glCallList(left_hand);
 									glPopMatrix();
@@ -546,6 +559,9 @@ void draw_dancer(float* angles) {
 					glCallList(right_shoulder);
 					// right upper arm
 					glPushMatrix();
+						glRotatef(angles[6],1,0,0);
+						glRotatef(angles[7],0,1,0);
+						glRotatef(angles[8],0,0,1);
 						glTranslatef(0,-0.125-0.4,0);
 						glCallList(right_upper_arm);
 						// right elbow
@@ -554,6 +570,7 @@ void draw_dancer(float* angles) {
 							glCallList(right_elbow);
 							// right lower arm
 							glPushMatrix();
+								glRotatef(angles[39],1,0,0);
 								glTranslatef(0,-0.1-0.3,0);
 								glCallList(right_lower_arm);
 								// right wrist
@@ -562,6 +579,9 @@ void draw_dancer(float* angles) {
 									glCallList(right_wrist);
 									// right hand
 									glPushMatrix();
+										glRotatef(angles[33],1,0,0);
+										glRotatef(angles[34],0,1,0);
+										glRotatef(angles[35],0,0,1);
 										glTranslatef(0,-0.1,0);
 										glCallList(right_hand);
 									glPopMatrix();
@@ -572,7 +592,7 @@ void draw_dancer(float* angles) {
 				glPopMatrix();
 				// neck
 				glPushMatrix();
-					glRotatef(angles[3],1,0,0);
+					glRotatef(angles[10],1,0,0);
 					glTranslatef(0,0.6875,0); // translation of neck wrt torso1
 					glCallList(neck); // draw the neck
 					// head
@@ -601,6 +621,7 @@ void draw_dancer(float* angles) {
 					glCallList(left_knee);
 					// left leg
 					glPushMatrix();
+						glRotatef(angles[36],1,0,0);
 						glTranslatef(0,-0.4,0);
 						glCallList(left_leg);
 						// left ankle
@@ -635,6 +656,7 @@ void draw_dancer(float* angles) {
 					glCallList(right_knee);
 					// right leg
 					glPushMatrix();
+						glRotatef(angles[37],1,0,0);
 						glTranslatef(0,-0.4,0);
 						glCallList(right_leg);
 						// right ankle

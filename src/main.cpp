@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <GL/gl.h>
-#include <GL/glut.h>
+//#include <GL/gl.h>
+#include <GLUT/glut.h>
 
 #include "required.hpp"
 
@@ -27,11 +27,23 @@ void init_limits() {
 	limits[2]=-60;limits[3]=60;
 	limits[4]=-20;limits[5]=20;
 	// neck-torso1
-	limits[6]=-20;limits[7]=20;
-	limits[8]=-10;limits[9]=10;
-	limits[10]=-10;limits[11]=10;
+	limits[6]=-90;limits[7]=90;
+	limits[8]=-20;limits[9]=20;
+	limits[10]=-90;limits[11]=90;
+	///////////////////////
+	limits[12]=-90;limits[13]=90;
+	limits[14]=-20;limits[15]=20;
+	limits[16]=-90;limits[17]=90;
+
+	limits[20]=-60;limits[21]=75;
 	//torso1-torso2
+	limits[24]=-20;limits[25]=90;
+	limits[26]=-60;limits[27]=60;
+	limits[28]=-60;limits[29]=60;
 	//torso2-torso3
+	limits[30]=-20;limits[31]=90;
+	limits[32]=-60;limits[33]=60;
+	limits[34]=-60;limits[35]=60;
 	//left hip
 	//right hip
 	//left ankle
@@ -43,11 +55,21 @@ void init_limits() {
 	limits[56]=-10;limits[57]=10;
 	limits[58]=-10;limits[59]=10;
 	//left wrist
+	limits[60]=-90;limits[61]=90;
+	limits[62]=-20;limits[63]=20;
+	limits[64]=-20;limits[65]=20;
 	//right wrist
+	limits[66]=-90;limits[67]=90;
+	limits[68]=-20;limits[69]=20;
+	limits[70]=-20;limits[71]=20;
 	//left knee
+	limits[72]=0;limits[73]=110;
 	//right knee
+	limits[74]=0;limits[75]=110;
 	//left elbow
+	limits[76]=-170;limits[77]=0;
 	//right elbow
+	limits[78]=-170;limits[79]=0;
 
 }
 
@@ -74,16 +96,16 @@ short int curr_joint = 0; // Which joint to move
 
 /* 
 Joint Mappings 
-	0 head-neck
-	1 shoulder
-	2 neck-torso1
-	3 torso1-torso2
-	4 torso2-torso3
-	5 hip
-	6 ankle
-	7 wrist
-	8 knee
-	9 elbow
+	0 head-neck - done
+	1 shoulder - done
+	2 neck-torso1 - done but rotation about x axis done using A-D keys. Wrong key binding.
+	3 torso1-torso2 - done but extensions should be made for torso2 so that parts dont look detached in Z rotation.
+	4 torso2-torso3 - done but extensions should be made for torso3 so that parts dont look detached in Z rotation.
+	5 hip - no separate motions given for Lhip and Rhip
+	6 ankle - done
+	7 wrist - done
+	8 knee - done
+	9 elbow - done
 */
 
 /* Window Parameters */
