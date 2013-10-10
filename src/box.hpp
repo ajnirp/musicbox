@@ -11,8 +11,7 @@ int define_neck();
 
 int define_torso1();
 int define_torso2();
-// torso3 is defined using torso1
-// since they have the same color
+int define_torso3();
 
 int define_shoulder();
 int define_upper_arm();
@@ -28,6 +27,9 @@ int define_leg();
 int define_ankle();
 int define_foot();
 
+// Extra stuff for the dancer
+
+int define_hat();
 
 // Drawing function for the box
 void draw_box(double lid_degrees, double box_degrees);

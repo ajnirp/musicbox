@@ -2,7 +2,8 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include "box.hpp"
-#include<string>
+#include <string>
+#include <cmath>
 #include <stdio.h>
 
 using namespace std;
@@ -177,6 +178,7 @@ int define_head() {
 			glVertex3f(-0.35,0.25,-0.5);
 		glEnd();
 		// Scalp
+		glColor3ub(100,240,120);
 		glBegin(GL_QUADS);
 			glVertex3f(-0.3,0.5,0);
 			glVertex3f(0.3,0.5,0);
@@ -253,9 +255,9 @@ int define_torso2() {
 	int torso2 = glGenLists(1);
 	glNewList(torso2, GL_COMPILE);
 		glColor3ub(83, 164, 39);
-		glScalef(0.8,0.25,0.5);	
+		glScalef(0.8,0.4,0.4);	
 		glutSolidCube(1);
-		glScalef(1.25,4,2);
+		glScalef(1.25,2.5,2.5);
 	glEndList();
 	return torso2;
 }
@@ -436,12 +438,38 @@ int define_hand() {
 	return hand;
 }
 
+int define_hat() {
+	int hat = glGenLists(1);
+	// top_radius = 0.4;
+	// base_radius = 0.6;
+	// base_height = 0.1;
+	// top_height = 0.4;
+	glNewList(hat, GL_COMPILE);
+		glColor3ub(40,50,100);
+		GLUquadric* base = gluNewQuadric();
+		GLUquadric* top = gluNewQuadric();
+		glTranslatef(0,0,-0.25); // because depth of the head = 0.5
+		glRotatef(-90,1,0,0);
+		gluCylinder(base,0.6,0.6,0.05,10,10); // base wall
+		glBegin(GL_POLYGON); // base of the hat
+			for (int i = 0 ; i < 360 ; i++) {
+				glVertex3f(0.6*cos(i),0.6*sin(i),0);
+			}
+		glEnd();
+		glPushMatrix();
+			// glTranslatef(0,0,0.05); // base height
+			gluCylinder(top,0.4,0.4,0.4,10,10); // top wall
+		glPopMatrix();
+	glEndList();
+	return hat;
+}
+
 // Drawing function for the box
 void draw_box(double lid_degrees, double box_degrees) {
 	int base_and_walls = define_base_and_walls();
 	int lid = define_lid();
 	glPushMatrix();
-		glTranslatef(-2,0,0);
+		// glTranslatef(-2,0,0);
 		// glScalef(1,1,2);
 		glTranslatef(0, 0, -2);
 		glRotatef(box_degrees, 0, 1, 0);
@@ -460,7 +488,7 @@ void draw_box(double lid_degrees, double box_degrees) {
 
 // Drawing function for the dancer
 void draw_dancer(float* angles, float dancer_angle) {
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 
 	// define the various components of the dancer
 	int head = define_head();
@@ -506,9 +534,11 @@ void draw_dancer(float* angles, float dancer_angle) {
 	int left_hand = define_hand();
 	int right_hand = define_hand();
 
+	int hat = define_hat();
+
 	// torso3 and onwards
 	glPushMatrix();
-		// glTranslatef(0,2,0);
+		glTranslatef(0,-1,0); // translate the entire dancer along the y-axis
 		// glScalef(1.4,1.4,1.4); // scale the dancer
 		glRotatef(dancer_angle,0,1,0);
 		glCallList(torso3); // draw torso3
@@ -620,6 +650,11 @@ void draw_dancer(float* angles, float dancer_angle) {
 						glTranslatef(0,0,0.25);
 						glScalef(1,1.5,1);
 						glCallList(head); // draw the head
+						// hat
+						glPushMatrix();
+							glTranslatef(0,0.5,0);
+							glCallList(hat);
+						glPopMatrix();
 					glPopMatrix();
 				glPopMatrix();
 			glPopMatrix();

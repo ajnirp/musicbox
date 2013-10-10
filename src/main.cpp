@@ -42,11 +42,11 @@ void init_limits() {
 	// torso1-torso2
 	limits[24]=-20;limits[25]=90;
 	limits[26]=-60;limits[27]=60;
-	limits[28]=-60;limits[29]=60;
+	limits[28]=-10;limits[29]=10;
 	// torso2-torso3
-	limits[30]=-20;limits[31]=90;
+	limits[30]=-20;limits[31]=40;
 	limits[32]=-60;limits[33]=60;
-	limits[34]=-60;limits[35]=60;
+	limits[34]=-10;limits[35]=10;
 	// left hip
 	limits[36]=-30;limits[37]=30;
 	limits[38]=-50;limits[39]=10;
