@@ -2,3 +2,4 @@ notes.txt
 *.o
 *.gch
 *.d
+.swp

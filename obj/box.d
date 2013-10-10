@@ -1,6 +1,5 @@
 /host/Academic/5/cs475/assignments/musicbox/obj/box.o: \
  /host/Academic/5/cs475/assignments/musicbox/src/box.cpp \
- /usr/include/GL/glut.h /usr/include/GL/freeglut_std.h \
  /usr/include/GL/gl.h /usr/include/GL/glext.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h \
  /usr/include/inttypes.h /usr/include/features.h \
@@ -10,7 +9,8 @@
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/wchar.h /usr/include/GL/glu.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h /usr/include/GL/glut.h \
+ /usr/include/GL/freeglut_std.h /usr/include/GL/glu.h \
  /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endian.h \
@@ -28,4 +28,54 @@
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
- /host/Academic/5/cs475/assignments/musicbox/src/box.hpp
+ /host/Academic/5/cs475/assignments/musicbox/src/box.hpp \
+ /usr/include/c++/4.7/string \
+ /usr/include/x86_64-linux-gnu/c++/4.7/./bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/4.7/./bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/4.7/./bits/cpu_defines.h \
+ /usr/include/c++/4.7/bits/stringfwd.h \
+ /usr/include/c++/4.7/bits/char_traits.h \
+ /usr/include/c++/4.7/bits/stl_algobase.h \
+ /usr/include/c++/4.7/bits/functexcept.h \
+ /usr/include/c++/4.7/bits/exception_defines.h \
+ /usr/include/c++/4.7/bits/cpp_type_traits.h \
+ /usr/include/c++/4.7/ext/type_traits.h \
+ /usr/include/c++/4.7/ext/numeric_traits.h \
+ /usr/include/c++/4.7/bits/stl_pair.h /usr/include/c++/4.7/bits/move.h \
+ /usr/include/c++/4.7/bits/concept_check.h \
+ /usr/include/c++/4.7/bits/stl_iterator_base_types.h \
+ /usr/include/c++/4.7/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/4.7/bits/stl_iterator.h \
+ /usr/include/c++/4.7/debug/debug.h /usr/include/c++/4.7/bits/postypes.h \
+ /usr/include/c++/4.7/cwchar /usr/include/wchar.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar2.h \
+ /usr/include/c++/4.7/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/4.7/./bits/c++allocator.h \
+ /usr/include/c++/4.7/ext/new_allocator.h /usr/include/c++/4.7/new \
+ /usr/include/c++/4.7/exception \
+ /usr/include/c++/4.7/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/4.7/bits/localefwd.h \
+ /usr/include/x86_64-linux-gnu/c++/4.7/./bits/c++locale.h \
+ /usr/include/c++/4.7/clocale /usr/include/locale.h \
+ /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/4.7/iosfwd \
+ /usr/include/c++/4.7/cctype /usr/include/ctype.h \
+ /usr/include/c++/4.7/bits/ostream_insert.h \
+ /usr/include/c++/4.7/bits/cxxabi_forced.h \
+ /usr/include/c++/4.7/bits/stl_function.h \
+ /usr/include/c++/4.7/backward/binders.h \
+ /usr/include/c++/4.7/bits/range_access.h \
+ /usr/include/c++/4.7/bits/basic_string.h \
+ /usr/include/c++/4.7/ext/atomicity.h \
+ /usr/include/x86_64-linux-gnu/c++/4.7/./bits/gthr.h \
+ /usr/include/x86_64-linux-gnu/c++/4.7/./bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h \
+ /usr/include/x86_64-linux-gnu/bits/setjmp.h \
+ /usr/include/x86_64-linux-gnu/c++/4.7/./bits/atomic_word.h \
+ /usr/include/c++/4.7/bits/basic_string.tcc /usr/include/libio.h \
+ /usr/include/_G_config.h /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio2.h

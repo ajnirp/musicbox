@@ -1,4 +1,6 @@
-#include <GLUT/glut.h>
+// #include <GLUT/glut.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
 #include "box.hpp"
 #include<string>
 #include <stdio.h>
@@ -258,6 +260,18 @@ int define_torso2() {
 	return torso2;
 }
 
+// Dancer's bottom torso (torso3)
+int define_torso3() {
+	int torso3 = glGenLists(1);
+	glNewList(torso3, GL_COMPILE);
+		glColor3ub(19, 215, 132);
+		glScalef(1,0.5,0.5);
+		glutSolidCube(1);
+		glScalef(1,2,2);
+	glEndList();
+	return torso3;
+}
+
 // Either of the hips of the dancer
 int define_hip() {
 	int hip = glGenLists(1);
@@ -445,8 +459,8 @@ void draw_box(double lid_degrees, double box_degrees) {
 }
 
 // Drawing function for the dancer
-void draw_dancer(float* angles) {
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
+void draw_dancer(float* angles, float dancer_angle) {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 
 	// define the various components of the dancer
 	int head = define_head();
@@ -454,7 +468,7 @@ void draw_dancer(float* angles) {
 
 	int torso1 = define_torso1();
 	int torso2 = define_torso2();
-	int torso3 = define_torso1();
+	int torso3 = define_torso3();
 
 	int left_hip = define_hip();
 	int right_hip = define_hip();
@@ -494,18 +508,17 @@ void draw_dancer(float* angles) {
 
 	// torso3 and onwards
 	glPushMatrix();
-		// glTranslatef(2,0,0);
+		// glTranslatef(0,2,0);
 		// glScalef(1.4,1.4,1.4); // scale the dancer
-		// glRotatef(angle, 0, 1, 0);
-		glScalef(1,0.5,0.5);
+		glRotatef(dancer_angle,0,1,0);
 		glCallList(torso3); // draw torso3
-		glScalef(1,2,2);
 		// torso2 and onwards
 		glPushMatrix();
-			glRotatef(angles[15],1,0,0);
+			glTranslatef(0,0.25,0);
 			glRotatef(angles[16],0,1,0);
 			glRotatef(angles[17],0,0,1);
-			glTranslatef(0,0.375,0);
+			glRotatef(angles[15],1,0,0);
+			glTranslatef(0,0.125,0);
 			glCallList(torso2); // draw torso2
 			//torso1 and onwards
 			glPushMatrix();
@@ -592,15 +605,19 @@ void draw_dancer(float* angles) {
 				glPopMatrix();
 				// neck
 				glPushMatrix();
-					glRotatef(angles[10],1,0,0);
-					glTranslatef(0,0.6875,0); // translation of neck wrt torso1
+					glTranslatef(0,0.5,0); // translation of neck wrt torso1
+					glRotatef(angles[9],1,0,0);
+					glRotatef(angles[10],0,1,0);
+					glRotatef(angles[11],0,0,1);
+					glTranslatef(0,0.1875,0);
 					glCallList(neck); // draw the neck
 					// head
 					glPushMatrix();
+						glTranslatef(0,0.1875,0); // translation of head wrt neck
 						glRotatef(angles[1], 0, 1, 0);
 						glRotatef(angles[0], 1, 0, 0);
 						glRotatef(angles[2], 0, 0, 1);
-						glTranslatef(0,0.1875,0.25); // translation of head wrt neck
+						glTranslatef(0,0,0.25);
 						glScalef(1,1.5,1);
 						glCallList(head); // draw the head
 					glPopMatrix();
@@ -609,7 +626,11 @@ void draw_dancer(float* angles) {
 		glPopMatrix();
 		// left hip
 		glPushMatrix();
-			glTranslatef(-0.25,-0.375,0);
+			glTranslatef(-0.25,0,0);
+			glRotatef(angles[18],1,0,0);
+			glRotatef(angles[19],0,1,0);
+			glRotatef(angles[20],0,0,1);
+			glTranslatef(0,-0.375,0);
 			glCallList(left_hip);
 			// left thigh
 			glPushMatrix();
@@ -644,7 +665,11 @@ void draw_dancer(float* angles) {
 		glPopMatrix();
 		// right hip
 		glPushMatrix();
-			glTranslatef(0.25,-0.375,0);
+			glTranslatef(0.25,0,0);
+			glRotatef(angles[21],1,0,0);
+			glRotatef(angles[22],0,1,0);
+			glRotatef(angles[23],0,0,1);
+			glTranslatef(0,-0.375,0);
 			glCallList(right_hip);
 			// right thigh
 			glPushMatrix();
@@ -669,6 +694,7 @@ void draw_dancer(float* angles) {
 								glRotatef(angles[28],0,1,0);
 								glRotatef(angles[29],0,0,1);
 								glTranslatef(0,-0.025,0.125);
+								// glTranslatef(0,-0.025,0);
 								glCallList(right_foot);
 							glPopMatrix();
 						glPopMatrix();

@@ -74,7 +74,13 @@
  /usr/include/c++/4.7/bits/locale_facets.tcc \
  /usr/include/c++/4.7/bits/basic_ios.tcc \
  /usr/include/c++/4.7/bits/ostream.tcc /usr/include/c++/4.7/istream \
- /usr/include/c++/4.7/bits/istream.tcc /usr/include/GL/gl.h \
+ /usr/include/c++/4.7/bits/istream.tcc /usr/include/c++/4.7/vector \
+ /usr/include/c++/4.7/bits/stl_construct.h \
+ /usr/include/c++/4.7/ext/alloc_traits.h \
+ /usr/include/c++/4.7/bits/stl_uninitialized.h \
+ /usr/include/c++/4.7/bits/stl_vector.h \
+ /usr/include/c++/4.7/bits/stl_bvector.h \
+ /usr/include/c++/4.7/bits/vector.tcc /usr/include/GL/gl.h \
  /usr/include/GL/glext.h /usr/include/inttypes.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdint.h /usr/include/stdint.h \
  /usr/include/GL/glut.h /usr/include/GL/freeglut_std.h \

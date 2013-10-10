@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
-//#include <GL/gl.h>
-#include <GLUT/glut.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
+// #include <GLUT/glut.h>
 
 #include "required.hpp"
 
@@ -26,49 +27,57 @@ void init_limits() {
 	limits[0]=-15;limits[1]=15;
 	limits[2]=-60;limits[3]=60;
 	limits[4]=-20;limits[5]=20;
-	// neck-torso1
+	// left shoulder
 	limits[6]=-90;limits[7]=90;
 	limits[8]=-20;limits[9]=20;
 	limits[10]=-90;limits[11]=90;
-	///////////////////////
+	// right shoulder
 	limits[12]=-90;limits[13]=90;
 	limits[14]=-20;limits[15]=20;
 	limits[16]=-90;limits[17]=90;
-
+	// neck-torso1
+	limits[18]=-60;limits[19]=60;
 	limits[20]=-60;limits[21]=75;
-	//torso1-torso2
+	limits[22]=-30;limits[23]=30;
+	// torso1-torso2
 	limits[24]=-20;limits[25]=90;
 	limits[26]=-60;limits[27]=60;
 	limits[28]=-60;limits[29]=60;
-	//torso2-torso3
+	// torso2-torso3
 	limits[30]=-20;limits[31]=90;
 	limits[32]=-60;limits[33]=60;
 	limits[34]=-60;limits[35]=60;
-	//left hip
-	//right hip
-	//left ankle
+	// left hip
+	limits[36]=-30;limits[37]=30;
+	limits[38]=-50;limits[39]=10;
+	limits[40]=-10;limits[41]=3;
+	// right hip
+	limits[42]=-30;limits[43]=30;
+	limits[44]=-10;limits[45]=50;
+	limits[46]=-10;limits[47]=3;
+	// left ankle
 	limits[48]=0;limits[49]=30;
 	limits[50]=-10;limits[51]=10;
 	limits[52]=-10;limits[53]=10;
-	//right ankle
+	// right ankle
 	limits[54]= 0;limits[55]=30;
 	limits[56]=-10;limits[57]=10;
 	limits[58]=-10;limits[59]=10;
-	//left wrist
+	// left wrist
 	limits[60]=-90;limits[61]=90;
 	limits[62]=-20;limits[63]=20;
 	limits[64]=-20;limits[65]=20;
-	//right wrist
+	// right wrist
 	limits[66]=-90;limits[67]=90;
 	limits[68]=-20;limits[69]=20;
 	limits[70]=-20;limits[71]=20;
-	//left knee
+	// left knee
 	limits[72]=0;limits[73]=110;
-	//right knee
+	// right knee
 	limits[74]=0;limits[75]=110;
-	//left elbow
+	// left elbow
 	limits[76]=-170;limits[77]=0;
-	//right elbow
+	// right elbow
 	limits[78]=-170;limits[79]=0;
 
 }
@@ -87,6 +96,7 @@ float box_angle_increment = 3.f;
 // float neck_angle_increment = 3.f;
 
 float dancer_angles[40] = {0};
+float dancer_angle = 0;
 
 /* Variables determining which body part to move */
 bool move_box = false; // When true, keyboard keys affect the box. When false, they affect the dancer
@@ -96,16 +106,16 @@ short int curr_joint = 0; // Which joint to move
 
 /* 
 Joint Mappings 
-	0 head-neck - done
-	1 shoulder - done
+	0 head-neck
+	1 shoulder
 	2 neck-torso1 - done but rotation about x axis done using A-D keys. Wrong key binding.
 	3 torso1-torso2 - done but extensions should be made for torso2 so that parts dont look detached in Z rotation.
 	4 torso2-torso3 - done but extensions should be made for torso3 so that parts dont look detached in Z rotation.
 	5 hip - no separate motions given for Lhip and Rhip
-	6 ankle - done
-	7 wrist - done
-	8 knee - done
-	9 elbow - done
+	6 ankle
+	7 wrist
+	8 knee
+	9 elbow
 */
 
 /* Window Parameters */
@@ -171,7 +181,7 @@ int find_index_y() {
 		case 2: index = 10; break;
 		case 3: index = 13; break;
 		case 4: index = 16; break;
-		case 5: index = 19; break;
+		case 5: index = (move_left ? 19 : 22); break;
 		case 6: index = (move_left ? 25 : 28); break;
 		case 7: index = (move_left ? 31 : 34); break;
 	}
@@ -206,7 +216,7 @@ void initGL() {
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// draw_box(lid_angle, box_angle);
-	draw_dancer(dancer_angles);
+	draw_dancer(dancer_angles, dancer_angle);
 	glutSwapBuffers();
 }
 
@@ -252,32 +262,13 @@ void keyboard(unsigned char key, int x, int y) {
 		}
 		break;
 
-		// Change the current axis of rotation
-		case 'x': {
-			cout << "Current axis: X" << endl;
-			curr_axis = X_AXIS;
-		}
-		break;
-
-		case 'y': {
-			cout << "Current axis: Y" << endl;
-			curr_axis = Y_AXIS;
-		}
-		break;
-
-		case 'z': {
-			cout << "Current axis: Z" << endl;
-			curr_axis = Z_AXIS;
-		}
-		break;
-
 		// Get current information
 		case 'i':
 			display_info();
 			break;
 
 		// Select a joint
-		case '0': curr_joint = 0; cout << "Current joint: head-neck\n"; break;
+		case '0':   curr_joint = 0; cout << "Current joint: head-neck\n"; break;
 		case '1':	curr_joint = 1;	cout << "Current joint: shoulder\n"; break;
 		case '2':	curr_joint = 2;	cout << "Current joint: neck-torso1\n"; break;
 		case '3':	curr_joint = 3;	cout << "Current joint: torso1-torso2\n"; break;
@@ -343,7 +334,7 @@ void keyboard(unsigned char key, int x, int y) {
 				}
 			}
 			glutPostRedisplay();
-			// nothing for 8 and 9 because the knee and elbow rotate about the z-axis
+			// nothing for 8 and 9 because the knee and elbow rotate about the z-axis only
 		}
 		break;
 		case 'd': {
@@ -363,7 +354,7 @@ void keyboard(unsigned char key, int x, int y) {
 				}
 			}
 			glutPostRedisplay();
-			// nothing for 8 and 9 because the knee and elbow rotate about the z-axis
+			// nothing for 8 and 9 because the knee and elbow rotate about the z-axis only
 		}
 		break;
 
@@ -405,6 +396,21 @@ void keyboard(unsigned char key, int x, int y) {
 		// 		glutPostRedisplay();
 		// 	}
 		// }
+
+		case ',': {
+			if (dancer_angle - 3 >= -90) {
+				dancer_angle -= 3;
+				glutPostRedisplay();
+			}
+		}
+		break;
+
+		case '.': {
+			if (dancer_angle + 3 <= 90) {
+				dancer_angle += 3;
+				glutPostRedisplay();
+			}
+		}
 	}
 }
 

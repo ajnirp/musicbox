@@ -33,6 +33,6 @@ int define_foot();
 void draw_box(double lid_degrees, double box_degrees);
 
 // Drawing function for the dancer
-void draw_dancer(float*);
+void draw_dancer(float*,float);
 
 #endif
