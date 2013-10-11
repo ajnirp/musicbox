@@ -62,16 +62,16 @@ When the dancer is selected, you need to select which of the joints to move. For
 
 | Key | Joint |
 | --- |:-----:|
-| `0` head-neck |
-| `1` shoulder |
-| `2` neck-torso1 |
-| `3` torso1-torso2 |
-| `4` torso2-torso3 |
-| `5` hip |
-| `6` ankle |
-| `7` wrist |
-| `8` knee |
-| `9` elbow |
+| `0` | head-neck |
+| `1` | shoulder |
+| `2` | neck-torso1 |
+| `3` | torso1-torso2 |
+| `4` | torso2-torso3 |
+| `5` | hip |
+| `6` | ankle |
+| `7` | wrist |
+| `8` | knee |
+| `9` | elbow |
 
 Pressing any number key from `0` to `9` will select that joint. By default, the selected joint is the head-neck joint.
 
