@@ -1,6 +1,10 @@
 #ifndef BOX_H
 #define BOX_H
 
+// Helper functions
+void define_sphere(float radius, int texture_id);
+void define_cylinder(float base_radius, float top_radius, float height, int texture_id);
+
 // Components of the box
 int define_base_and_walls();
 int define_lid();
@@ -28,11 +32,10 @@ int define_ankle();
 int define_foot();
 
 // Extra stuff for the dancer
-
 int define_hat();
 
 // Drawing function for the box
-void draw_box(double lid_degrees, double box_degrees);
+void draw_box(double lid_degrees);
 
 // Drawing function for the dancer
 void draw_dancer(float*,float);

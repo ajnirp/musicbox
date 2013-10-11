@@ -7,8 +7,8 @@ Directories
 -----------
 
 1. `src` source code
-2. `bin` (created after compilation, deleted on cleanup) - `musicbox`, the final program
-3. `obj` (created after compilation, deleted on cleanup) - `.o` files
+2. `bin` (created after compilation, gets deleted when you run `make clean`) - `musicbox`, the final program
+3. `obj` (created after compilation, gets deleted when you run `make clean`) - `.o` files
 4. `tex` textures
 
 Link to Report
@@ -36,10 +36,8 @@ Cleaning Up
 
 1. `make clean`
 
-Quick Walkthrough
------------------
-
-Keybindings:
+Keybindings
+-----------
 
 1. Exit the program: `Esc`
 2. Toggle which object to move: `t` (when you start the program, the dancer is selected)
@@ -49,6 +47,22 @@ Keybindings:
 6. Rotate about x-axis: `a` and `d`
 7. Rotate about x-axis: `q` and `e`
 8. Rotate the entire dancer: `,` and `.`
+9. Display information: `i`
+
+Walkthrough
+-----------
+
+When you run the program using `./bin/musicbox` you should see a wooden box and a wooden doll standing next to each other. You can move the box lid and various parts of the doll by pressing the keys `w`, `s`, `a`, `d`, `q` and `e`. The first two are for rotating about the x-axis, the next two are for rotating about the y-axis, and the last two are for rotating about the z-axis.
+
+First, you need to select the object that you want to move. By default the dancer is selected. To toggle between objects press `t`. So if you start the program and press `t` the box will be selected.
+
+When the box is selected, use `w` and `s` to open and close the lid, respectively.
+
+When the dancer is selected, you need to select which of the joints to move. For a list of which joints are movable and with how many degrees of freedom, refer to page 2 of the `problem-statement.pdf` file in the root of this project repo. The joint mappings are as follows:
+
+Once you've selected a joint, the keybindings are simple. Use `w` and `s` to rotate about the x-axis. For the y-axis, `a` and `d`. For the z-axis, `q` and `e`. Note that each joint is restricted to a certain range of movement so that the whole doll looks realistic. Also note that pressing `a`, `d`, `q` or `e` will have no effect if you have selected a joint that has only 1 degree of freedom, like the doll's knees or its elbows.
+
+If at any point you lose track of which object and which joint is selected, simply press `i` and the required information will be printed to the terminal.
 
 Credits
 -------

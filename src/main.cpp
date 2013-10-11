@@ -28,17 +28,17 @@ void init_limits() {
 	limits[2]=-60;limits[3]=60;
 	limits[4]=-20;limits[5]=20;
 	// left shoulder
-	limits[6]=-90;limits[7]=90;
+	limits[6]=-90;limits[7]=40;
 	limits[8]=-20;limits[9]=20;
 	limits[10]=-50;limits[11]=0;
 	// right shoulder
-	limits[12]=-90;limits[13]=90;
+	limits[12]=-90;limits[13]=40;
 	limits[14]=-20;limits[15]=20;
 	limits[16]=0;limits[17]=50;
 	// neck-torso1
-	limits[18]=-60;limits[19]=60;
+	limits[18]=-30;limits[19]=30;
 	limits[20]=-60;limits[21]=75;
-	limits[22]=-30;limits[23]=30;
+	limits[22]=-15;limits[23]=15;
 	// torso1-torso2
 	limits[24]=-20;limits[25]=90;
 	limits[26]=-60;limits[27]=60;
@@ -54,7 +54,7 @@ void init_limits() {
 	// right hip
 	limits[42]=-30;limits[43]=30;
 	limits[44]=-10;limits[45]=50;
-	limits[46]=-10;limits[47]=3;
+	limits[46]=-3;limits[47]=10;
 	// left ankle
 	limits[48]=0;limits[49]=30;
 	limits[50]=-10;limits[51]=10;
@@ -64,11 +64,11 @@ void init_limits() {
 	limits[56]=-10;limits[57]=10;
 	limits[58]=-10;limits[59]=10;
 	// left wrist
-	limits[60]=-90;limits[61]=90;
+	limits[60]=-60;limits[61]=60;
 	limits[62]=-20;limits[63]=20;
 	limits[64]=-20;limits[65]=20;
 	// right wrist
-	limits[66]=-90;limits[67]=90;
+	limits[66]=-60;limits[67]=60;
 	limits[68]=-20;limits[69]=20;
 	limits[70]=-20;limits[71]=20;
 	// left knee
@@ -90,10 +90,6 @@ void init_limits() {
 float lid_angle = 0;
 float box_angle = 0;
 float lid_angle_increment = 3.f;
-float box_angle_increment = 3.f;
-
-// double neck_angle = 0;
-// float neck_angle_increment = 3.f;
 
 float dancer_angles[40] = {0};
 float dancer_angle = 0;
@@ -164,7 +160,7 @@ void display_info() {
 
 // Find the index to change in the 'angles' vector
 int find_index_x() {
-	int index;
+	int index = 0;
 	if (curr_joint <= 7) index = find_index_y() - 1;
 	else {
 		if (curr_joint == 8) index = (move_left ? 36 : 37);
@@ -174,7 +170,7 @@ int find_index_x() {
 }
 
 int find_index_y() {
-	int index;
+	int index = 0;
 	switch (curr_joint) {
 		case 0: index = 1; break;
 		case 1: index = (move_left ? 4 : 7); break;
@@ -215,7 +211,7 @@ void initGL() {
 /* Callback Definitions */
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// draw_box(lid_angle, box_angle);
+	draw_box(lid_angle);
 	draw_dancer(dancer_angles, dancer_angle);
 	glutSwapBuffers();
 }
@@ -320,15 +316,7 @@ void keyboard(unsigned char key, int x, int y) {
 
 		// rotate Y
 		case 'a': {
-			// check if we have to move the box
-			if (move_box) {
-				if (box_angle + box_angle_increment <= 90) {
-					box_angle += box_angle_increment;
-				}
-			}
-			// we have to move the dancer
-			// check how many degrees of freedom the current joint has
-			else if (curr_joint <= 7) { // 3 degrees of freedom
+			if (not(move_box) and curr_joint <= 7) {
 				int index = find_index_y();
 				if (dancer_angles[index]-3 >= limits[2*index]) {
 					dancer_angles[index] -= 3;
@@ -340,15 +328,7 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 		case 'd': {
 			// check if we have to move the box
-			if (move_box) {
-				if (box_angle - box_angle_increment >= -90) {
-					box_angle -= box_angle_increment;
-					glutPostRedisplay();
-				}
-			}
-			// we have to move the dancer
-			// check how many degrees of freedom the current joint has
-			else if (curr_joint <= 7) {
+			if (not(move_box) and curr_joint <= 7) {
 				int index = find_index_y();
 				if (dancer_angles[index]+3 <= limits[2*index+1]) {
 					dancer_angles[index] += 3;
