@@ -42,12 +42,12 @@ GLuint LoadTexture(const char* filepath) {
 int define_base_and_walls() {
 	int base_and_walls = glGenLists(1);
 	
-	GLuint texture = LoadTexture("src/wood.bmp");
+	GLuint texture_base_and_walls = LoadTexture("tex/wood.bmp");
 	glNewList(base_and_walls, GL_COMPILE);
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 		glEnable(GL_TEXTURE_2D);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		glBindTexture(GL_TEXTURE_2D, texture_base_and_walls);
 
 		glTranslatef(-1.5,-3.5,-2);
 		glScalef(3,3,3);
@@ -100,12 +100,12 @@ int define_base_and_walls() {
 
 int define_lid() {
 	int lid = glGenLists(1);
-	GLuint texturelid = LoadTexture("src/wood2.bmp");
+	GLuint texture_lid = LoadTexture("tex/wood2.bmp");
 	glNewList(lid, GL_COMPILE);
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 		glEnable(GL_TEXTURE_2D);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		glBindTexture(GL_TEXTURE_2D, texturelid);
+		glBindTexture(GL_TEXTURE_2D, texture_lid);
 
 		glTranslatef(-1.5,-2,-2); // at y = -2 the lid exactly covers the box
 		glScalef(3,3,3);
@@ -157,17 +157,30 @@ int define_lid() {
 // Dancer's head
 int define_head() {
 	int head = glGenLists(1);
+	// GLuint texture_head = LoadTexture("tex/face2.jpg");
 	glNewList(head, GL_COMPILE);
+		// glEnable(GL_TEXTURE_2D);
+		// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		// glBindTexture(GL_TEXTURE_2D, texture_head);
+
 		glColor3ub(165, 42, 42);
 		// Front face
 		glBegin(GL_POLYGON);
+			// glTexCoord2f(0.0, 0.0);
 			glVertex3f(-0.25,0,0);
+			// glTexCoord2f(1.0, 0.0);
 			glVertex3f(0.25,0,0);
+			// glTexCoord2f(1.0, 0.5);
 			glVertex3f(0.35,0.25,0);
+			// glTexCoord2f(1.0, 1.0);
 			glVertex3f(0.3,0.5,0);
+			// glTexCoord2f(0.0, 1.0);
 			glVertex3f(-0.3,0.5,0);
+			// glTexCoord2f(0.0, 0.5);
 			glVertex3f(-0.35,0.25,0);
 		glEnd();
+
+		// glDisable(GL_TEXTURE_2D);
 		// Back face
 		glBegin(GL_POLYGON);
 			glVertex3f(-0.25,0,-0.5);
@@ -243,9 +256,25 @@ int define_neck() {
 // Dancer's top torso (torso1)
 int define_torso1() {
 	int torso1 = glGenLists(1);
+	GLuint texture_torso1 = LoadTexture("tex/torso1.bmp");
 	glNewList(torso1, GL_COMPILE);
 		glColor3ub(19, 215, 132);
+		glScalef(1,1,0.5); // anti-scale to prevent the other dependent parts from scaling
 		glutSolidCube(1);
+		glScalef(1,1,2);
+
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		glBindTexture(GL_TEXTURE_2D, texture_torso1);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.5,-0.5,.26);
+			glTexCoord2f(1,0);glVertex3f(0.5,-0.5,.26);
+			glTexCoord2f(0,1);glVertex3f(0.5,0.5,.26);
+			glTexCoord2f(1,1);glVertex3f(-0.5,0.5,0.26);
+		glEnd();
+
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return torso1;
 }
@@ -253,11 +282,25 @@ int define_torso1() {
 // Dancer's middle torso (torso2)
 int define_torso2() {
 	int torso2 = glGenLists(1);
+	GLuint texture_torso2 = LoadTexture("tex/torso1.bmp");
 	glNewList(torso2, GL_COMPILE);
 		glColor3ub(83, 164, 39);
 		glScalef(0.8,0.4,0.4);	
 		glutSolidCube(1);
 		glScalef(1.25,2.5,2.5);
+
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		glBindTexture(GL_TEXTURE_2D, texture_torso2);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.4,-0.2,.21);
+			glTexCoord2f(1,0);glVertex3f(0.4,-0.2,.21);
+			glTexCoord2f(0,1);glVertex3f(0.4,0.2,.21);
+			glTexCoord2f(1,1);glVertex3f(-0.4,0.2,0.21);
+		glEnd();
+
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return torso2;
 }
@@ -265,11 +308,25 @@ int define_torso2() {
 // Dancer's bottom torso (torso3)
 int define_torso3() {
 	int torso3 = glGenLists(1);
+	GLuint texture_torso3 = LoadTexture("tex/torso1.bmp");
 	glNewList(torso3, GL_COMPILE);
 		glColor3ub(19, 215, 132);
 		glScalef(1,0.5,0.5);
 		glutSolidCube(1);
 		glScalef(1,2,2);
+
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		glBindTexture(GL_TEXTURE_2D, texture_torso3);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.5,-0.25,.26);
+			glTexCoord2f(1,0);glVertex3f(0.5,-0.25,.26);
+			glTexCoord2f(0,1);glVertex3f(0.5,0.25,.26);
+			glTexCoord2f(1,1);glVertex3f(-0.5,0.25,0.26);
+		glEnd();
+
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return torso3;
 }
@@ -289,11 +346,39 @@ int define_hip() {
 // Either of the thighs of the dancer
 int define_thigh() {
 	int thigh = glGenLists(1);
+	GLuint texture_denim = LoadTexture("tex/denim.bmp");
 	glNewList(thigh, GL_COMPILE);
 		glColor3ub(124, 124, 255);
 		glScalef(0.25,0.8,0.25);
 		glutSolidCube(1);
 		glScalef(4,1.25,4);
+
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glBindTexture(GL_TEXTURE_2D, texture_denim);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.126,-0.4,.126);
+			glTexCoord2f(1,0);glVertex3f(0.126,-0.4,.126);
+			glTexCoord2f(0,1);glVertex3f(0.126,0.4,.126);
+			glTexCoord2f(1,1);glVertex3f(-0.126,0.4,0.126);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.126,-0.4,-.126);
+			glTexCoord2f(1,0);glVertex3f(-0.126,-0.4,.126);
+			glTexCoord2f(0,1);glVertex3f(-0.126,0.4,.126);
+			glTexCoord2f(1,1);glVertex3f(-0.126,0.4,-0.126);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(0.126,-0.4,-.126);
+			glTexCoord2f(1,0);glVertex3f(0.126,-0.4,.126);
+			glTexCoord2f(0,1);glVertex3f(0.126,0.4,.126);
+			glTexCoord2f(1,1);glVertex3f(0.126,0.4,-0.126);
+		glEnd();
+
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return thigh;
 }
@@ -313,12 +398,39 @@ int define_knee() {
 // Either of the legs of the dancer
 int define_leg() {
 	int leg = glGenLists(1);
+	GLuint texture_denim = LoadTexture("tex/denim.bmp");
 	glNewList(leg, GL_COMPILE);
 		glColor3ub(50, 148, 148);
-
-		glScalef(0.25,0.6,0.25);
+		glScalef(0.25,1,0.25);
 		glutSolidCube(1);
-		glScalef(4,3.33,4);
+		glScalef(4,1,4);
+
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glBindTexture(GL_TEXTURE_2D, texture_denim);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.126,-0.5,.126);
+			glTexCoord2f(1,0);glVertex3f(0.126,-0.5,.126);
+			glTexCoord2f(0,1);glVertex3f(0.126,0.5,.126);
+			glTexCoord2f(1,1);glVertex3f(-0.126,0.5,0.126);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.126,-0.5,-.126);
+			glTexCoord2f(1,0);glVertex3f(-0.126,-0.5,.126);
+			glTexCoord2f(0,1);glVertex3f(-0.126,0.5,.126);
+			glTexCoord2f(1,1);glVertex3f(-0.126,0.5,-0.126);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(0.126,-0.5,-.126);
+			glTexCoord2f(1,0);glVertex3f(0.126,-0.5,.126);
+			glTexCoord2f(0,1);glVertex3f(0.126,0.5,.126);
+			glTexCoord2f(1,1);glVertex3f(0.126,0.5,-0.126);
+		glEnd();
+
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return leg;
 }
@@ -491,49 +603,20 @@ void draw_dancer(float* angles, float dancer_angle) {
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 
 	// define the various components of the dancer
-	int head = define_head();
-	int neck = define_neck();
-
-	int torso1 = define_torso1();
-	int torso2 = define_torso2();
-	int torso3 = define_torso3();
-
-	int left_hip = define_hip();
-	int right_hip = define_hip();
-
-	int left_thigh = define_thigh();
-	int right_thigh = define_thigh();
-
-	int left_knee = define_knee();
-	int right_knee = define_knee();
-
-	int left_ankle = define_ankle();
-	int right_ankle = define_ankle();
-
-	int left_leg = define_leg();
-	int right_leg = define_leg();
-
-	int left_foot = define_foot();
-	int right_foot = define_foot();
-
-	int left_shoulder = define_shoulder();
-	int right_shoulder = define_shoulder();
-
-	int left_upper_arm = define_upper_arm();
-	int right_upper_arm = define_upper_arm();
-
-	int left_elbow = define_elbow();
-	int right_elbow = define_elbow();
-
-	int left_lower_arm = define_lower_arm();
-	int right_lower_arm = define_lower_arm();
-
-	int left_wrist = define_wrist();
-	int right_wrist = define_wrist();
-
-	int left_hand = define_hand();
-	int right_hand = define_hand();
-
+	int head = define_head();int neck = define_neck();
+	int torso1 = define_torso1();int torso2 = define_torso2();int torso3 = define_torso3();
+	int left_hip = define_hip();int right_hip = define_hip();
+	int left_thigh = define_thigh();int right_thigh = define_thigh();
+	int left_knee = define_knee();int right_knee = define_knee();
+	int left_ankle = define_ankle();int right_ankle = define_ankle();
+	int left_leg = define_leg();int right_leg = define_leg();
+	int left_foot = define_foot();int right_foot = define_foot();
+	int left_shoulder = define_shoulder();int right_shoulder = define_shoulder();
+	int left_upper_arm = define_upper_arm();int right_upper_arm = define_upper_arm();
+	int left_elbow = define_elbow();int right_elbow = define_elbow();
+	int left_lower_arm = define_lower_arm();int right_lower_arm = define_lower_arm();
+	int left_wrist = define_wrist();int right_wrist = define_wrist();
+	int left_hand = define_hand();int right_hand = define_hand();
 	int hat = define_hat();
 
 	// torso3 and onwards
@@ -556,9 +639,7 @@ void draw_dancer(float* angles, float dancer_angle) {
 				glRotatef(angles[13],0,1,0);
 				glRotatef(angles[14],0,0,1);
 				glTranslatef(0,0.625,0); // translation of torso1 wrt torso2
-				glScalef(1,1,0.5);
 				glCallList(torso1); //draw torso1
-				glScalef(1,1,2); // anti-scale to prevent the other dependent parts from scaling
 				// left shoulder
 				glPushMatrix();
 					glTranslatef(-0.625,0.375,0);
@@ -677,20 +758,21 @@ void draw_dancer(float* angles, float dancer_angle) {
 					glCallList(left_knee);
 					// left leg
 					glPushMatrix();
+						glTranslatef(0,-0.5,0);
 						glRotatef(angles[36],1,0,0);
-						glTranslatef(0,-0.4,0);
+						glTranslatef(0,-0.05,0);
 						glCallList(left_leg);
 						// left ankle
 						glPushMatrix();
-							glTranslatef(0,-0.175,0); // not sure how we got -0.175...
-							// also, it seems to be independent of the leg length!
+							glTranslatef(0,-0.525,0);
 							glCallList(left_ankle);
 							// left foot
 							glPushMatrix();
+								glTranslatef(0,-0.025,0);
 								glRotatef(angles[24],1,0,0);
 								glRotatef(angles[25],0,1,0);
 								glRotatef(angles[26],0,0,1);
-								glTranslatef(0,-0.025,0.125);
+								glTranslatef(0,0,0.125);
 								glCallList(left_foot);
 							glPopMatrix();
 						glPopMatrix();
@@ -716,20 +798,21 @@ void draw_dancer(float* angles, float dancer_angle) {
 					glCallList(right_knee);
 					// right leg
 					glPushMatrix();
+						glTranslatef(0,-0.5,0);
 						glRotatef(angles[37],1,0,0);
-						glTranslatef(0,-0.4,0);
+						glTranslatef(0,-0.05,0);
 						glCallList(right_leg);
 						// right ankle
 						glPushMatrix();
-							glTranslatef(0,-0.175,0);
+							glTranslatef(0,-0.525,0);
 							glCallList(right_ankle);
 							// right foot
 							glPushMatrix();
+								glTranslatef(0,-0.025,0);
 								glRotatef(angles[27],1,0,0);
 								glRotatef(angles[28],0,1,0);
 								glRotatef(angles[29],0,0,1);
-								glTranslatef(0,-0.025,0.125);
-								// glTranslatef(0,-0.025,0);
+								glTranslatef(0,0,0.125);
 								glCallList(right_foot);
 							glPopMatrix();
 						glPopMatrix();

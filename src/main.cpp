@@ -76,9 +76,9 @@ void init_limits() {
 	// right knee
 	limits[74]=0;limits[75]=110;
 	// left elbow
-	limits[76]=-170;limits[77]=0;
+	limits[76]=-140;limits[77]=0;
 	// right elbow
-	limits[78]=-170;limits[79]=0;
+	limits[78]=-140;limits[79]=0;
 
 }
 
@@ -238,6 +238,7 @@ void reshape(int w, int h) {
 }
 
 void keyboard(unsigned char key, int x, int y) {
+	if (65 <= key and key <= 90) key += 32; // so that even if caps lock is on, the program still works as expected
 	switch(key) {
 		case 27: {
 			cout << "Exiting the program...\n";
@@ -294,8 +295,8 @@ void keyboard(unsigned char key, int x, int y) {
 				if (dancer_angles[index]+3 <= limits[2*index+1]) {
 					dancer_angles[index] += 3;
 				}
-			glutPostRedisplay();
 			}
+			glutPostRedisplay();
 		}
 		break;
 		case 'w': {
