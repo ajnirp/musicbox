@@ -30,11 +30,11 @@ void init_limits() {
 	// left shoulder
 	limits[6]=-90;limits[7]=90;
 	limits[8]=-20;limits[9]=20;
-	limits[10]=-90;limits[11]=90;
+	limits[10]=-50;limits[11]=0;
 	// right shoulder
 	limits[12]=-90;limits[13]=90;
 	limits[14]=-20;limits[15]=20;
-	limits[16]=-90;limits[17]=90;
+	limits[16]=0;limits[17]=50;
 	// neck-torso1
 	limits[18]=-60;limits[19]=60;
 	limits[20]=-60;limits[21]=75;

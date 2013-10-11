@@ -268,10 +268,24 @@ int define_torso1() {
 		glBindTexture(GL_TEXTURE_2D, texture_torso1);
 
 		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.5,-0.5,.26);
-			glTexCoord2f(1,0);glVertex3f(0.5,-0.5,.26);
-			glTexCoord2f(0,1);glVertex3f(0.5,0.5,.26);
-			glTexCoord2f(1,1);glVertex3f(-0.5,0.5,0.26);
+			glTexCoord2f(0,0);glVertex3f(-0.51,-0.5,.26);
+			glTexCoord2f(1,0);glVertex3f(0.51,-0.5,.26);
+			glTexCoord2f(0,1);glVertex3f(0.51,0.5,.26);
+			glTexCoord2f(1,1);glVertex3f(-0.51,0.5,0.26);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.51,-0.5,-.26);
+			glTexCoord2f(1,0);glVertex3f(-0.51,-0.5,.26);
+			glTexCoord2f(0,1);glVertex3f(-0.51,0.5,.26);
+			glTexCoord2f(1,1);glVertex3f(-0.51,0.5,-0.26);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(0.51,-0.5,-.26);
+			glTexCoord2f(1,0);glVertex3f(0.51,-0.5,.26);
+			glTexCoord2f(0,1);glVertex3f(0.51,0.5,.26);
+			glTexCoord2f(1,1);glVertex3f(0.51,0.5,-0.26);
 		glEnd();
 
 		glDisable(GL_TEXTURE_2D);
@@ -294,10 +308,24 @@ int define_torso2() {
 		glBindTexture(GL_TEXTURE_2D, texture_torso2);
 
 		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.4,-0.2,.21);
-			glTexCoord2f(1,0);glVertex3f(0.4,-0.2,.21);
-			glTexCoord2f(0,1);glVertex3f(0.4,0.2,.21);
-			glTexCoord2f(1,1);glVertex3f(-0.4,0.2,0.21);
+			glTexCoord2f(0,0);glVertex3f(-0.41,-0.5,.21);
+			glTexCoord2f(1,0);glVertex3f(0.41,-0.5,.21);
+			glTexCoord2f(0,1);glVertex3f(0.41,0.5,.21);
+			glTexCoord2f(1,1);glVertex3f(-0.41,0.5,0.21);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.41,-0.5,-.21);
+			glTexCoord2f(1,0);glVertex3f(-0.41,-0.5,.21);
+			glTexCoord2f(0,1);glVertex3f(-0.41,0.5,.21);
+			glTexCoord2f(1,1);glVertex3f(-0.41,0.5,-0.21);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(0.41,-0.2,-.21);
+			glTexCoord2f(1,0);glVertex3f(0.41,-0.2,.21);
+			glTexCoord2f(0,1);glVertex3f(0.41,0.2,.21);
+			glTexCoord2f(1,1);glVertex3f(0.41,0.2,-0.21);
 		glEnd();
 
 		glDisable(GL_TEXTURE_2D);
@@ -320,10 +348,31 @@ int define_torso3() {
 		glBindTexture(GL_TEXTURE_2D, texture_torso3);
 
 		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.5,-0.25,.26);
-			glTexCoord2f(1,0);glVertex3f(0.5,-0.25,.26);
-			glTexCoord2f(0,1);glVertex3f(0.5,0.25,.26);
-			glTexCoord2f(1,1);glVertex3f(-0.5,0.25,0.26);
+			glTexCoord2f(0,0);glVertex3f(-0.51,-0.25,.26);
+			glTexCoord2f(1,0);glVertex3f(0.51,-0.25,.26);
+			glTexCoord2f(0,1);glVertex3f(0.51,0.25,.26);
+			glTexCoord2f(1,1);glVertex3f(-0.51,0.25,0.26);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.51,-0.25,-.26);
+			glTexCoord2f(1,0);glVertex3f(-0.51,-0.25,.26);
+			glTexCoord2f(0,1);glVertex3f(-0.51,0.25,.26);
+			glTexCoord2f(1,1);glVertex3f(-0.51,0.25,-0.26);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(0.51,-0.25,-.26);
+			glTexCoord2f(1,0);glVertex3f(0.51,-0.25,.26);
+			glTexCoord2f(0,1);glVertex3f(0.51,0.25,.26);
+			glTexCoord2f(1,1);glVertex3f(0.51,0.25,-0.26);
+		glEnd();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0,0);glVertex3f(-0.51,0.25,.26);
+			glTexCoord2f(1,0);glVertex3f(0.51,0.25,.26);
+			glTexCoord2f(0,1);glVertex3f(0.51,0.25,-.26);
+			glTexCoord2f(1,1);glVertex3f(-0.51,0.25,-0.26);
 		glEnd();
 
 		glDisable(GL_TEXTURE_2D);
@@ -648,7 +697,7 @@ void draw_dancer(float* angles, float dancer_angle) {
 					glPushMatrix();
 						glRotatef(angles[3],1,0,0);
 						glRotatef(angles[4],0,1,0);
-						glRotatef(angles[5],0,0,1);
+						glRotatef(-5+angles[5],0,0,1);
 						glTranslatef(0,-0.125-0.4,0);
 						glCallList(left_upper_arm);
 						// left elbow
@@ -685,7 +734,7 @@ void draw_dancer(float* angles, float dancer_angle) {
 					glPushMatrix();
 						glRotatef(angles[6],1,0,0);
 						glRotatef(angles[7],0,1,0);
-						glRotatef(angles[8],0,0,1);
+						glRotatef(5+angles[8],0,0,1);
 						glTranslatef(0,-0.125-0.4,0);
 						glCallList(right_upper_arm);
 						// right elbow
