@@ -14,7 +14,7 @@ Directories
 Link to Report
 --------------
 
-The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox.html).
+The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox.html). It contains screenshots of our code in action, and a diagram of the hierarchical model we used to make the dancing doll.
 
 Installation
 ------------
@@ -48,6 +48,7 @@ Keybindings
 7. Rotate about x-axis: `q` and `e`
 8. Rotate the entire dancer about the y-axis: `,` and `.`
 9. Display information: `i`
+10. Reset everything: `h`
 
 Walkthrough
 -----------
@@ -82,6 +83,8 @@ Once you've selected a joint and a side, the keybindings are simple. Use `w` and
 To rotate the entire dancer about the y-axis, use `,` and `.`. As you'd expect, these keys do nothing if the dancer is not selected.
 
 If at any point you lose track of which object and which joint is selected, simply press `i` and the required information will be printed to the terminal. In any case, whenever you change the selected side or change the selected object a message will be logged to the terminal.
+
+If you ever want to reset all changes you've made, simply press `h` and all angles will be reset to 0, like they where when the program started.
 
 Credits
 -------

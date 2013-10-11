@@ -179,13 +179,7 @@ int define_lid() {
 // Dancer's head
 int define_head() {
 	int head = glGenLists(1);
-	GLuint texture_head = LoadTexture("tex/wood2.bmp");
 	glNewList(head, GL_COMPILE);
-		// glEnable(GL_TEXTURE_2D);
-		// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		// glBindTexture(GL_TEXTURE_2D, texture_head);
-
-		// glColor3ub(165, 42, 42);
 		glColor3ub(205,175,149);
 		// Front face
 		glBegin(GL_POLYGON);
@@ -203,7 +197,6 @@ int define_head() {
 			glVertex3f(-0.35,0.25,0);
 		glEnd();
 
-		// glDisable(GL_TEXTURE_2D);
 		// Back face
 		glBegin(GL_POLYGON);
 			glVertex3f(-0.25,0,-0.5);
@@ -473,10 +466,6 @@ int define_hand() {
 
 int define_hat() {
 	int hat = glGenLists(1);
-	// top_radius = 0.4;
-	// base_radius = 0.6;
-	// base_height = 0.1;
-	// top_height = 0.4;
 	glNewList(hat, GL_COMPILE);
 		glColor3ub(100,50,50);
 		GLUquadric* base = gluNewQuadric();
@@ -494,6 +483,16 @@ int define_hat() {
 		glPopMatrix();
 	glEndList();
 	return hat;
+}
+
+int define_stick() {
+	int stick = glGenLists(1);
+	GLuint texture_stick = LoadTexture("tex/wood.bmp");
+	glNewList(stick, GL_COMPILE);
+		glColor3f(1,1,1);
+		define_cylinder(.05,.05,2,texture_stick);
+	glEndList();
+	return stick;
 }
 
 // Drawing function for the box
@@ -521,21 +520,42 @@ void draw_dancer(float* angles, float dancer_angle) {
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 
 	// define the various components of the dancer
-	int head = define_head();int neck = define_neck();
-	int torso1 = define_torso1();int torso2 = define_torso2();int torso3 = define_torso3();
-	int left_hip = define_hip();int right_hip = define_hip();
-	int left_thigh = define_thigh();int right_thigh = define_thigh();
-	int left_knee = define_knee();int right_knee = define_knee();
-	int left_ankle = define_ankle();int right_ankle = define_ankle();
-	int left_leg = define_leg();int right_leg = define_leg();
-	int left_foot = define_foot();int right_foot = define_foot();
-	int left_shoulder = define_shoulder();int right_shoulder = define_shoulder();
-	int left_upper_arm = define_upper_arm();int right_upper_arm = define_upper_arm();
-	int left_elbow = define_elbow();int right_elbow = define_elbow();
-	int left_lower_arm = define_lower_arm();int right_lower_arm = define_lower_arm();
-	int left_wrist = define_wrist();int right_wrist = define_wrist();
-	int left_hand = define_hand();int right_hand = define_hand();
+	int head = define_head();
+	int neck = define_neck();
+
+	int torso1 = define_torso1();
+	int torso2 = define_torso2();
+	int torso3 = define_torso3();
+
+	int left_hip = define_hip();
+	int right_hip = define_hip();
+
+	int left_thigh = define_thigh();
+	int right_thigh = define_thigh();
+	int left_knee = define_knee();
+	int right_knee = define_knee();
+	int left_ankle = define_ankle();
+	int right_ankle = define_ankle();
+	int left_leg = define_leg();
+	int right_leg = define_leg();
+	int left_foot = define_foot();
+	int right_foot = define_foot();
+
+	int left_shoulder = define_shoulder();
+	int right_shoulder = define_shoulder();
+	int left_upper_arm = define_upper_arm();
+	int right_upper_arm = define_upper_arm();
+	int left_elbow = define_elbow();
+	int right_elbow = define_elbow();
+	int left_lower_arm = define_lower_arm();
+	int right_lower_arm = define_lower_arm();
+	int left_wrist = define_wrist();
+	int right_wrist = define_wrist();
+	int left_hand = define_hand();
+	int right_hand = define_hand();
+
 	int hat = define_hat();
+	int stick = define_stick();
 
 	// torso3 and onwards
 	glPushMatrix();
@@ -626,6 +646,12 @@ void draw_dancer(float* angles, float dancer_angle) {
 										glRotatef(angles[35],0,0,1);
 										glTranslatef(0,-0.1,0);
 										glCallList(right_hand);
+										// walking stick
+										glPushMatrix();
+											glTranslatef(0,0,0.2+1);
+											glRotatef(90,1,0,0);
+											glCallList(stick);
+										glPopMatrix();
 									glPopMatrix();
 								glPopMatrix();
 							glPopMatrix();

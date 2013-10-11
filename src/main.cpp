@@ -365,6 +365,16 @@ void keyboard(unsigned char key, int x, int y) {
 				glutPostRedisplay();
 			}
 		}
+		break;
+
+		// reset everything
+		case 'h': {
+			cout << "Resetting all angles..." << endl;
+			for (int i = 0 ; i < 40 ; i++) dancer_angles[i] = 0;
+			lid_angle = 0;
+			glutPostRedisplay();
+		}
+		break;
 	}
 }
 
