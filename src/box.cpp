@@ -259,36 +259,44 @@ int define_torso1() {
 	GLuint texture_torso1 = LoadTexture("tex/torso1.bmp");
 	glNewList(torso1, GL_COMPILE);
 		glColor3ub(19, 215, 132);
-		glScalef(1,1,0.5); // anti-scale to prevent the other dependent parts from scaling
-		glutSolidCube(1);
-		glScalef(1,1,2);
+		// glScalef(1,1,0.5); // anti-scale to prevent the other dependent parts from scaling
+		// glutSolidCube(1);
+		// glScalef(1,1,2);
 
-		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-		glBindTexture(GL_TEXTURE_2D, texture_torso1);
+		GLUquadric* quad = gluNewQuadric();
+		glTranslatef(0,.5,0);
+		glRotatef(90,1,0,0);
+		gluCylinder(quad,0.5,0.4,1,10,10);
+		glRotatef(-90,1,0,0);
+		glTranslatef(0,-.5,0);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.51,-0.5,.26);
-			glTexCoord2f(1,0);glVertex3f(0.51,-0.5,.26);
-			glTexCoord2f(0,1);glVertex3f(0.51,0.5,.26);
-			glTexCoord2f(1,1);glVertex3f(-0.51,0.5,0.26);
-		glEnd();
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.51,-0.5,-.26);
-			glTexCoord2f(1,0);glVertex3f(-0.51,-0.5,.26);
-			glTexCoord2f(0,1);glVertex3f(-0.51,0.5,.26);
-			glTexCoord2f(1,1);glVertex3f(-0.51,0.5,-0.26);
-		glEnd();
+		// glEnable(GL_TEXTURE_2D);
+		// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		// glBindTexture(GL_TEXTURE_2D, texture_torso1);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(0.51,-0.5,-.26);
-			glTexCoord2f(1,0);glVertex3f(0.51,-0.5,.26);
-			glTexCoord2f(0,1);glVertex3f(0.51,0.5,.26);
-			glTexCoord2f(1,1);glVertex3f(0.51,0.5,-0.26);
-		glEnd();
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.51,-0.5,.26);
+		// 	glTexCoord2f(1,0);glVertex3f(0.51,-0.5,.26);
+		// 	glTexCoord2f(0,1);glVertex3f(0.51,0.5,.26);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.51,0.5,0.26);
+		// glEnd();
 
-		glDisable(GL_TEXTURE_2D);
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.51,-0.5,-.26);
+		// 	glTexCoord2f(1,0);glVertex3f(-0.51,-0.5,.26);
+		// 	glTexCoord2f(0,1);glVertex3f(-0.51,0.5,.26);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.51,0.5,-0.26);
+		// glEnd();
+
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(0.51,-0.5,-.26);
+		// 	glTexCoord2f(1,0);glVertex3f(0.51,-0.5,.26);
+		// 	glTexCoord2f(0,1);glVertex3f(0.51,0.5,.26);
+		// 	glTexCoord2f(1,1);glVertex3f(0.51,0.5,-0.26);
+		// glEnd();
+
+		// glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return torso1;
 }
@@ -299,36 +307,43 @@ int define_torso2() {
 	GLuint texture_torso2 = LoadTexture("tex/torso1.bmp");
 	glNewList(torso2, GL_COMPILE);
 		glColor3ub(83, 164, 39);
-		glScalef(0.8,0.4,0.4);	
-		glutSolidCube(1);
-		glScalef(1.25,2.5,2.5);
+		// glScalef(0.8,0.4,0.4);	
+		// glutSolidCube(1);
+		// glScalef(1.25,2.5,2.5);
 
-		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-		glBindTexture(GL_TEXTURE_2D, texture_torso2);
+		GLUquadric* quad = gluNewQuadric();
+		glTranslatef(0,.2,0);
+		glRotatef(90,1,0,0);
+		gluCylinder(quad,0.4,0.4,0.4,10,10);
+		glRotatef(-90,1,0,0);
+		glTranslatef(0,-.2,0);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.41,-0.5,.21);
-			glTexCoord2f(1,0);glVertex3f(0.41,-0.5,.21);
-			glTexCoord2f(0,1);glVertex3f(0.41,0.5,.21);
-			glTexCoord2f(1,1);glVertex3f(-0.41,0.5,0.21);
-		glEnd();
+		// glEnable(GL_TEXTURE_2D);
+		// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		// glBindTexture(GL_TEXTURE_2D, texture_torso2);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.41,-0.5,-.21);
-			glTexCoord2f(1,0);glVertex3f(-0.41,-0.5,.21);
-			glTexCoord2f(0,1);glVertex3f(-0.41,0.5,.21);
-			glTexCoord2f(1,1);glVertex3f(-0.41,0.5,-0.21);
-		glEnd();
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.41,-0.5,.21);
+		// 	glTexCoord2f(1,0);glVertex3f(0.41,-0.5,.21);
+		// 	glTexCoord2f(0,1);glVertex3f(0.41,0.5,.21);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.41,0.5,0.21);
+		// glEnd();
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(0.41,-0.2,-.21);
-			glTexCoord2f(1,0);glVertex3f(0.41,-0.2,.21);
-			glTexCoord2f(0,1);glVertex3f(0.41,0.2,.21);
-			glTexCoord2f(1,1);glVertex3f(0.41,0.2,-0.21);
-		glEnd();
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.41,-0.5,-.21);
+		// 	glTexCoord2f(1,0);glVertex3f(-0.41,-0.5,.21);
+		// 	glTexCoord2f(0,1);glVertex3f(-0.41,0.5,.21);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.41,0.5,-0.21);
+		// glEnd();
 
-		glDisable(GL_TEXTURE_2D);
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(0.41,-0.2,-.21);
+		// 	glTexCoord2f(1,0);glVertex3f(0.41,-0.2,.21);
+		// 	glTexCoord2f(0,1);glVertex3f(0.41,0.2,.21);
+		// 	glTexCoord2f(1,1);glVertex3f(0.41,0.2,-0.21);
+		// glEnd();
+
+		// glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return torso2;
 }
@@ -339,43 +354,50 @@ int define_torso3() {
 	GLuint texture_torso3 = LoadTexture("tex/torso1.bmp");
 	glNewList(torso3, GL_COMPILE);
 		glColor3ub(19, 215, 132);
-		glScalef(1,0.5,0.5);
-		glutSolidCube(1);
-		glScalef(1,2,2);
+		// glScalef(1,0.5,0.5);
+		// glutSolidCube(1);
+		// glScalef(1,2,2);
 
-		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-		glBindTexture(GL_TEXTURE_2D, texture_torso3);
+		GLUquadric* quad = gluNewQuadric();
+		glTranslatef(0,.25,0);
+		glRotatef(90,1,0,0);
+		gluCylinder(quad,0.4,0.4,0.5,10,10);
+		glRotatef(-90,1,0,0);
+		glTranslatef(0,-.25,0);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.51,-0.25,.26);
-			glTexCoord2f(1,0);glVertex3f(0.51,-0.25,.26);
-			glTexCoord2f(0,1);glVertex3f(0.51,0.25,.26);
-			glTexCoord2f(1,1);glVertex3f(-0.51,0.25,0.26);
-		glEnd();
+		// glEnable(GL_TEXTURE_2D);
+		// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		// glBindTexture(GL_TEXTURE_2D, texture_torso3);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.51,-0.25,-.26);
-			glTexCoord2f(1,0);glVertex3f(-0.51,-0.25,.26);
-			glTexCoord2f(0,1);glVertex3f(-0.51,0.25,.26);
-			glTexCoord2f(1,1);glVertex3f(-0.51,0.25,-0.26);
-		glEnd();
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.51,-0.25,.26);
+		// 	glTexCoord2f(1,0);glVertex3f(0.51,-0.25,.26);
+		// 	glTexCoord2f(0,1);glVertex3f(0.51,0.25,.26);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.51,0.25,0.26);
+		// glEnd();
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(0.51,-0.25,-.26);
-			glTexCoord2f(1,0);glVertex3f(0.51,-0.25,.26);
-			glTexCoord2f(0,1);glVertex3f(0.51,0.25,.26);
-			glTexCoord2f(1,1);glVertex3f(0.51,0.25,-0.26);
-		glEnd();
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.51,-0.25,-.26);
+		// 	glTexCoord2f(1,0);glVertex3f(-0.51,-0.25,.26);
+		// 	glTexCoord2f(0,1);glVertex3f(-0.51,0.25,.26);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.51,0.25,-0.26);
+		// glEnd();
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.51,0.25,.26);
-			glTexCoord2f(1,0);glVertex3f(0.51,0.25,.26);
-			glTexCoord2f(0,1);glVertex3f(0.51,0.25,-.26);
-			glTexCoord2f(1,1);glVertex3f(-0.51,0.25,-0.26);
-		glEnd();
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(0.51,-0.25,-.26);
+		// 	glTexCoord2f(1,0);glVertex3f(0.51,-0.25,.26);
+		// 	glTexCoord2f(0,1);glVertex3f(0.51,0.25,.26);
+		// 	glTexCoord2f(1,1);glVertex3f(0.51,0.25,-0.26);
+		// glEnd();
 
-		glDisable(GL_TEXTURE_2D);
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.51,0.25,.26);
+		// 	glTexCoord2f(1,0);glVertex3f(0.51,0.25,.26);
+		// 	glTexCoord2f(0,1);glVertex3f(0.51,0.25,-.26);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.51,0.25,-0.26);
+		// glEnd();
+
+		// glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return torso3;
 }
@@ -398,36 +420,43 @@ int define_thigh() {
 	GLuint texture_denim = LoadTexture("tex/denim.bmp");
 	glNewList(thigh, GL_COMPILE);
 		glColor3ub(124, 124, 255);
-		glScalef(0.25,0.8,0.25);
-		glutSolidCube(1);
-		glScalef(4,1.25,4);
+		// glScalef(0.25,0.8,0.25);
+		// glutSolidCube(1);
+		// glScalef(4,1.25,4);
 
-		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		glBindTexture(GL_TEXTURE_2D, texture_denim);
+		GLUquadric* quad = gluNewQuadric();
+		glTranslatef(0,.4,0);
+		glRotatef(90,1,0,0);
+		gluCylinder(quad,0.125,0.125,0.8,10,10);
+		glRotatef(-90,1,0,0);
+		glTranslatef(0,-.4,0);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.126,-0.4,.126);
-			glTexCoord2f(1,0);glVertex3f(0.126,-0.4,.126);
-			glTexCoord2f(0,1);glVertex3f(0.126,0.4,.126);
-			glTexCoord2f(1,1);glVertex3f(-0.126,0.4,0.126);
-		glEnd();
+		// glEnable(GL_TEXTURE_2D);
+		// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		// glBindTexture(GL_TEXTURE_2D, texture_denim);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.126,-0.4,-.126);
-			glTexCoord2f(1,0);glVertex3f(-0.126,-0.4,.126);
-			glTexCoord2f(0,1);glVertex3f(-0.126,0.4,.126);
-			glTexCoord2f(1,1);glVertex3f(-0.126,0.4,-0.126);
-		glEnd();
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.126,-0.4,.126);
+		// 	glTexCoord2f(1,0);glVertex3f(0.126,-0.4,.126);
+		// 	glTexCoord2f(0,1);glVertex3f(0.126,0.4,.126);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.126,0.4,0.126);
+		// glEnd();
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(0.126,-0.4,-.126);
-			glTexCoord2f(1,0);glVertex3f(0.126,-0.4,.126);
-			glTexCoord2f(0,1);glVertex3f(0.126,0.4,.126);
-			glTexCoord2f(1,1);glVertex3f(0.126,0.4,-0.126);
-		glEnd();
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.126,-0.4,-.126);
+		// 	glTexCoord2f(1,0);glVertex3f(-0.126,-0.4,.126);
+		// 	glTexCoord2f(0,1);glVertex3f(-0.126,0.4,.126);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.126,0.4,-0.126);
+		// glEnd();
 
-		glDisable(GL_TEXTURE_2D);
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(0.126,-0.4,-.126);
+		// 	glTexCoord2f(1,0);glVertex3f(0.126,-0.4,.126);
+		// 	glTexCoord2f(0,1);glVertex3f(0.126,0.4,.126);
+		// 	glTexCoord2f(1,1);glVertex3f(0.126,0.4,-0.126);
+		// glEnd();
+
+		// glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return thigh;
 }
@@ -450,36 +479,43 @@ int define_leg() {
 	GLuint texture_denim = LoadTexture("tex/denim.bmp");
 	glNewList(leg, GL_COMPILE);
 		glColor3ub(50, 148, 148);
-		glScalef(0.25,1,0.25);
-		glutSolidCube(1);
-		glScalef(4,1,4);
+		// glScalef(0.25,1,0.25);
+		// glutSolidCube(1);
+		// glScalef(4,1,4);
 
-		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		glBindTexture(GL_TEXTURE_2D, texture_denim);
+		GLUquadric* quad = gluNewQuadric();
+		glTranslatef(0,.5,0);
+		glRotatef(90,1,0,0);
+		gluCylinder(quad,0.125,0.125,1,10,10);
+		glRotatef(-90,1,0,0);
+		glTranslatef(0,-.5,0);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.126,-0.5,.126);
-			glTexCoord2f(1,0);glVertex3f(0.126,-0.5,.126);
-			glTexCoord2f(0,1);glVertex3f(0.126,0.5,.126);
-			glTexCoord2f(1,1);glVertex3f(-0.126,0.5,0.126);
-		glEnd();
+		// glEnable(GL_TEXTURE_2D);
+		// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		// glBindTexture(GL_TEXTURE_2D, texture_denim);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(-0.126,-0.5,-.126);
-			glTexCoord2f(1,0);glVertex3f(-0.126,-0.5,.126);
-			glTexCoord2f(0,1);glVertex3f(-0.126,0.5,.126);
-			glTexCoord2f(1,1);glVertex3f(-0.126,0.5,-0.126);
-		glEnd();
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.126,-0.5,.126);
+		// 	glTexCoord2f(1,0);glVertex3f(0.126,-0.5,.126);
+		// 	glTexCoord2f(0,1);glVertex3f(0.126,0.5,.126);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.126,0.5,0.126);
+		// glEnd();
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex3f(0.126,-0.5,-.126);
-			glTexCoord2f(1,0);glVertex3f(0.126,-0.5,.126);
-			glTexCoord2f(0,1);glVertex3f(0.126,0.5,.126);
-			glTexCoord2f(1,1);glVertex3f(0.126,0.5,-0.126);
-		glEnd();
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(-0.126,-0.5,-.126);
+		// 	glTexCoord2f(1,0);glVertex3f(-0.126,-0.5,.126);
+		// 	glTexCoord2f(0,1);glVertex3f(-0.126,0.5,.126);
+		// 	glTexCoord2f(1,1);glVertex3f(-0.126,0.5,-0.126);
+		// glEnd();
 
-		glDisable(GL_TEXTURE_2D);
+		// glBegin(GL_QUADS);
+		// 	glTexCoord2f(0,0);glVertex3f(0.126,-0.5,-.126);
+		// 	glTexCoord2f(1,0);glVertex3f(0.126,-0.5,.126);
+		// 	glTexCoord2f(0,1);glVertex3f(0.126,0.5,.126);
+		// 	glTexCoord2f(1,1);glVertex3f(0.126,0.5,-0.126);
+		// glEnd();
+
+		// glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return leg;
 }
