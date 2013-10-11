@@ -18,7 +18,6 @@ int find_index_x();
 int find_index_y();
 int find_index_z();
 
-// TODO
 float limits[80] = {0};
 
 // Initialize the limits array
@@ -104,10 +103,10 @@ short int curr_joint = 0; // Which joint to move
 Joint Mappings 
 	0 head-neck
 	1 shoulder
-	2 neck-torso1 - done but rotation about x axis done using A-D keys. Wrong key binding.
-	3 torso1-torso2 - done but extensions should be made for torso2 so that parts dont look detached in Z rotation.
-	4 torso2-torso3 - done but extensions should be made for torso3 so that parts dont look detached in Z rotation.
-	5 hip - no separate motions given for Lhip and Rhip
+	2 neck-torso1
+	3 torso1-torso2
+	4 torso2-torso3
+	5 hip
 	6 ankle
 	7 wrist
 	8 knee
@@ -118,24 +117,12 @@ Joint Mappings
 int window_id;
 
 void display_info() {
-	cout << "===INFORMATION===" << endl;
+	cout << "-------INFORMATION-----------" << endl;
 
 	// Show selected object
 	cout << "Selected object:";
 	if (move_box) cout << " box" << endl;
 	else cout << " dancer" << endl;
-	// Show current axis
-	switch (curr_axis) {
-		case 0:
-			cout << "Current axis: X" << endl;
-			break;
-		case 1:
-			cout << "Current axis: Y" << endl;
-			break;
-		case 2:
-			cout << "Current axis: Z" << endl;
-			break;
-	}
 	// Show which body joint is active
 	switch(curr_joint) {
 		case 0: cout << "Current joint: head-neck\n"; break;
@@ -149,13 +136,14 @@ void display_info() {
 		case 8:	cout << "Current joint: knee\n"; break;
 		case 9:	cout << "Current joint: elbow\n"; break;
 	}
+	if (curr_joint > 4) {
+		// Show which side is active (only if the joint has three degrees of freedom)
+		cout << "Active side: ";
+		if (move_left) cout << " left" << endl;
+		else cout << " right" << endl;
+	}
 
-	// Show which side is active (only if the joint has three degrees of freedom)
-	cout << "Active side: ";
-	if (move_left) cout << " left" << endl;
-	else cout << " right" << endl;
-
-	cout << "=================" << endl << endl;
+	cout << "----------------------------" << endl << endl;
 }
 
 // Find the index to change in the 'angles' vector
@@ -363,23 +351,8 @@ void keyboard(unsigned char key, int x, int y) {
 		}
 		break;
 
-		// case 'j': {
-		// 	if (neck_angle - neck_angle_increment >= -60) {
-		// 		neck_angle -= neck_angle_increment;
-		// 		glutPostRedisplay();
-		// 	}
-		// }
-		// break;
-
-		// case 'k': {
-		// 	if (neck_angle + neck_angle_increment <= 60) {
-		// 		neck_angle += neck_angle_increment;
-		// 		glutPostRedisplay();
-		// 	}
-		// }
-
 		case ',': {
-			if (dancer_angle - 3 >= -90) {
+			if (not(move_box) and dancer_angle - 3 >= -90) {
 				dancer_angle -= 3;
 				glutPostRedisplay();
 			}
@@ -387,7 +360,7 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 
 		case '.': {
-			if (dancer_angle + 3 <= 90) {
+			if (not(move_box) and dancer_angle + 3 <= 90) {
 				dancer_angle += 3;
 				glutPostRedisplay();
 			}

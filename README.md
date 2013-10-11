@@ -46,7 +46,7 @@ Keybindings
 5. Rotate about x-axis: `w` and `s`
 6. Rotate about x-axis: `a` and `d`
 7. Rotate about x-axis: `q` and `e`
-8. Rotate the entire dancer: `,` and `.`
+8. Rotate the entire dancer about the y-axis: `,` and `.`
 9. Display information: `i`
 
 Walkthrough
@@ -60,9 +60,26 @@ When the box is selected, use `w` and `s` to open and close the lid, respectivel
 
 When the dancer is selected, you need to select which of the joints to move. For a list of which joints are movable and with how many degrees of freedom, refer to page 2 of the `problem-statement.pdf` file in the root of this project repo. The joint mappings are as follows:
 
-Once you've selected a joint, the keybindings are simple. Use `w` and `s` to rotate about the x-axis. For the y-axis, `a` and `d`. For the z-axis, `q` and `e`. Note that each joint is restricted to a certain range of movement so that the whole doll looks realistic. Also note that pressing `a`, `d`, `q` or `e` will have no effect if you have selected a joint that has only 1 degree of freedom, like the doll's knees or its elbows.
+`0` head-neck
+`1` shoulder
+`2` neck-torso1
+`3` torso1-torso2
+`4` torso2-torso3
+`5` hip
+`6` ankle
+`7` wrist
+`8` knee
+`9` elbow
 
-If at any point you lose track of which object and which joint is selected, simply press `i` and the required information will be printed to the terminal.
+Pressing any number key from `0` to `9` will select that joint. By default, the selected joint is the head-neck joint.
+
+Once you've selected a joint, you have to select a side to move (in case the joint is for a body part for which there are two parts. For example, the doll has two knees. To toggle the side that you want to move, press `l`. By default, the selected side is the left side. So if you run the program and then press `8`, and press `w`, the *left* knee will bend backward.
+
+Once you've selected a joint and a side, the keybindings are simple. Use `w` and `s` to rotate about the x-axis. For the y-axis, `a` and `d`. For the z-axis, `q` and `e`. Note that each joint is restricted to a certain range of movement so that the whole doll looks realistic. Also note that pressing `a`, `d`, `q` or `e` will have no effect if you have selected a joint that has only 1 degree of freedom, like the doll's knees or its elbows.
+
+To rotate the entire dancer about the y-axis, use `,` and `.`. As you'd expect, these keys do nothing if the dancer is not selected.
+
+If at any point you lose track of which object and which joint is selected, simply press `i` and the required information will be printed to the terminal. In any case, whenever you change the selected side or change the selected object a message will be logged to the terminal.
 
 Credits
 -------
@@ -76,9 +93,6 @@ References
 
 1. http://www.opengl-tutorial.org/beginners-tutorials/tutorial-5-a-textured-cube/
 2. http://www.glprogramming.com/red/chapter09.html#name2
-
-Roadmap
--------
 
 License
 -------
