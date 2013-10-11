@@ -60,16 +60,18 @@ When the box is selected, use `w` and `s` to open and close the lid, respectivel
 
 When the dancer is selected, you need to select which of the joints to move. For a list of which joints are movable and with how many degrees of freedom, refer to page 2 of the `problem-statement.pdf` file in the root of this project repo. The joint mappings are as follows:
 
-`0` head-neck
-`1` shoulder
-`2` neck-torso1
-`3` torso1-torso2
-`4` torso2-torso3
-`5` hip
-`6` ankle
-`7` wrist
-`8` knee
-`9` elbow
+| Key | Joint |
+| --- |:-----:|
+| `0` head-neck |
+| `1` shoulder |
+| `2` neck-torso1 |
+| `3` torso1-torso2 |
+| `4` torso2-torso3 |
+| `5` hip |
+| `6` ankle |
+| `7` wrist |
+| `8` knee |
+| `9` elbow |
 
 Pressing any number key from `0` to `9` will select that joint. By default, the selected joint is the head-neck joint.
 
