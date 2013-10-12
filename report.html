@@ -19,6 +19,7 @@
 		padding-bottom:5px;
 		background-color:#fff;
 		border-radius:10px;
+		border: 1px solid black;
 		/*border</td><td>solid;*/
 		border-width:1px;
 	}
@@ -27,41 +28,71 @@
 	}
 
 	img {
-		width:100%;
-		height:100%;
+		width:50%;
+		height:50%;
 	}
 
 	h1 {
 		font-size:36px;
 	}
-	table {
+	#mappings {
 		margin-right:auto;
 		margin-left:auto;
 		border:1px solid black;
 		border-collapse:collapse;
 	}
-	td {
+
+	#mappings td {
 		border:1px solid black;
 		width:150px;
 	}
-	th {
+	#mappings th {
 		border:1px solid black;
+	}
+
+	#screenshots {
+		float: left;
 	}
 	</style>
 </head>
 <body>
 	<section>
-		<h1>The Music Box</h1>
+		<h1>The Music Box, Part 1</h1>
 
 		<h2>About</h2>
 
+		<p>This is the report for part 1 of the second assignment of our <a href="http://www.cse.iitb.ac.in/~paragc/teaching/2013/cs475">Computer Graphics</a> course. The assignment is to create an animation of a music box, complete with a dancing figure that pops up when the box is opened. Code written by <a href="mailto:vvanirudh@cse.iitb.ac.in">Anirudh Vemula</a> and <a href="mailto:rohanp@cse.iitb.ac.in">Rohan Prinja</a>.</p>
+
+		<h2>Screenshots</h2>
+
+		<p>Some screenshots of our program:</p>
+
+		<div id="screenshots">
+			<img src="img/1.png" style="width:45%;height:45%">
+			<img src="img/2.png" style="width:45%;height:45%">
+			<img src="img/3.png" style="width:45%;height:45%">
+			<img src="img/4.png" style="width:45%;height:45%">
+			<img src="img/5.png" style="width:45%;height:45%">
+			<img src="img/6.png" style="width:45%;height:45%">
+			<img src="img/7.png" style="width:45%;height:45%">
+			<img src="img/8.png" style="width:45%;height:45%">
+			
+		</div>
+
 		<h2>Hierarchical Model</h2>
+
+		<p>The wooden dancing doll was drawn using the following hierarchical model:</p>
+
+		<img src="img/hierarchical-model.png" style="width:50%;height:50%"/>
+
+		<p>The model is rooted at Torso3, that is, the bottom-most torso of the dancer.</p>
 
 		<h2>Moving the Dancer</h2>
 
 		<p>The dancer is drawn with the function <code>draw_dancer()</code>. This function takes an input an array of 40 floats. Each element in the array corresponds to one of the degrees of freedom of the dancer. Here is the mapping of the array elements to the degrees of the freedom that they represent:</p>
 
-		<table>
+
+		<table id="mappings">
 			<th>Array Elements</th>
 			<th>Joint</th>
 			<tr><td>0 to 2</td><td>head-neck joint</td></tr>
@@ -83,10 +114,13 @@
 		</table>
 
 		<h2>Help</h2>
-		<p>See the README in the <a href="https://github.com/wenderen/musicbox">source</a> for an explanation of the program.</p>
+		<p>See the README in the <a href="https://github.com/wenderen/musicbox">source</a> for help on how to compile, run and use the program.</p>
 
 		<h2>Source Code</h2>
 		<p>This program was coded in C++ using OpenGL. The source code is on <a href="https://github.com/wenderen/musicbox">github</a></p>
+
+		<h2>Previous Assignments</h2>
+		<p>The first assignment of our course can be found <a href="http://www.cse.iitb.ac.in/~rohanp/mydraw.html">here</a></p>
 	</section>
 </body>
 </html>
