@@ -6,7 +6,6 @@
 #include "box.hpp"
 #include "shapes.hpp"
 #include "texture.hpp"
-#include <string>
 
 int define_base_and_walls() {
 	int base_and_walls = glGenLists(1);

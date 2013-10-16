@@ -8,7 +8,7 @@ using namespace std;
 GLuint LoadTexture(const char* filepath) {
   GLuint texture; 
   unsigned char header[54]; //Supposedly every bmp file has a 54bytes header
-  unsigned int position = 54;
+  // unsigned int position = 54;
   unsigned int width;
   unsigned int height;
   unsigned int imagesize; 

@@ -1,6 +1,7 @@
 #ifndef DANCER_H
 #define DANCER_H
 
+int define_hat();
 int define_head();
 int define_neck();
 
@@ -22,6 +23,5 @@ int define_knee();
 int define_leg();
 int define_ankle();
 int define_foot();
-
 
 #endif
