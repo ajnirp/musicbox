@@ -29,6 +29,8 @@
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
  /host/Academic/5/cs475/assignments/musicbox/src/box.hpp \
+ /host/Academic/5/cs475/assignments/musicbox/src/shapes.hpp \
+ /host/Academic/5/cs475/assignments/musicbox/src/texture.hpp \
  /usr/include/c++/4.7/string \
  /usr/include/x86_64-linux-gnu/c++/4.7/./bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/4.7/./bits/os_defines.h \
@@ -82,8 +84,4 @@
  /usr/include/x86_64-linux-gnu/bits/nan.h \
  /usr/include/x86_64-linux-gnu/bits/mathdef.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathinline.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
- /usr/include/x86_64-linux-gnu/bits/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/stdio2.h
+ /usr/include/x86_64-linux-gnu/bits/mathinline.h
