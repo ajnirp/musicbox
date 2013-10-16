@@ -1,3 +1,5 @@
+// This file contains drawing functions for each object in the world
+
 #include <GL/gl.h>
 #include <GL/glut.h>
 

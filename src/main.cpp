@@ -186,8 +186,8 @@ void initGL();
 void renderGL(int, char**);
 
 void init() {
-	initGL();
-	init_limits();
+	initGL(); // set up the camera, etc.
+	init_limits(); // set up the limits vector
 }
 
 void initGL() {

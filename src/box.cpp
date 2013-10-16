@@ -1,3 +1,5 @@
+// This file contains definitions for the components of the box
+
 // #include <GLUT/glut.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
@@ -5,9 +7,7 @@
 #include "shapes.hpp"
 #include "texture.hpp"
 #include <string>
-#include <cmath>
 
-// Definitions for the components of the box
 int define_base_and_walls() {
 	int base_and_walls = glGenLists(1);
 	

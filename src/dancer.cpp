@@ -1,3 +1,5 @@
+// This file contains definitions for the components of the wooden dancing doll
+
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include "dancer.hpp"

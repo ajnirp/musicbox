@@ -1,3 +1,5 @@
+// This file contains functions pertaining to textures
+
 #include "texture.hpp"
 #include <stdio.h>
 
