@@ -4,7 +4,7 @@
 #include <GL/glut.h>
 // #include <GLUT/glut.h>
 
-#include "required.hpp"
+#include "draw.hpp"
 
 using namespace std;
 

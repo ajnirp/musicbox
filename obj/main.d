@@ -95,6 +95,4 @@
  /usr/include/x86_64-linux-gnu/sys/sysmacros.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
- /host/Academic/5/cs475/assignments/musicbox/src/required.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/box.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/dancer.hpp
+ /host/Academic/5/cs475/assignments/musicbox/src/draw.hpp
