@@ -178,7 +178,7 @@ int find_index_z() {
 }
 
 /* Callback Declarations */
-void display(void);
+void display();
 void reshape(int, int);
 void keyboard(unsigned char, int, int);
 void mouse(int, int, int, int);
@@ -197,10 +197,11 @@ void initGL() {
 }
 
 /* Callback Definitions */
-void display(void) {
+void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	draw_box(lid_angle);
-	draw_dancer(dancer_angles, dancer_angle);
+	// draw_box(lid_angle);
+	draw_table();
+	// draw_dancer(dancer_angles, dancer_angle);
 	glutSwapBuffers();
 }
 

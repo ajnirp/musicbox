@@ -283,5 +283,31 @@ void draw_dancer(float* angles, float dancer_angle) {
 
 // Drawing function for the table
 void draw_table() {
-	
+	int table_top = define_table_top();
+	int table_leg_front_left = define_table_leg();
+	int table_leg_front_right = define_table_leg();
+	int table_leg_back_right = define_table_leg();
+	int table_leg_back_left = define_table_leg();
+
+	glPushMatrix();
+		glTranslatef(0,-1,0);
+		glCallList(table_top);
+		glPushMatrix();
+			glColor3ub(100,100,50);
+			glTranslatef(-2+0.0625,-0.125-1,1-0.0625);
+			glCallList(table_leg_front_left);
+		glPopMatrix();
+		glPushMatrix();
+			glTranslatef(2-0.0625,-0.125-1,1-0.0625);
+			glCallList(table_leg_front_right);
+		glPopMatrix();
+		glPushMatrix();
+			glTranslatef(2-0.0625,-0.125-1,-1+0.0625);
+			glCallList(table_leg_back_right);
+		glPopMatrix();
+		glPushMatrix();
+			glTranslatef(-2+0.0625,-0.125-1,-1+0.0625);
+			glCallList(table_leg_back_left);
+		glPopMatrix();
+	glPopMatrix();
 }
