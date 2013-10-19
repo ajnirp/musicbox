@@ -188,6 +188,7 @@ void renderGL(int, char**);
 void init() {
 	initGL(); // set up the camera, etc.
 	init_limits(); // set up the limits vector
+	// dancer_angles[3] = -90; // Heil Hitler!
 }
 
 void initGL() {
@@ -200,7 +201,9 @@ void initGL() {
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// draw_box(lid_angle);
-	draw_table();
+	// draw_table();
+	draw_room_walls();
+	// draw_door(0);
 	// draw_dancer(dancer_angles, dancer_angle);
 	glutSwapBuffers();
 }

@@ -6,7 +6,7 @@
 #include "draw.hpp"
 #include "box.hpp"
 #include "dancer.hpp"
-#include "table.hpp"
+#include "room.hpp"
 
 // Drawing function for the box
 void draw_box(double lid_degrees) {
@@ -309,5 +309,38 @@ void draw_table() {
 			glTranslatef(-2+0.0625,-0.125-1,-1+0.0625);
 			glCallList(table_leg_back_left);
 		glPopMatrix();
+	glPopMatrix();
+}
+
+// Drawing function for the room walls
+void draw_room_walls() {
+	int room_floor = define_horizontal_wall(-3);
+	int room_ceiling = define_horizontal_wall(4);
+
+	int room_left_wall = define_side_wall(-5);
+	int room_right_wall = define_side_wall(5);
+
+	int room_front_wall = define_front_wall();
+	int room_back_wall = define_back_wall();
+
+	glPushMatrix();
+		glTranslatef(0,-1,-2);
+		glScalef(0.9,0.9,0.9);
+
+		glCallList(room_floor);
+		glCallList(room_ceiling);
+
+		glCallList(room_left_wall);
+		glCallList(room_right_wall);
+
+		glCallList(room_back_wall);
+		glCallList(room_front_wall);
+	glPopMatrix();
+}
+
+void draw_door(float door_angle) {
+	int door = define_door();
+	glPushMatrix();
+	glCallList(door);
 	glPopMatrix();
 }

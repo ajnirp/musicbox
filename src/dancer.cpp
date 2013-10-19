@@ -14,17 +14,11 @@ int define_head() {
 		glColor3ub(205,175,149);
 		// Front face
 		glBegin(GL_POLYGON);
-			glTexCoord2f(0.0, 0.0);
 			glVertex3f(-0.25,0,0);
-			glTexCoord2f(1.0, 0.0);
 			glVertex3f(0.25,0,0);
-			glTexCoord2f(1.0, 0.5);
 			glVertex3f(0.35,0.25,0);
-			glTexCoord2f(1.0, 1.0);
 			glVertex3f(0.3,0.5,0);
-			glTexCoord2f(0.0, 1.0);
 			glVertex3f(-0.3,0.5,0);
-			glTexCoord2f(0.0, 0.5);
 			glVertex3f(-0.35,0.25,0);
 		glEnd();
 
@@ -84,6 +78,14 @@ int define_head() {
 			glVertex3f(0.25,0,-0.5);
 			glVertex3f(-0.25,0,-0.5);
 		glEnd();
+		// Hitler moustache
+		// glColor3f(0,0,0);
+		// glBegin(GL_QUADS);
+		// 	glVertex3f(-0.1,0.12,0.01);
+		// 	glVertex3f(0.1,0.12,0.01);
+		// 	glVertex3f(0.1,0.19,0.01);
+		// 	glVertex3f(-0.1,0.19,0.01);
+		// glEnd();
 	glEndList();
 	return head;
 }
