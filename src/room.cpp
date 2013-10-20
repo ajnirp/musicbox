@@ -2,6 +2,7 @@
 
 #include <GL/gl.h>
 #include <GL/glut.h>
+#include <cmath>
 
 #include "room.hpp"
 #include "shapes.hpp"
@@ -98,21 +99,23 @@ int define_front_wall() {
 }
 
 int define_door() {
-	GLuint texture_door = LoadTexture("tex/plank.bmp");
+	GLuint texture_door = LoadTexture("tex/wood.bmp");
 	int door = glGenLists(1);
 	glNewList(door, GL_COMPILE);
 		glPushMatrix();
 			glEnable(GL_TEXTURE_2D);
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 			glBindTexture(GL_TEXTURE_2D, texture_door);
-			// glTranslatef(1,0,3.001);
-			// glRotatef(door_angle,0,1,0);
-			// glTranslatef(-1,0,-3.001);
+			// glColor3ub(40,50,60);
 			glBegin(GL_QUADS);
-				glTexCoord2f(0.0, 0.0);glVertex3f(1,-3,3.001);
-				glTexCoord2f(0.0, 1.0);glVertex3f(3,-3,3.001);
-				glTexCoord2f(1.0, 1.0);glVertex3f(3,0,3.001);
-				glTexCoord2f(1.0, 0.0);glVertex3f(1,0,3.001);
+				glTexCoord2f(0.0, 0.0);
+				glVertex3f(1,-3,3);
+				glTexCoord2f(0.0, 1.0);
+				glVertex3f(3,-3,3);
+				glTexCoord2f(1.0, 1.0);
+				glVertex3f(3,0,3);
+				glTexCoord2f(1.0, 0.0);
+				glVertex3f(1,0,3);
 			glEnd();
 			glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
@@ -150,4 +153,122 @@ int define_table_leg() {
 		glPopMatrix();
 	glEndList();
 	return table_leg;
+}
+
+// one_legged table
+
+int define_one_legged_table_top() {
+	int one_legged_table_texture = LoadTexture("tex/wood.bmp");
+	int one_legged_table_top = glGenLists(1);
+	glNewList(one_legged_table_top, GL_COMPILE);
+		// define_cylinder(1.5,1.5,0.1,one_legged_table_texture);
+		glPushMatrix();
+			glColor3ub(129,113,95);
+			glScalef(2,0.1,2);
+			glutSolidCube(1);
+		glPopMatrix();
+	glEndList();
+	return one_legged_table_top;
+}
+
+int define_one_legged_table_leg() {
+	int one_legged_table_texture = LoadTexture("tex/wood.bmp");
+	int one_legged_table_leg = glGenLists(1);
+	glNewList(one_legged_table_leg, GL_COMPILE);
+		// define_cylinder(0.3,0.3,1.5,one_legged_table_texture);
+		glPushMatrix();
+			glScalef(0.3,1.5,0.3);
+			glutSolidCube(1);
+		glPopMatrix();
+	glEndList();
+	return one_legged_table_leg;
+}
+
+int define_one_legged_table_base() {
+	int one_legged_table_texture = LoadTexture("tex/wood.bmp");
+	int one_legged_table_base = glGenLists(1);
+	glNewList(one_legged_table_base, GL_COMPILE);
+		// define_cylinder(0.7,0.7,0.1,one_legged_table_texture);
+		glPushMatrix();
+			glScalef(1.2,0.1,1.2);
+			glutSolidCube(1);
+		glPopMatrix();
+	glEndList();
+	return one_legged_table_base;
+}
+
+// Chair
+
+int define_chair_seat() {
+	int chair_seat = glGenLists(1);
+	glNewList(chair_seat, GL_COMPILE);
+		glColor3ub(150,120,90);
+		glPushMatrix();
+			glScalef(0.7,0.1,0.7);
+			glutSolidCube(1);
+		glPopMatrix();
+	glEndList();
+	return chair_seat;
+}
+
+int define_chair_leg() {
+	int chair_leg = glGenLists(1);
+	glNewList(chair_leg, GL_COMPILE);
+		glColor3ub(150,120,60);
+		glPushMatrix();
+			glScalef(0.1,0.7,0.1);
+			glutSolidCube(1);
+		glPopMatrix();
+	glEndList();
+	return chair_leg;
+}
+
+int define_chair_back() {
+	int chair_back = glGenLists(1);
+	glNewList(chair_back, GL_COMPILE);
+		glColor3ub(150,120,60);
+		glPushMatrix();
+			glScalef(0.7,1.2,0.1);
+			glutSolidCube(1);
+		glPopMatrix();	
+	glEndList();
+	return chair_back;
+}
+
+// Lamp
+
+int define_lamp_stand() {
+	int lamp_stand = glGenLists(1);
+	glNewList(lamp_stand, GL_COMPILE);
+		glColor3ub(50,50,50);
+		glPushMatrix();
+			define_cylinder(0.05,0.05,3,-1);
+		glPopMatrix();
+	glEndList();
+	return lamp_stand;
+}
+
+int define_lamp_head() {
+	int lamp_head = glGenLists(1);
+	// int texture_lamp_head = LoadTexture("tex/lamp-head.bmp");
+	glNewList(lamp_head, GL_COMPILE);
+		glColor3ub(255,0,0);
+		glPushMatrix();
+			define_cylinder(0.3,0.6,0.8,-1);
+		glPopMatrix();
+	glEndList();
+	return lamp_head;
+}
+
+int define_lamp_base() {
+	int lamp_base = glGenLists(1);
+	glNewList(lamp_base, GL_COMPILE);
+		glColor3ub(50,50,50);
+		glPushMatrix();
+			// define_cylinder(0.3,0.3,0.1,-1);
+		glScalef(0.6,0.1,0.6);
+		glutSolidCube(1);
+		glPopMatrix();
+	glEndList();
+	return lamp_base;
 }

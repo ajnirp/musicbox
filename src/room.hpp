@@ -12,4 +12,19 @@ int define_door();
 int define_table_top();
 int define_table_leg();
 
+// One_legged table
+int define_one_legged_table_top();
+int define_one_legged_table_leg();
+int define_one_legged_table_base();
+
+// Chair
+int define_chair_seat();
+int define_chair_leg();
+int define_chair_back();
+
+// Lamp
+int define_lamp_stand();
+int define_lamp_head();
+int define_lamp_base();
+
 #endif

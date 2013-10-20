@@ -93,6 +93,8 @@ float lid_angle_increment = 3.f;
 float dancer_angles[40] = {0};
 float dancer_angle = 0;
 
+float door_angle = 0;
+
 /* Variables determining which body part to move */
 bool move_box = false; // When true, keyboard keys affect the box. When false, they affect the dancer
 bool move_left = true; // When true, keys affect the left side of the dancer. Not valid for joints that have no left or right, for example, the head-neck joint
@@ -200,11 +202,11 @@ void initGL() {
 /* Callback Definitions */
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// draw_box(lid_angle);
-	// draw_table();
-	draw_room_walls();
-	// draw_door(0);
-	// draw_dancer(dancer_angles, dancer_angle);
+	draw_all_objects(
+		lid_angle,
+		dancer_angles, dancer_angle,
+		door_angle
+	);
 	glutSwapBuffers();
 }
 

@@ -6,13 +6,17 @@ void define_cylinder(float bottom_radius, float top_radius, float height, int te
 	GLUquadric* quad = gluNewQuadric();
 	glTranslatef(0,height/2.0,0);
 	glRotatef(90,1,0,0);
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, texture_id);
-	gluQuadricTexture(quad, true);
+	if (texture_id != -1) {
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, texture_id);
+		gluQuadricTexture(quad, true);
+	}
 	gluCylinder(quad,bottom_radius,top_radius,height,10,10);
 	glRotatef(-90,1,0,0);
 	glTranslatef(0,-1*height/2.0,0);
-	glDisable(GL_TEXTURE_2D);
+	if (texture_id != -1) {
+		glDisable(GL_TEXTURE_2D);
+	}
 }
 
 void define_sphere(float radius, int texture_id) {

@@ -313,7 +313,7 @@ void draw_table() {
 }
 
 // Drawing function for the room walls
-void draw_room_walls() {
+void draw_room(float door_angle) {
 	int room_floor = define_horizontal_wall(-3);
 	int room_ceiling = define_horizontal_wall(4);
 
@@ -323,6 +323,7 @@ void draw_room_walls() {
 	int room_front_wall = define_front_wall();
 	int room_back_wall = define_back_wall();
 
+	int door = define_door();
 	glPushMatrix();
 		glTranslatef(0,-1,-2);
 		glScalef(0.9,0.9,0.9);
@@ -335,12 +336,126 @@ void draw_room_walls() {
 
 		glCallList(room_back_wall);
 		glCallList(room_front_wall);
+
+		glPushMatrix();
+			glTranslatef(3,0,3);
+			glRotatef(door_angle,0,1,0);
+			glTranslatef(-3,0,-3);
+			glCallList(door);
+		glPopMatrix();
+		
 	glPopMatrix();
 }
 
-void draw_door(float door_angle) {
-	int door = define_door();
+// Drawing function for the one_legged table
+void draw_one_legged_table() {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
+	int one_legged_table_top = define_one_legged_table_top();
+	int one_legged_table_leg = define_one_legged_table_leg();
+	int one_legged_table_base = define_one_legged_table_base();
+
 	glPushMatrix();
-	glCallList(door);
+		glCallList(one_legged_table_leg);
+		glPushMatrix();
+			glTranslatef(0,0.75+0.05,0);
+			glCallList(one_legged_table_top);
+		glPopMatrix();
+		glPushMatrix();
+			glTranslatef(0,-0.75-0.05,0);
+			glCallList(one_legged_table_base);
+		glPopMatrix();
+	glPopMatrix();	
+}
+
+// Drawing function for the chair
+void draw_chair() {
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
+
+	int chair_seat = define_chair_seat();
+	int chair_leg = define_chair_leg();
+	int chair_back = define_chair_back();
+
+	glPushMatrix();
+		glScalef(2,2,2);
+		glPushMatrix();
+			// glTranslatef(0,-1,0);
+			// glRotatef(60,0,1,0);
+			// glRotatef(90,1,0,0);
+			// glRotatef(90,0,0,1);
+			// glScalef(2,2,2);
+			// glTranslatef(0,-1,0);
+			// chair seat
+			glCallList(chair_seat);
+			// front left leg
+			glPushMatrix();
+				glTranslatef(-0.35+0.05,-0.05-0.35,0.35-0.05);
+				glCallList(chair_leg);
+			glPopMatrix();
+			// front right leg
+			glPushMatrix();
+				glTranslatef(0.35-0.05,-0.05-0.35,0.35-0.05);
+				glCallList(chair_leg);
+			glPopMatrix();
+			// back right leg
+			glPushMatrix();
+				glTranslatef(0.35-0.05,-0.05-0.35,-0.35+0.05);
+				glCallList(chair_leg);
+			glPopMatrix();
+			// back left leg
+			glPushMatrix();
+				glTranslatef(-0.35+0.05,-0.05-0.35,-0.35+0.05);
+				glCallList(chair_leg);
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(0,0.05+0.6,-0.35+0.05);
+				glCallList(chair_back);
+			glPopMatrix();
+		glPopMatrix();
 	glPopMatrix();
+}
+
+// Drawing function for the lamp
+void draw_lamp() {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
+	int lamp_stand = define_lamp_stand();
+	int lamp_head = define_lamp_head();
+	int lamp_base = define_lamp_base();
+
+	// lamp stand
+	glPushMatrix();
+		// glTranslatef(0,-1,0);
+		glCallList(lamp_stand);
+		// lamp head
+		glPushMatrix();
+			glTranslatef(0,1.5,0);
+			glCallList(lamp_head);
+		glPopMatrix();
+		// lamp base
+		glPushMatrix();
+			glTranslatef(0,-1.5-0.05,0);
+			glCallList(lamp_base);
+		glPopMatrix();
+	glPopMatrix();
+}
+
+// Draw everything
+void draw_all_objects(
+	float lid_degrees,
+	float* dancer_angles, float dancer_angle,
+	float door_angle
+) {
+	// Room walls and door
+	// draw_room(door_angle);
+
+	// Box and dancer
+	// draw_box(lid_degrees);
+	// draw_dancer(dancer_angles, dancer_angle);
+
+	// Furniture
+	// draw_table();
+	// draw_one_legged_table();
+	// draw_chair();
+
+	// Lamp and wall-mounted light
+	draw_lamp();
 }

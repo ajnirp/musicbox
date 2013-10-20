@@ -11,10 +11,15 @@ Directories
 3. `obj` (created after compilation, gets deleted when you run `make clean`) - `.o` files
 4. `tex` textures
 
-Link to Report
---------------
+Link to Report for Part 1
+-------------------------
 
 The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox.html). It contains screenshots of our code in action, and a diagram of the hierarchical model we used to make the dancing doll.
+
+Link to Report for Part 2
+-------------------------
+
+The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox2.html)
 
 Installation
 ------------
