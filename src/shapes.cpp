@@ -21,9 +21,13 @@ void define_cylinder(float bottom_radius, float top_radius, float height, int te
 
 void define_sphere(float radius, int texture_id) {
 	GLUquadric* quad = gluNewQuadric();
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, texture_id);
-	gluQuadricTexture(quad, true);
+	if (texture_id != -1) {
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, texture_id);
+		gluQuadricTexture(quad, true);
+	}
 	gluSphere(quad,radius,10,10);
-	glDisable(GL_TEXTURE_2D);
+	if (texture_id != -1) {
+		glDisable(GL_TEXTURE_2D);
+	}
 }

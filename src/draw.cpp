@@ -30,8 +30,6 @@ void draw_box(double lid_degrees) {
 
 // Drawing function for the dancer
 void draw_dancer(float* angles, float dancer_angle) {
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
-
 	// define the various components of the dancer
 	int head = define_head();
 	int neck = define_neck();
@@ -283,8 +281,6 @@ void draw_dancer(float* angles, float dancer_angle) {
 
 // Drawing function for the table
 void draw_table() {
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
-
 	int table_top = define_table_top();
 	int table_leg = define_table_leg();
 
@@ -348,7 +344,6 @@ void draw_room(float door_angle) {
 
 // Drawing function for the one_legged table
 void draw_one_legged_table() {
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 	int one_legged_table_top = define_one_legged_table_top();
 	int one_legged_table_leg = define_one_legged_table_leg();
 	int one_legged_table_base = define_one_legged_table_base();
@@ -368,8 +363,6 @@ void draw_one_legged_table() {
 
 // Drawing function for the chair
 void draw_chair() {
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
-
 	int chair_seat = define_chair_seat();
 	int chair_leg = define_chair_leg();
 	int chair_back = define_chair_back();
@@ -437,10 +430,10 @@ void draw_stool() {
 
 // Drawing function for the lamp
 void draw_lamp() {
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 	int lamp_stand = define_lamp_stand();
 	int lamp_head = define_lamp_head();
 	int lamp_base = define_lamp_base();
+	int lamp_light = define_lamp_light();
 
 	// lamp stand
 	glPushMatrix();
@@ -455,6 +448,11 @@ void draw_lamp() {
 		glPushMatrix();
 			glTranslatef(0,-1.5-0.05,0);
 			glCallList(lamp_base);
+		glPopMatrix();
+		// lamp light
+		glPushMatrix();
+			glTranslatef(0,1.5,0);
+			glCallList(lamp_light); // not actually visible because the lamp head is covering it
 		glPopMatrix();
 	glPopMatrix();
 }
@@ -519,7 +517,7 @@ void draw_all_objects(
 		draw_stool();
 	glPopMatrix();
 
-	// Lights
+	// // Lights
 	glPushMatrix();
 		glTranslatef(-3,-1.05,0);
 		draw_lamp();

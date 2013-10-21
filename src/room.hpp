@@ -26,6 +26,7 @@ int define_chair_back();
 int define_lamp_stand();
 int define_lamp_head();
 int define_lamp_base();
+int define_lamp_light();
 
 // Stool
 int define_stool_seat();

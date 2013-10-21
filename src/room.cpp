@@ -265,6 +265,15 @@ int define_lamp_base() {
 	return lamp_base;
 }
 
+int define_lamp_light() {
+	int lamp_light = glGenLists(1);
+	glNewList(lamp_light, GL_COMPILE);
+		glColor3f(1,1,1);
+		define_sphere(0.2,1);
+	glEndList();
+	return lamp_light;
+}
+
 // Stool
 
 int define_stool_seat() {
