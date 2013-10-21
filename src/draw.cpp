@@ -14,7 +14,7 @@ void draw_box(double lid_degrees) {
 	int base_and_walls = define_base_and_walls();
 	int lid = define_lid();
 	glPushMatrix();
-		glTranslatef(0,2,2);
+		// glTranslatef(0,2,2);
 		glScalef(0.5,0.85,0.5);
 		// draw the lid
 		glPushMatrix();
@@ -283,31 +283,30 @@ void draw_dancer(float* angles, float dancer_angle) {
 
 // Drawing function for the table
 void draw_table() {
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
+
 	int table_top = define_table_top();
-	int table_leg_front_left = define_table_leg();
-	int table_leg_front_right = define_table_leg();
-	int table_leg_back_right = define_table_leg();
-	int table_leg_back_left = define_table_leg();
+	int table_leg = define_table_leg();
 
 	glPushMatrix();
-		glTranslatef(0,-1,0);
+		// glTranslatef(0,-1.5,0);
 		glCallList(table_top);
 		glPushMatrix();
 			glColor3ub(100,100,50);
 			glTranslatef(-2+0.0625,-0.125-1,1-0.0625);
-			glCallList(table_leg_front_left);
+			glCallList(table_leg);
 		glPopMatrix();
 		glPushMatrix();
 			glTranslatef(2-0.0625,-0.125-1,1-0.0625);
-			glCallList(table_leg_front_right);
+			glCallList(table_leg);
 		glPopMatrix();
 		glPushMatrix();
 			glTranslatef(2-0.0625,-0.125-1,-1+0.0625);
-			glCallList(table_leg_back_right);
+			glCallList(table_leg);
 		glPopMatrix();
 		glPushMatrix();
 			glTranslatef(-2+0.0625,-0.125-1,-1+0.0625);
-			glCallList(table_leg_back_left);
+			glCallList(table_leg);
 		glPopMatrix();
 	glPopMatrix();
 }
@@ -419,10 +418,10 @@ void draw_stool() {
 	int stool_seat = define_stool_seat();
 	int stool_leg = define_stool_leg();
 	glPushMatrix();
-		glRotatef(10,1,0,0);
+		// glTranslatef(4,0,0);
 		glCallList(stool_seat);
 		glPushMatrix();
-			glTranslatef(0,-0.05-0.5,-0.7+0.025);
+			glTranslatef(0,-0.05-0.5,-0.7+0.05);
 			glCallList(stool_leg);
 		glPopMatrix();
 		glPushMatrix();
@@ -487,20 +486,43 @@ void draw_all_objects(
 	float* dancer_angles, float dancer_angle,
 	float door_angle
 ) {
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 	// Room walls and door
 	// draw_room(door_angle);
 
 	// Box and dancer
-	draw_box(lid_degrees);
-	draw_dancer(dancer_angles, dancer_angle);
+	glPushMatrix();
+		glTranslatef(0,2.6001,1.7);
+		draw_box(lid_degrees);
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(0,0.5,0);
+		draw_dancer(dancer_angles, dancer_angle);
+	glPopMatrix();
 
 	// Furniture
-	draw_table();
-	draw_one_legged_table();
-	draw_chair();
-	draw_stool();
+	glPushMatrix();
+		glTranslatef(0,-0.5,0);
+		draw_table();
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(5,-2.05,0);
+		draw_one_legged_table();
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(4.5,-2,-2.5);
+		glRotatef(-90,0,1,0);
+		draw_chair();
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef(0,-2,-3);
+		draw_stool();
+	glPopMatrix();
 
 	// Lights
-	draw_lamp();
-	draw_wall_light();
+	glPushMatrix();
+		glTranslatef(-3,-1.05,0);
+		draw_lamp();
+	glPopMatrix();
+	// draw_wall_light();
 }

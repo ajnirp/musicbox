@@ -127,10 +127,8 @@ int define_door() {
 
 int define_table_top() {
 	int table_top = glGenLists(1);
-	// int table_top_texture = LoadTexture("tex/wood.bmp");
 	glNewList(table_top, GL_COMPILE);
-		glColor3ub(155,69,39);
-		// glColor3ub(192,64,0);
+		glColor3ub(140,82,45);
 		glPushMatrix();
 			glScalef(4,0.25,2);
 			glutSolidCube(1);
@@ -142,8 +140,8 @@ int define_table_top() {
 int define_table_leg() {
 	int table_leg = glGenLists(1);
 	glNewList(table_leg, GL_COMPILE);
+		glColor3ub(140,82,45);
 		glPushMatrix();
-		glColor3ub(155,69,39);
 			glScalef(0.125,2,0.125);
 			glutSolidCube(1);
 		glPopMatrix();
@@ -154,12 +152,11 @@ int define_table_leg() {
 // one_legged table
 
 int define_one_legged_table_top() {
-	int one_legged_table_texture = LoadTexture("tex/wood.bmp");
 	int one_legged_table_top = glGenLists(1);
 	glNewList(one_legged_table_top, GL_COMPILE);
 		// define_cylinder(1.5,1.5,0.1,one_legged_table_texture);
+		glColor3ub(129,113,95);
 		glPushMatrix();
-			glColor3ub(129,113,95);
 			glScalef(2,0.1,2);
 			glutSolidCube(1);
 		glPopMatrix();
@@ -168,10 +165,10 @@ int define_one_legged_table_top() {
 }
 
 int define_one_legged_table_leg() {
-	int one_legged_table_texture = LoadTexture("tex/wood.bmp");
 	int one_legged_table_leg = glGenLists(1);
 	glNewList(one_legged_table_leg, GL_COMPILE);
 		// define_cylinder(0.3,0.3,1.5,one_legged_table_texture);
+		glColor3ub(129,113,95);
 		glPushMatrix();
 			glScalef(0.3,1.5,0.3);
 			glutSolidCube(1);
@@ -179,12 +176,11 @@ int define_one_legged_table_leg() {
 	glEndList();
 	return one_legged_table_leg;
 }
-
 int define_one_legged_table_base() {
-	int one_legged_table_texture = LoadTexture("tex/wood.bmp");
 	int one_legged_table_base = glGenLists(1);
 	glNewList(one_legged_table_base, GL_COMPILE);
 		// define_cylinder(0.7,0.7,0.1,one_legged_table_texture);
+		glColor3ub(129,113,95);
 		glPushMatrix();
 			glScalef(1.2,0.1,1.2);
 			glutSolidCube(1);

@@ -232,7 +232,7 @@ void display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0,0,3,0,0,0,0,1,0);
+	gluLookAt(0,0,5,0,0,0,0,1,0);
 
 	// if (lamp_light)	glEnable(GL_LIGHT1);
 	// else glDisable(GL_LIGHT1);
