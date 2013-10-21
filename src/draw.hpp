@@ -11,8 +11,8 @@ void draw_room(float door_angle);
 // Furniture
 void draw_table();
 void draw_chair();
-void draw_lamp();
 void draw_one_legged_table();
+void draw_stool();
 
 // Universal drawing function
 void draw_all_objects(
@@ -20,5 +20,9 @@ void draw_all_objects(
 	float* dancer_angles, float dancer_angle,
 	float door_angle
 );
+
+// Lights
+void draw_lamp();
+void draw_wall_light();
 
 #endif

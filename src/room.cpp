@@ -272,3 +272,80 @@ int define_lamp_base() {
 	glEndList();
 	return lamp_base;
 }
+
+// Stool
+
+int define_stool_seat() {
+	int texture_stool_seat = LoadTexture("tex/wood.bmp");
+	int stool_seat = glGenLists(1);
+	glNewList(stool_seat, GL_COMPILE);
+		glPushMatrix();
+			define_cylinder(0.7,0.7,0.1,texture_stool_seat);
+			glPushMatrix();
+				glEnable(GL_TEXTURE_2D);
+				glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+				glBindTexture(GL_TEXTURE_2D, texture_stool_seat);
+
+				glTranslatef(0,0.05,0);
+				glRotatef(90,1,0,0);
+				glBegin(GL_POLYGON); // base of the stool
+				for (int i = 0 ; i < 360 ; i++) {
+					if (i==0) glTexCoord2f(0,0);
+					if (i==90) glTexCoord2f(0,1);
+					if (i==180) glTexCoord2f(1,1);
+					if (i==270) glTexCoord2f(1,0);
+					glVertex3f(0.7*cos(i),0.7*sin(i),0);
+				}
+
+				glDisable(GL_TEXTURE_2D);
+			glEnd();
+			glPopMatrix();
+		glPopMatrix();
+	glEndList();
+	return stool_seat;
+}
+
+int define_stool_leg() {
+	int texture_stool_leg = LoadTexture("tex/wood.bmp");
+	int stool_leg = glGenLists(1);
+	glNewList(stool_leg, GL_COMPILE);
+		glPushMatrix();
+			define_cylinder(0.05,0.05,1,texture_stool_leg);
+		glPopMatrix();
+	glEndList();
+	return stool_leg;
+}
+
+// Wall Light
+
+int define_wall_light_base() {
+	int wall_light_base = glGenLists(1);
+	glNewList(wall_light_base, GL_COMPILE);
+		glPushMatrix();
+			glScalef(0.4,0.4,0.1);
+			glutSolidCube(1);
+		glPopMatrix();
+	glEndList();
+	return wall_light_base;
+}
+
+int define_wall_light_neck() {
+	int wall_light_neck = glGenLists(1);
+	glNewList(wall_light_neck, GL_COMPILE);
+		glPushMatrix();
+			glScalef(0.05,0.05,0.4);
+			glutSolidCube(1);
+		glPopMatrix();
+	glEndList();
+	return wall_light_neck;
+}
+
+int define_wall_light_head() {
+	int wall_light_head = glGenLists(1);
+	glNewList(wall_light_head, GL_COMPILE);
+		glPushMatrix();
+			define_cylinder(0.2,0.2,0.5,-1);
+		glPopMatrix();
+	glEndList();
+	return wall_light_head;
+}

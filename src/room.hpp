@@ -27,4 +27,14 @@ int define_lamp_stand();
 int define_lamp_head();
 int define_lamp_base();
 
+// Stool
+int define_stool_seat();
+int define_stool_leg();
+
+// Wall light
+
+int define_wall_light_base();
+int define_wall_light_neck();
+int define_wall_light_head();
+
 #endif

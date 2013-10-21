@@ -46,7 +46,7 @@ Keybindings
 
 1. Exit the program: `Esc`
 2. Toggle which object to move: `t` (when you start the program, the dancer is selected)
-3. Toggle which side to move: `l` (when you start the program, the left side is selected)
+3. Toggle which side to move: `r` (when you start the program, the left side is selected)
 4. Select joint: `0` to `9`
 5. Rotate about x-axis: `w` and `s`
 6. Rotate about x-axis: `a` and `d`
@@ -81,7 +81,7 @@ When the dancer is selected, you need to select which of the joints to move. For
 
 Pressing any number key from `0` to `9` will select that joint. By default, the selected joint is the head-neck joint.
 
-Once you've selected a joint, you have to select a side to move (in case the joint is for a body part for which there are two parts. For example, the doll has two knees. To toggle the side that you want to move, press `l`. By default, the selected side is the left side. So if you run the program and then press `8`, and press `w`, the *left* knee will bend backward.
+Once you've selected a joint, you have to select a side to move (in case the joint is for a body part for which there are two parts. For example, the dancer has two knees. To toggle the side that you want to move, press `r`. By default, the selected side is the left side. So if you run the program and then press `8`, and press `w`, the *left* knee will bend backward.
 
 Once you've selected a joint and a side, the keybindings are simple. Use `w` and `s` to rotate about the x-axis. For the y-axis, `a` and `d`. For the z-axis, `q` and `e`. Note that each joint is restricted to a certain range of movement so that the whole doll looks realistic. Also note that pressing `a`, `d`, `q` or `e` will have no effect if you have selected a joint that has only 1 degree of freedom, like the doll's knees or its elbows.
 

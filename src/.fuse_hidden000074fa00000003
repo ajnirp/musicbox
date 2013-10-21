@@ -80,11 +80,6 @@ void init_limits() {
 // these values are hardcoded by us
 
 /* Global vars */
-
-float world_x_angle = 0;
-float world_y_angle = 0;
-float world_z_angle = 0;
-
 float lid_angle = 0;
 float box_angle = 0;
 float lid_angle_increment = 3.f;
@@ -229,28 +224,17 @@ void initGL() {
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	gluLookAt(0,0,3,0,0,0,0,1,0);
-
 	// if (lamp_light)	glEnable(GL_LIGHT1);
 	// else glDisable(GL_LIGHT1);
 
 	// if (wall_light)	glEnable(GL_LIGHT1);
 	// else glDisable(GL_LIGHT1);
 	
-	glPushMatrix();
-		glRotatef(world_x_angle, 1,0,0);
-		glRotatef(world_y_angle, 0,1,0);
-		glRotatef(world_z_angle, 0,0,1);
-		draw_all_objects(
-			lid_angle,
-			dancer_angles, dancer_angle,
-			door_angle
-		);
-	glPopMatrix();
-
+	draw_all_objects(
+		lid_angle,
+		dancer_angles, dancer_angle,
+		door_angle
+	);
 	glutSwapBuffers();
 }
 
@@ -273,7 +257,6 @@ void reshape(int w, int h) {
 
 void keyboard(unsigned char key, int x, int y) {
 	if (65 <= key and key <= 90) key += 32; // so that even if caps lock is on, the program still works as expected
-	int mod = glutGetModifiers();
 	switch(key) {
 		case 27: {
 			cout << "Exiting the program...\n";
@@ -317,46 +300,36 @@ void keyboard(unsigned char key, int x, int y) {
 
 		// rotate X
 		case 's': {
-			if (mod == GLUT_ACTIVE_SHIFT) {
-				world_x_angle += 3;
-			}
-			else {
-				if (move_box) {
-					// don't change the angle if it is already shut
-					if (-1*lid_angle >= lid_angle_increment) {
-						lid_angle += lid_angle_increment;
-					}
+			if (move_box) {
+				// don't change the angle if it is already shut
+				if (-1*lid_angle >= lid_angle_increment) {
+					lid_angle += lid_angle_increment;
 				}
-				// all joints whether they have 1 or 3 dofs can rotate
-				// about the x-axis
-				else {
-					int index = find_index_x();
-					if (dancer_angles[index]+3 <= limits[2*index+1]) {
-						dancer_angles[index] += 3;
-					}
+			}
+			// all joints whether they have 1 or 3 dofs can rotate
+			// about the x-axis
+			else {
+				int index = find_index_x();
+				if (dancer_angles[index]+3 <= limits[2*index+1]) {
+					dancer_angles[index] += 3;
 				}
 			}
 			glutPostRedisplay();
 		}
 		break;
 		case 'w': {
-			if (mod == GLUT_ACTIVE_SHIFT) {
-				world_x_angle -= 3;
-			}
-			else {
-				if (move_box) {
-					// don't change the angle if it is already fully open
-					if (-1*lid_angle <= 180-lid_angle_increment) {
-						lid_angle -= lid_angle_increment;
-					}
+			if (move_box) {
+				// don't change the angle if it is already fully open
+				if (-1*lid_angle <= 180-lid_angle_increment) {
+					lid_angle -= lid_angle_increment;
 				}
-				// all joints whether they have 1 or 3 dofs can rotate
-				// about the x-axis
-				else {
-					int index = find_index_x();
-					if (dancer_angles[index]-3 >= limits[2*index]) {
-						dancer_angles[index] -= 3;
-					}
+			}
+			// all joints whether they have 1 or 3 dofs can rotate
+			// about the x-axis
+			else {
+				int index = find_index_x();
+				if (dancer_angles[index]-3 >= limits[2*index]) {
+					dancer_angles[index] -= 3;
 				}
 			}
 			glutPostRedisplay();
@@ -365,15 +338,10 @@ void keyboard(unsigned char key, int x, int y) {
 
 		// rotate Y
 		case 'a': {
-			if (mod == GLUT_ACTIVE_SHIFT) {
-				world_y_angle -= 3;
-			}
-			else {
-				if (not(move_box) and curr_joint <= 7) {
-					int index = find_index_y();
-					if (dancer_angles[index]-3 >= limits[2*index]) {
-						dancer_angles[index] -= 3;
-					}
+			if (not(move_box) and curr_joint <= 7) {
+				int index = find_index_y();
+				if (dancer_angles[index]-3 >= limits[2*index]) {
+					dancer_angles[index] -= 3;
 				}
 			}
 			glutPostRedisplay();
@@ -381,16 +349,11 @@ void keyboard(unsigned char key, int x, int y) {
 		}
 		break;
 		case 'd': {
-			if (mod == GLUT_ACTIVE_SHIFT) {
-				world_y_angle += 3;
-			}
-			else {
-				// check if we have to move the box
-				if (not(move_box) and curr_joint <= 7) {
-					int index = find_index_y();
-					if (dancer_angles[index]+3 <= limits[2*index+1]) {
-						dancer_angles[index] += 3;
-					}
+			// check if we have to move the box
+			if (not(move_box) and curr_joint <= 7) {
+				int index = find_index_y();
+				if (dancer_angles[index]+3 <= limits[2*index+1]) {
+					dancer_angles[index] += 3;
 				}
 			}
 			glutPostRedisplay();
@@ -400,32 +363,22 @@ void keyboard(unsigned char key, int x, int y) {
 
 		// rotate Z
 		case 'q': {
-			if (mod == GLUT_ACTIVE_SHIFT) {
-				world_z_angle -= 3;
-			}
-			else {
-				if (move_box) {}
-				else if (curr_joint <= 7) {
-					int index = find_index_z();
-					if (dancer_angles[index]+3 <= limits[2*index+1]) {
-						dancer_angles[index] += 3;
-					}
+			if (move_box) {}
+			else if (curr_joint <= 7) {
+				int index = find_index_z();
+				if (dancer_angles[index]+3 <= limits[2*index+1]) {
+					dancer_angles[index] += 3;
 				}
 			}
 			glutPostRedisplay();
 		}
 		break;
 		case 'e': {
-			if (mod == GLUT_ACTIVE_SHIFT) {
-				world_z_angle += 3;
-			}
-			else {
-				if (move_box) {}
-				else if (curr_joint <= 7) {
-					int index = find_index_z();
-					if (dancer_angles[index]-3 >= limits[2*index]) {
-						dancer_angles[index] -= 3;
-					}
+			if (move_box) {}
+			else if (curr_joint <= 7) {
+				int index = find_index_z();
+				if (dancer_angles[index]-3 >= limits[2*index]) {
+					dancer_angles[index] -= 3;
 				}
 			}
 			glutPostRedisplay();

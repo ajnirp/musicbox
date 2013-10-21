@@ -14,8 +14,9 @@ void draw_box(double lid_degrees) {
 	int base_and_walls = define_base_and_walls();
 	int lid = define_lid();
 	glPushMatrix();
-		glTranslatef(0,2,2);
-		glScalef(0.5,0.85,0.5);
+		glTranslatef(-1.5,0,0);
+		// glRotatef(box_degrees, 0, 1, 0);
+		glTranslatef(0, 0, 2);
 		// draw the lid
 		glPushMatrix();
 			glTranslatef(0, -2, -5);
@@ -72,8 +73,8 @@ void draw_dancer(float* angles, float dancer_angle) {
 
 	// torso3 and onwards
 	glPushMatrix();
-		glTranslatef(0,-0.3,0); // translate the entire dancer along the y-axis
-		glScalef(.2,.2,.2); // scale the dancer
+		glTranslatef(1.5,-1,0); // translate the entire dancer along the y-axis
+		// glScalef(.5,.5,.5); // scale the dancer
 		glRotatef(dancer_angle,0,1,0);
 		glCallList(torso3); // draw torso3
 		// torso2 and onwards
@@ -468,7 +469,7 @@ void draw_wall_light() {
 
 	glPushMatrix();
 		glRotatef(90,0,1,0);
-		glScalef(1.5,1.5,1.5);
+		glScalef(100,100,100);
 		glCallList(wall_light_base);
 		glPushMatrix();
 			glTranslatef(0,0,0.05+0.2);
@@ -491,8 +492,8 @@ void draw_all_objects(
 	// draw_room(door_angle);
 
 	// Box and dancer
-	draw_box(lid_degrees);
-	draw_dancer(dancer_angles, dancer_angle);
+	// draw_box(lid_degrees);
+	// draw_dancer(dancer_angles, dancer_angle);
 
 	// Furniture
 	// draw_table();
@@ -502,5 +503,5 @@ void draw_all_objects(
 
 	// Lights
 	// draw_lamp();
-	// draw_wall_light();
+	draw_wall_light();
 }
