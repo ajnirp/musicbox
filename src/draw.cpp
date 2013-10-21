@@ -309,35 +309,37 @@ void draw_table() {
 
 // Drawing function for the room walls
 void draw_room(float door_angle) {
-	int room_floor = define_horizontal_wall(-3);
-	int room_ceiling = define_horizontal_wall(4);
+	int room_floor = define_horizontal_wall(-3, true);
+	int room_ceiling = define_horizontal_wall(4, true);
 
-	int room_left_wall = define_side_wall(-5);
-	int room_right_wall = define_side_wall(5);
+	int room_left_wall = define_side_wall(-6);
+	int room_right_wall = define_side_wall(8.5);
 
-	int room_front_wall = define_front_wall();
-	int room_back_wall = define_back_wall();
+	int room_front_wall = define_front_wall(false);
+	int room_back_wall = define_back_wall(true);
 
 	int door = define_door();
 	glPushMatrix();
 		glTranslatef(0,-1,-2);
 		glScalef(0.9,0.9,0.9);
 
-		glCallList(room_floor);
-		glCallList(room_ceiling);
-
-		glCallList(room_left_wall);
-		glCallList(room_right_wall);
-
-		glCallList(room_back_wall);
-		glCallList(room_front_wall);
-
 		glPushMatrix();
-			glTranslatef(3,0,3);
-			glRotatef(door_angle,0,1,0);
-			glTranslatef(-3,0,-3);
-			glCallList(door);
+			glCallList(room_floor);
+			glCallList(room_ceiling);
+
+			glCallList(room_left_wall);
+			glCallList(room_right_wall);
+
+			glCallList(room_back_wall);
+			// glCallList(room_front_wall);
 		glPopMatrix();
+
+		// glPushMatrix();
+		// 	glTranslatef(3,0,3);
+		// 	glRotatef(door_angle,0,1,0);
+		// 	glTranslatef(-3,0,-3);
+		// 	glCallList(door);
+		// glPopMatrix();
 		
 	glPopMatrix();
 }
@@ -486,7 +488,7 @@ void draw_all_objects(
 ) {
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 	// Room walls and door
-	// draw_room(door_angle);
+	draw_room(door_angle);
 
 	// Box and dancer
 	glPushMatrix();
@@ -517,10 +519,15 @@ void draw_all_objects(
 		draw_stool();
 	glPopMatrix();
 
-	// // Lights
+	// Lights
 	glPushMatrix();
-		glTranslatef(-3,-1.05,0);
+		glTranslatef(-3,-1.5,0);
 		draw_lamp();
 	glPopMatrix();
-	// draw_wall_light();
+
+	glPushMatrix();
+		glTranslatef(0,0,-4);
+		glRotatef(-90,0,1,0);
+		draw_wall_light();
+	glPopMatrix();
 }

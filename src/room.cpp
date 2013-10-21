@@ -10,22 +10,26 @@
 
 // Room walls
 
-int define_horizontal_wall(int y) {
+int define_horizontal_wall(int y, bool is_textured) {
 	GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
 	int room_floor = glGenLists(1);
 	glNewList(room_floor, GL_COMPILE);
-	glEnable(GL_TEXTURE_2D);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, texture_walls);
+		if (is_textured) {
+			glEnable(GL_TEXTURE_2D);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+			glBindTexture(GL_TEXTURE_2D, texture_walls);
+		}
 		glPushMatrix();
 			glBegin(GL_QUADS);
-				glTexCoord2f(0.0, 0.0);glVertex3f(-5,y,3);
-				glTexCoord2f(0.0, 1.0);glVertex3f(5,y,3);
-				glTexCoord2f(1.0, 1.0);glVertex3f(5,y,-3);
-				glTexCoord2f(1.0, 0.0);glVertex3f(-5,y,-3);
+				glTexCoord2f(0.0, 0.0);glVertex3f(-6,y,3);
+				glTexCoord2f(0.0, 1.0);glVertex3f(8.5,y,3);
+				glTexCoord2f(1.0, 1.0);glVertex3f(8.5,y,-4);
+				glTexCoord2f(1.0, 0.0);glVertex3f(-6,y,-4);
 			glEnd();
 		glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
+		if (is_textured) {
+			glDisable(GL_TEXTURE_2D);
+		}
 	glEndList();
 	return room_floor;
 }
@@ -40,8 +44,8 @@ int define_side_wall(int x) {
 		glPushMatrix();
 			glBegin(GL_QUADS);
 				glTexCoord2f(0.0, 0.0);glVertex3f(x,-3,3);
-				glTexCoord2f(0.0, 1.0);glVertex3f(x,-3,-3);
-				glTexCoord2f(1.0, 1.0);glVertex3f(x,4,-3);
+				glTexCoord2f(0.0, 1.0);glVertex3f(x,-3,-4);
+				glTexCoord2f(1.0, 1.0);glVertex3f(x,4,-4);
 				glTexCoord2f(1.0, 0.0);glVertex3f(x,4,3);
 			glEnd();
 		glPopMatrix();
@@ -50,50 +54,70 @@ int define_side_wall(int x) {
 	return room_side_wall;
 }
 
-int define_back_wall() {
+int define_back_wall(bool is_textured) {
 	GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
 	int room_facing_wall = glGenLists(1);
 	glNewList(room_facing_wall, GL_COMPILE);
-		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		glBindTexture(GL_TEXTURE_2D, texture_walls);
+		if (is_textured) {
+			glEnable(GL_TEXTURE_2D);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+			glBindTexture(GL_TEXTURE_2D, texture_walls);
+		}
 		glPushMatrix();
 			glBegin(GL_QUADS);
-				glTexCoord2f(0.0, 0.0);glVertex3f(-5,-3,-3);
-				glTexCoord2f(0.0, 1.0);glVertex3f(5,-3,-3);
-				glTexCoord2f(1.0, 1.0);glVertex3f(5,4,-3);
-				glTexCoord2f(1.0, 0.0);glVertex3f(-5,4,-3);
+				glTexCoord2f(0.0, 0.0);glVertex3f(-6,-3,-4);
+				glTexCoord2f(0.0, 1.0);glVertex3f(8.5,-3,-4);
+				glTexCoord2f(1.0, 1.0);glVertex3f(8.5,4,-4);
+				glTexCoord2f(1.0, 0.0);glVertex3f(-6,4,-4);
 			glEnd();
 		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
+		if (is_textured) {
+			glDisable(GL_TEXTURE_2D);
+		}
 	glEndList();
 	return room_facing_wall;
 }
 
-int define_front_wall() {
+int define_front_wall(bool is_textured) {
 	GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
 	int room_facing_wall = glGenLists(1);
 	glNewList(room_facing_wall, GL_COMPILE);
-		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		glBindTexture(GL_TEXTURE_2D, texture_walls);
+		if (is_textured) {
+			glEnable(GL_TEXTURE_2D);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+			glBindTexture(GL_TEXTURE_2D, texture_walls);
+		}
 		glBegin(GL_QUADS);
-			glTexCoord2f(0.0, 0.0);glVertex3f(-5,-3,3);
-			glTexCoord2f(0.6, 0.0);glVertex3f(1,-3,3);
-			glTexCoord2f(0.6, 1.0);glVertex3f(1,4,3);
-			glTexCoord2f(0.0, 1.0);glVertex3f(-5,4,3);
+			// glTexCoord2f(0.0, 0.0);
+			glVertex3f(-5,-3,3);
+			// glTexCoord2f(0.6, 0.0);
+			glVertex3f(1,-3,3);
+			// glTexCoord2f(0.6, 1.0);
+			glVertex3f(1,4,3);
+			// glTexCoord2f(0.0, 1.0);
+			glVertex3f(-5,4,3);
 
-			glTexCoord2f(0.6, 0.42);glVertex3f(1,0,3);
-			glTexCoord2f(0.8, 0.42);glVertex3f(3,0,3);
-			glTexCoord2f(0.8, 1.0);glVertex3f(3,4,3);
-			glTexCoord2f(0.6, 1.0);glVertex3f(1,4,3);
+			// glTexCoord2f(0.6, 0.42);
+			glVertex3f(1,0,3);
+			// glTexCoord2f(0.8, 0.42);
+			glVertex3f(3,0,3);
+			// glTexCoord2f(0.8, 1.0);
+			glVertex3f(3,4,3);
+			// glTexCoord2f(0.6, 1.0);
+			glVertex3f(1,4,3);
 
-			glTexCoord2f(0.8, 0.0);glVertex3f(3,-3,3);
-			glTexCoord2f(1.0, 0.0);glVertex3f(5,-3,3);
-			glTexCoord2f(1.0, 1.0);glVertex3f(5,4,3);
-			glTexCoord2f(0.8, 1.0);glVertex3f(3,4,3);
+			// glTexCoord2f(0.8, 0.0);
+			glVertex3f(3,-3,3);
+			// glTexCoord2f(1.0, 0.0);
+			glVertex3f(5,-3,3);
+			// glTexCoord2f(1.0, 1.0);
+			glVertex3f(5,4,3);
+			// glTexCoord2f(0.8, 1.0);
+			glVertex3f(3,4,3);
 		glEnd();
-		glDisable(GL_TEXTURE_2D);
+		if (is_textured) {
+			glDisable(GL_TEXTURE_2D);
+		}
 	glEndList();
 	return room_facing_wall;
 }
@@ -333,21 +357,25 @@ int define_wall_light_base() {
 
 int define_wall_light_neck() {
 	int wall_light_neck = glGenLists(1);
+	int texture_wall_light_neck = LoadTexture("tex/metal.bmp");
 	glNewList(wall_light_neck, GL_COMPILE);
 		glColor3ub(90,90,90);
 		glPushMatrix();
-			glScalef(0.05,0.05,0.4);
-			glutSolidCube(1);
+			// glScalef(0.05,0.05,0.4);
+			// glutSolidCube(1);
+			glRotatef(90,1,0,0);
+			define_cylinder(0.025,0.025,0.4,texture_wall_light_neck);
 		glPopMatrix();
 	glEndList();
 	return wall_light_neck;
 }
 
 int define_wall_light_head() {
+	int texture_wall_light_head = LoadTexture("tex/metal.bmp");
 	int wall_light_head = glGenLists(1);
 	glNewList(wall_light_head, GL_COMPILE);
 		glPushMatrix();
-			define_cylinder(0.2,0.2,0.5,-1);
+			define_cylinder(0.2,0.2,0.5,texture_wall_light_head);
 		glPopMatrix();
 	glEndList();
 	return wall_light_head;
