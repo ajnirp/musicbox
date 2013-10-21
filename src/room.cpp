@@ -127,17 +127,13 @@ int define_door() {
 
 int define_table_top() {
 	int table_top = glGenLists(1);
-	int table_top_texture = LoadTexture("tex/wood.bmp");
+	// int table_top_texture = LoadTexture("tex/wood.bmp");
 	glNewList(table_top, GL_COMPILE);
-		glColor3ub(167,123,204);
+		glColor3ub(155,69,39);
+		// glColor3ub(192,64,0);
 		glPushMatrix();
-			// glEnable(GL_TEXTURE_GEN_S); //enable texture coordinate generation
-		 //    glEnable(GL_TEXTURE_GEN_T);
-		 //    glBindTexture(GL_TEXTURE_2D, table_top_texture);
 			glScalef(4,0.25,2);
 			glutSolidCube(1);
-			// glDisable(GL_TEXTURE_GEN_S); //enable texture coordinate generation
-		 //    glDisable(GL_TEXTURE_GEN_T);
 		glPopMatrix();
 	glEndList();
 	return table_top;
@@ -147,7 +143,7 @@ int define_table_leg() {
 	int table_leg = glGenLists(1);
 	glNewList(table_leg, GL_COMPILE);
 		glPushMatrix();
-			glColor3ub(50,100,50);
+		glColor3ub(155,69,39);
 			glScalef(0.125,2,0.125);
 			glutSolidCube(1);
 		glPopMatrix();
@@ -321,6 +317,7 @@ int define_stool_leg() {
 int define_wall_light_base() {
 	int wall_light_base = glGenLists(1);
 	glNewList(wall_light_base, GL_COMPILE);
+		glColor3ub(90,90,90);
 		glPushMatrix();
 			glScalef(0.4,0.4,0.1);
 			glutSolidCube(1);
@@ -332,6 +329,7 @@ int define_wall_light_base() {
 int define_wall_light_neck() {
 	int wall_light_neck = glGenLists(1);
 	glNewList(wall_light_neck, GL_COMPILE);
+		glColor3ub(90,90,90);
 		glPushMatrix();
 			glScalef(0.05,0.05,0.4);
 			glutSolidCube(1);

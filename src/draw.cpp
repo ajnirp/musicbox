@@ -277,7 +277,7 @@ void draw_dancer(float* angles, float dancer_angle) {
 				glPopMatrix();
 			glPopMatrix();
 		glPopMatrix();
-		glPopMatrix();
+		// glPopMatrix();
 	glPopMatrix();
 }
 
@@ -495,12 +495,12 @@ void draw_all_objects(
 	draw_dancer(dancer_angles, dancer_angle);
 
 	// Furniture
-	// draw_table();
-	// draw_one_legged_table();
-	// draw_chair();
-	// draw_stool();
+	draw_table();
+	draw_one_legged_table();
+	draw_chair();
+	draw_stool();
 
 	// Lights
-	// draw_lamp();
-	// draw_wall_light();
+	draw_lamp();
+	draw_wall_light();
 }
