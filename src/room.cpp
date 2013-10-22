@@ -20,11 +20,13 @@ int define_horizontal_wall(int y, bool is_textured, int texture) {
 			glBindTexture(GL_TEXTURE_2D, texture);
 		}
 		glPushMatrix();
+			int back_z = -4;
+			int front_z = 4;
 			glBegin(GL_QUADS);
-				glTexCoord2f(0.0, 0.0);glVertex3f(-6,y,3);
-				glTexCoord2f(1.0, 0.0);glVertex3f(9,y,3);
-				glTexCoord2f(1.0, 1.0);glVertex3f(9,y,-4);
-				glTexCoord2f(0.0, 1.0);glVertex3f(-6,y,-4);
+				glTexCoord2f(0.0, 0.0);glVertex3f(-6,y,front_z);
+				glTexCoord2f(1.0, 0.0);glVertex3f(9,y,front_z);
+				glTexCoord2f(1.0, 1.0);glVertex3f(9,y,back_z);
+				glTexCoord2f(0.0, 1.0);glVertex3f(-6,y,back_z);
 			glEnd();
 		glPopMatrix();
 		if (is_textured) {
@@ -42,11 +44,13 @@ int define_side_wall(int x) {
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 		glBindTexture(GL_TEXTURE_2D, texture_walls);
 		glPushMatrix();
+			int front_z = 4;
+			int back_z = -4;
 			glBegin(GL_QUADS);
-				glTexCoord2f(0.0, 0.0);glVertex3f(x,-3,3);
-				glTexCoord2f(1.0, 0.0);glVertex3f(x,-3,-4);
-				glTexCoord2f(1.0, 1.0);glVertex3f(x,6,-4);
-				glTexCoord2f(0.0, 1.0);glVertex3f(x,6,3);
+				glTexCoord2f(0.0, 0.0);glVertex3f(x,-3,front_z);
+				glTexCoord2f(1.0, 0.0);glVertex3f(x,-3,back_z);
+				glTexCoord2f(1.0, 1.0);glVertex3f(x,6,back_z);
+				glTexCoord2f(0.0, 1.0);glVertex3f(x,6,front_z);
 			glEnd();
 		glPopMatrix();
 		glDisable(GL_TEXTURE_2D);
@@ -87,33 +91,38 @@ int define_front_wall(bool is_textured) {
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 			glBindTexture(GL_TEXTURE_2D, texture_walls);
 		}
+		int z = 4;
+		int door_left_x = 2;
+		int door_right_x = 5;
+		int door_bottom_y = -3;
+		int door_top_y = 2;
 		glBegin(GL_QUADS);
 			// glTexCoord2f(0.0, 0.0);
-			glVertex3f(-5,-3,3);
+			glVertex3f(-6,door_bottom_y,z);
 			// glTexCoord2f(0.6, 0.0);
-			glVertex3f(1,-3,3);
+			glVertex3f(door_left_x,door_bottom_y,z);
 			// glTexCoord2f(0.6, 1.0);
-			glVertex3f(1,4,3);
+			glVertex3f(door_left_x,6,z);
 			// glTexCoord2f(0.0, 1.0);
-			glVertex3f(-5,4,3);
+			glVertex3f(-6,6,z);
 
 			// glTexCoord2f(0.6, 0.42);
-			glVertex3f(1,0,3);
+			glVertex3f(door_left_x,door_top_y,z);
 			// glTexCoord2f(0.8, 0.42);
-			glVertex3f(3,0,3);
+			glVertex3f(door_right_x,door_top_y,z);
 			// glTexCoord2f(0.8, 1.0);
-			glVertex3f(3,4,3);
+			glVertex3f(door_right_x,6,z);
 			// glTexCoord2f(0.6, 1.0);
-			glVertex3f(1,4,3);
+			glVertex3f(door_left_x,6,z);
 
 			// glTexCoord2f(0.8, 0.0);
-			glVertex3f(3,-3,3);
+			glVertex3f(door_right_x,door_bottom_y,z);
 			// glTexCoord2f(1.0, 0.0);
-			glVertex3f(5,-3,3);
+			glVertex3f(9,door_bottom_y,z);
 			// glTexCoord2f(1.0, 1.0);
-			glVertex3f(5,4,3);
+			glVertex3f(9,6,z);
 			// glTexCoord2f(0.8, 1.0);
-			glVertex3f(3,4,3);
+			glVertex3f(door_right_x,6,z);
 		glEnd();
 		if (is_textured) {
 			glDisable(GL_TEXTURE_2D);

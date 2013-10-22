@@ -335,7 +335,7 @@ void draw_room(float door_angle) {
 			glCallList(room_right_wall);
 
 			glCallList(room_back_wall);
-			// glCallList(room_front_wall);
+			glCallList(room_front_wall);
 		glPopMatrix();
 
 		// glPushMatrix();
@@ -530,7 +530,7 @@ void draw_all_objects(
 	glPopMatrix();
 
 	glPushMatrix();
-		glTranslatef(4,2,-4);
+		glTranslatef(4,2,-5);
 		glRotatef(-90,0,1,0);
 		draw_wall_light();
 	glPopMatrix();
