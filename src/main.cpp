@@ -232,7 +232,7 @@ void display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0,0,5,0,0,0,0,1,0);
+	gluLookAt(0,0,7,0,0,0,0,1,0);
 
 	// if (lamp_light)	glEnable(GL_LIGHT1);
 	// else glDisable(GL_LIGHT1);
@@ -265,10 +265,10 @@ void reshape(int w, int h) {
 
 	gluPerspective(120, ratio, 1, 100);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	// glMatrixMode(GL_MODELVIEW);
+	// glLoadIdentity();
 
-	gluLookAt(0,0,3,0,0,0,0,1,0);
+	// gluLookAt(0,0,3,0,0,0,0,1,0);
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -346,7 +346,7 @@ void keyboard(unsigned char key, int x, int y) {
 			else {
 				if (move_box) {
 					// don't change the angle if it is already fully open
-					if (-1*lid_angle <= 180-lid_angle_increment) {
+					if (-1*lid_angle <= 90-lid_angle_increment) {
 						lid_angle -= lid_angle_increment;
 					}
 				}
@@ -462,12 +462,31 @@ void keyboard(unsigned char key, int x, int y) {
 			lamp_light = not lamp_light; 
 			cout << "Lamp light is now " << (lamp_light ? "ON" : "OFF") << endl;
 		}
+		break;
 
 		// toggle wall light
 		case 'k': {
 			wall_light = not wall_light; 
 			cout << "Wall light is now " << (wall_light ? "ON" : "OFF") << endl;
 		}
+		break;
+
+		// open and close door
+		case '+': {
+			if (door_angle <= 90-3) {
+				door_angle += 3;
+			}
+			glutPostRedisplay();
+		}
+		break;
+
+		case '-': {
+			if (door_angle >= 3) {
+				door_angle -= 3;
+			}
+			glutPostRedisplay();
+		}
+		break;
 	}
 }
 

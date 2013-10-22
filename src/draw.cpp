@@ -319,7 +319,7 @@ void draw_room(float door_angle) {
 	int room_left_wall = define_side_wall(-6);
 	int room_right_wall = define_side_wall(9);
 
-	int room_front_wall = define_front_wall(false);
+	int room_front_wall = define_front_wall(true);
 	int room_back_wall = define_back_wall(true);
 
 	int door = define_door();
@@ -338,12 +338,12 @@ void draw_room(float door_angle) {
 			glCallList(room_front_wall);
 		glPopMatrix();
 
-		// glPushMatrix();
-		// 	glTranslatef(3,0,3);
-		// 	glRotatef(door_angle,0,1,0);
-		// 	glTranslatef(-3,0,-3);
-		// 	glCallList(door);
-		// glPopMatrix();
+		glPushMatrix();
+			glTranslatef(5,0,4);
+			glRotatef(door_angle,0,1,0);
+			glTranslatef(-5,0,-4);
+			glCallList(door);
+		glPopMatrix();
 		
 	glPopMatrix();
 }
@@ -496,17 +496,18 @@ void draw_all_objects(
 
 	// Box and dancer
 	glPushMatrix();
-		glTranslatef(0,2.6001,1.7);
+		// glTranslatef(0,2.6001,1.7);
+		glTranslatef(-2,2.1+.001,-1);
 		draw_box(lid_degrees);
 	glPopMatrix();
 	glPushMatrix();
-		glTranslatef(0,0.5,0);
+		glTranslatef(-2,0,-2.7);
 		draw_dancer(dancer_angles, dancer_angle);
 	glPopMatrix();
 
 	// Furniture
 	glPushMatrix();
-		glTranslatef(0,-0.5,0);
+		glTranslatef(-2,-1,-2.7);
 		draw_table();
 	glPopMatrix();
 	glPushMatrix();
@@ -519,7 +520,7 @@ void draw_all_objects(
 		draw_chair();
 	glPopMatrix();
 	glPushMatrix();
-		glTranslatef(0,-2,-3);
+		glTranslatef(0,-2,0);
 		draw_stool();
 	glPopMatrix();
 

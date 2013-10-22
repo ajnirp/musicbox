@@ -83,7 +83,7 @@ int define_back_wall(bool is_textured) {
 }
 
 int define_front_wall(bool is_textured) {
-	GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
+	GLuint texture_walls = LoadTexture("tex/wood4.bmp");
 	int room_facing_wall = glGenLists(1);
 	glNewList(room_facing_wall, GL_COMPILE);
 		if (is_textured) {
@@ -97,31 +97,31 @@ int define_front_wall(bool is_textured) {
 		int door_bottom_y = -3;
 		int door_top_y = 2;
 		glBegin(GL_QUADS);
-			// glTexCoord2f(0.0, 0.0);
+			glTexCoord2f(0.0, 0.0);
 			glVertex3f(-6,door_bottom_y,z);
-			// glTexCoord2f(0.6, 0.0);
+			glTexCoord2f(0.6, 0.0);
 			glVertex3f(door_left_x,door_bottom_y,z);
-			// glTexCoord2f(0.6, 1.0);
+			glTexCoord2f(0.6, 1.0);
 			glVertex3f(door_left_x,6,z);
-			// glTexCoord2f(0.0, 1.0);
+			glTexCoord2f(0.0, 1.0);
 			glVertex3f(-6,6,z);
 
-			// glTexCoord2f(0.6, 0.42);
+			glTexCoord2f(0.6, 0.42);
 			glVertex3f(door_left_x,door_top_y,z);
-			// glTexCoord2f(0.8, 0.42);
+			glTexCoord2f(0.8, 0.42);
 			glVertex3f(door_right_x,door_top_y,z);
-			// glTexCoord2f(0.8, 1.0);
+			glTexCoord2f(0.8, 1.0);
 			glVertex3f(door_right_x,6,z);
-			// glTexCoord2f(0.6, 1.0);
+			glTexCoord2f(0.6, 1.0);
 			glVertex3f(door_left_x,6,z);
 
-			// glTexCoord2f(0.8, 0.0);
+			glTexCoord2f(0.8, 0.0);
 			glVertex3f(door_right_x,door_bottom_y,z);
-			// glTexCoord2f(1.0, 0.0);
+			glTexCoord2f(1.0, 0.0);
 			glVertex3f(9,door_bottom_y,z);
-			// glTexCoord2f(1.0, 1.0);
+			glTexCoord2f(1.0, 1.0);
 			glVertex3f(9,6,z);
-			// glTexCoord2f(0.8, 1.0);
+			glTexCoord2f(0.8, 1.0);
 			glVertex3f(door_right_x,6,z);
 		glEnd();
 		if (is_textured) {
@@ -132,7 +132,7 @@ int define_front_wall(bool is_textured) {
 }
 
 int define_door() {
-	GLuint texture_door = LoadTexture("tex/wood.bmp");
+	GLuint texture_door = LoadTexture("tex/wood2.bmp");
 	int door = glGenLists(1);
 	glNewList(door, GL_COMPILE);
 		glPushMatrix();
@@ -140,17 +140,30 @@ int define_door() {
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 			glBindTexture(GL_TEXTURE_2D, texture_door);
 			// glColor3ub(40,50,60);
+			int door_right_x = 5;
+			int door_left_x = 2;
+			int door_top_y = 2;
+			int door_bottom_y = -3;
+			int z = 4;
 			glBegin(GL_QUADS);
 				glTexCoord2f(0.0, 0.0);
-				glVertex3f(1,-3,3);
+				glVertex3f(door_left_x,door_bottom_y,z);
 				glTexCoord2f(0.0, 1.0);
-				glVertex3f(3,-3,3);
+				glVertex3f(door_right_x,door_bottom_y,z);
 				glTexCoord2f(1.0, 1.0);
-				glVertex3f(3,0,3);
+				glVertex3f(door_right_x,door_top_y,z);
 				glTexCoord2f(1.0, 0.0);
-				glVertex3f(1,0,3);
+				glVertex3f(door_left_x,door_top_y,z);
 			glEnd();
 			glDisable(GL_TEXTURE_2D);
+
+			// door knob
+			glBegin(GL_POLYGON); // base of the hat
+			glColor3ub(100,100,0);
+			for (int i = 0 ; i < 360 ; i++) {
+				glVertex3f(2.5+0.2*cos(i),-0.5+0.2*sin(i),z+0.001);
+			}
+		glEnd();
 		glPopMatrix();
 	glEndList();
 	return door;
