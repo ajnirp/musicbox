@@ -8,6 +8,7 @@
 #include "box.hpp"
 #include "dancer.hpp"
 #include "room.hpp"
+#include "texture.hpp"
 
 // Drawing function for the box
 void draw_box(double lid_degrees) {
@@ -309,11 +310,14 @@ void draw_table() {
 
 // Drawing function for the room walls
 void draw_room(float door_angle) {
-	int room_floor = define_horizontal_wall(-3, true);
-	int room_ceiling = define_horizontal_wall(4, true);
+	int texture_floor = LoadTexture("tex/room-cropped.bmp");
+	int texture_ceiling = LoadTexture("tex/wood4.bmp");
+
+	int room_floor = define_horizontal_wall(-3, true, texture_floor);
+	int room_ceiling = define_horizontal_wall(6, true, texture_ceiling);
 
 	int room_left_wall = define_side_wall(-6);
-	int room_right_wall = define_side_wall(8.5);
+	int room_right_wall = define_side_wall(9);
 
 	int room_front_wall = define_front_wall(false);
 	int room_back_wall = define_back_wall(true);
@@ -526,7 +530,7 @@ void draw_all_objects(
 	glPopMatrix();
 
 	glPushMatrix();
-		glTranslatef(0,0,-4);
+		glTranslatef(4,2,-4);
 		glRotatef(-90,0,1,0);
 		draw_wall_light();
 	glPopMatrix();

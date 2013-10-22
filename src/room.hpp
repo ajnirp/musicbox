@@ -2,7 +2,7 @@
 #define ROOM_H
 
 // Room walls
-int define_horizontal_wall(int y, bool is_textured);
+int define_horizontal_wall(int y, bool is_textured, int texture);
 int define_side_wall(int x);
 int define_back_wall(bool is_textured);
 int define_front_wall(bool is_textured);

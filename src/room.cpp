@@ -10,21 +10,21 @@
 
 // Room walls
 
-int define_horizontal_wall(int y, bool is_textured) {
-	GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
+int define_horizontal_wall(int y, bool is_textured, int texture) {
+	// GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
 	int room_floor = glGenLists(1);
 	glNewList(room_floor, GL_COMPILE);
 		if (is_textured) {
 			glEnable(GL_TEXTURE_2D);
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-			glBindTexture(GL_TEXTURE_2D, texture_walls);
+			glBindTexture(GL_TEXTURE_2D, texture);
 		}
 		glPushMatrix();
 			glBegin(GL_QUADS);
 				glTexCoord2f(0.0, 0.0);glVertex3f(-6,y,3);
-				glTexCoord2f(0.0, 1.0);glVertex3f(8.5,y,3);
-				glTexCoord2f(1.0, 1.0);glVertex3f(8.5,y,-4);
-				glTexCoord2f(1.0, 0.0);glVertex3f(-6,y,-4);
+				glTexCoord2f(1.0, 0.0);glVertex3f(9,y,3);
+				glTexCoord2f(1.0, 1.0);glVertex3f(9,y,-4);
+				glTexCoord2f(0.0, 1.0);glVertex3f(-6,y,-4);
 			glEnd();
 		glPopMatrix();
 		if (is_textured) {
@@ -35,7 +35,7 @@ int define_horizontal_wall(int y, bool is_textured) {
 }
 
 int define_side_wall(int x) {
-	GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
+	GLuint texture_walls = LoadTexture("tex/wood4.bmp");
 	int room_side_wall = glGenLists(1);
 	glNewList(room_side_wall, GL_COMPILE);
 		glEnable(GL_TEXTURE_2D);
@@ -44,9 +44,9 @@ int define_side_wall(int x) {
 		glPushMatrix();
 			glBegin(GL_QUADS);
 				glTexCoord2f(0.0, 0.0);glVertex3f(x,-3,3);
-				glTexCoord2f(0.0, 1.0);glVertex3f(x,-3,-4);
-				glTexCoord2f(1.0, 1.0);glVertex3f(x,4,-4);
-				glTexCoord2f(1.0, 0.0);glVertex3f(x,4,3);
+				glTexCoord2f(1.0, 0.0);glVertex3f(x,-3,-4);
+				glTexCoord2f(1.0, 1.0);glVertex3f(x,6,-4);
+				glTexCoord2f(0.0, 1.0);glVertex3f(x,6,3);
 			glEnd();
 		glPopMatrix();
 		glDisable(GL_TEXTURE_2D);
@@ -55,7 +55,7 @@ int define_side_wall(int x) {
 }
 
 int define_back_wall(bool is_textured) {
-	GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
+	GLuint texture_walls = LoadTexture("tex/wood4.bmp");
 	int room_facing_wall = glGenLists(1);
 	glNewList(room_facing_wall, GL_COMPILE);
 		if (is_textured) {
@@ -66,9 +66,9 @@ int define_back_wall(bool is_textured) {
 		glPushMatrix();
 			glBegin(GL_QUADS);
 				glTexCoord2f(0.0, 0.0);glVertex3f(-6,-3,-4);
-				glTexCoord2f(0.0, 1.0);glVertex3f(8.5,-3,-4);
-				glTexCoord2f(1.0, 1.0);glVertex3f(8.5,4,-4);
-				glTexCoord2f(1.0, 0.0);glVertex3f(-6,4,-4);
+				glTexCoord2f(1.0, 0.0);glVertex3f(9,-3,-4);
+				glTexCoord2f(1.0, 1.0);glVertex3f(9,6,-4);
+				glTexCoord2f(0.0, 1.0);glVertex3f(-6,6,-4);
 			glEnd();
 		glPopMatrix();
 		if (is_textured) {
