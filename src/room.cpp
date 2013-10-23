@@ -10,7 +10,7 @@
 
 // Room walls
 
-int define_horizontal_wall(int y, bool is_textured, int texture) {
+int define_floor(bool is_textured, int texture) {
 	// GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
 	int room_floor = glGenLists(1);
 	glNewList(room_floor, GL_COMPILE);
@@ -22,6 +22,34 @@ int define_horizontal_wall(int y, bool is_textured, int texture) {
 		glPushMatrix();
 			int back_z = -4;
 			int front_z = 4;
+			int y = -3;
+			glBegin(GL_QUADS);
+				glTexCoord2f(0.0, 0.0);glVertex3f(-6,y,front_z);
+				glTexCoord2f(1.0, 0.0);glVertex3f(9,y,front_z);
+				glTexCoord2f(1.0, 1.0);glVertex3f(9,y,back_z);
+				glTexCoord2f(0.0, 1.0);glVertex3f(-6,y,back_z);
+			glEnd();
+		glPopMatrix();
+		if (is_textured) {
+			glDisable(GL_TEXTURE_2D);
+		}
+	glEndList();
+	return room_floor;
+}
+
+int define_celiling(bool is_textured, int texture) {
+	// GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
+	int room_floor = glGenLists(1);
+	glNewList(room_floor, GL_COMPILE);
+		if (is_textured) {
+			glEnable(GL_TEXTURE_2D);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+			glBindTexture(GL_TEXTURE_2D, texture);
+		}
+		glPushMatrix();
+			int back_z = -4;
+			int front_z = 4;
+			int y = 6;
 			glBegin(GL_QUADS);
 				glTexCoord2f(0.0, 0.0);glVertex3f(-6,y,front_z);
 				glTexCoord2f(1.0, 0.0);glVertex3f(9,y,front_z);

@@ -201,10 +201,23 @@ void initGL() {
 	glEnable(GL_DEPTH_TEST); // enable Z-buffer algorithm
 
 	// glEnable(GL_LIGHTING);
+
+	// GLfloat lamp_light_ambient[] = {0.0, 0.0, 0.0, 1.0};
+	// GLfloat lamp_light_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+	// GLfloat lamp_light_specular[] = {0.0, 1.0, 0.0, 1.0};
+	// GLfloat lamp_light_position[] = {-3,0,0,1};
+
+	// glLightfv(GL_LIGHT0, GL_AMBIENT, lamp_light_ambient);
+	// glLightfv(GL_LIGHT0, GL_DIFFUSE, lamp_light_diffuse);
+	// glLightfv(GL_LIGHT0, GL_SPECULAR, lamp_light_specular);
+	// glLightfv(GL_LIGHT0, GL_POSITION, lamp_light_position);
+
+	// glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.1);
+	// glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0);
+	// glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0);
+
 	// glEnable(GL_LIGHT0);
 
-	// GLfloat lightpos[] = {-5,0,0,1};
-	// glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
 
 	// GLfloat light1_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
 	// GLfloat light1_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -250,6 +263,11 @@ void display() {
 			door_angle
 		);
 	glPopMatrix();
+
+	// glPushMatrix();
+	// 	glTranslatef(-3,0,0);
+	// 	glutSolidSphere(.5,10,10);
+	// glPopMatrix();
 
 	glutSwapBuffers();
 }

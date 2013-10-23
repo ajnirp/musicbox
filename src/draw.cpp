@@ -313,8 +313,8 @@ void draw_room(float door_angle) {
 	int texture_floor = LoadTexture("tex/room-cropped.bmp");
 	int texture_ceiling = LoadTexture("tex/wood4.bmp");
 
-	int room_floor = define_horizontal_wall(-3, true, texture_floor);
-	int room_ceiling = define_horizontal_wall(6, true, texture_ceiling);
+	int room_floor = define_floor(true, texture_floor);
+	int room_ceiling = define_ceiling(true, texture_ceiling);
 
 	int room_left_wall = define_side_wall(-6);
 	int room_right_wall = define_side_wall(9);
@@ -335,15 +335,15 @@ void draw_room(float door_angle) {
 			glCallList(room_right_wall);
 
 			glCallList(room_back_wall);
-			glCallList(room_front_wall);
+			// glCallList(room_front_wall);
 		glPopMatrix();
 
-		glPushMatrix();
-			glTranslatef(5,0,4);
-			glRotatef(door_angle,0,1,0);
-			glTranslatef(-5,0,-4);
-			glCallList(door);
-		glPopMatrix();
+		// glPushMatrix();
+		// 	glTranslatef(5,0,4);
+		// 	glRotatef(door_angle,0,1,0);
+		// 	glTranslatef(-5,0,-4);
+		// 	glCallList(door);
+		// glPopMatrix();
 		
 	glPopMatrix();
 }
@@ -446,10 +446,10 @@ void draw_lamp() {
 		// glTranslatef(0,-1,0);
 		glCallList(lamp_stand);
 		// lamp head
-		glPushMatrix();
-			glTranslatef(0,1.5,0);
-			glCallList(lamp_head);
-		glPopMatrix();
+		// glPushMatrix();
+		// 	glTranslatef(0,1.5,0);
+		// 	glCallList(lamp_head);
+		// glPopMatrix();
 		// lamp base
 		glPushMatrix();
 			glTranslatef(0,-1.5-0.05,0);
@@ -525,11 +525,12 @@ void draw_all_objects(
 	glPopMatrix();
 
 	// Lights
+	// lamp
 	glPushMatrix();
 		glTranslatef(-3,-1.5,0);
 		draw_lamp();
 	glPopMatrix();
-
+	// wall light
 	glPushMatrix();
 		glTranslatef(4,2,-5);
 		glRotatef(-90,0,1,0);
