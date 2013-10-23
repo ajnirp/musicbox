@@ -14,7 +14,7 @@ int define_base_and_walls() {
 	glNewList(base_and_walls, GL_COMPILE);
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		glBindTexture(GL_TEXTURE_2D, texture_base_and_walls);
 
 		glTranslatef(-1.5,-3.5,-2);
@@ -72,7 +72,7 @@ int define_lid() {
 	glNewList(lid, GL_COMPILE);
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		glBindTexture(GL_TEXTURE_2D, texture_lid);
 
 		glTranslatef(-1.5,-2,-2); // at y = -2 the lid exactly covers the box
