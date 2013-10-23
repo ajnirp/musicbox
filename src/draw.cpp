@@ -477,10 +477,10 @@ void draw_wall_light() {
 		glPushMatrix();
 			glTranslatef(0,0,0.05+0.2);
 			glCallList(wall_light_neck);
-			glPushMatrix();
-				glTranslatef(0,0.2,0.2+0.2);
-				glCallList(wall_light_head);
-			glPopMatrix();
+			// glPushMatrix();
+			// 	glTranslatef(0,0.2,0.2+0.2);
+			// 	glCallList(wall_light_head);
+			// glPopMatrix();
 		glPopMatrix();
 	glPopMatrix();
 }

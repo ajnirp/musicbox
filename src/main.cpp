@@ -245,13 +245,13 @@ void display() {
 
 	// gluLookAt(0,0,7,0,0,0,0,1,0);
 	gluLookAt(0,0,3,0,0,0,0,1,0);
-
-	// if (lamp_light)	glEnable(GL_LIGHT1);
-	// else glDisable(GL_LIGHT1);
-
-	// if (wall_light)	glEnable(GL_LIGHT1);
-	// else glDisable(GL_LIGHT1);
 	
+	if (lamp_light) glEnable(GL_LIGHT0);
+	else glDisable(GL_LIGHT0);
+
+	if (wall_light) glEnable(GL_LIGHT1);
+	else glDisable(GL_LIGHT1);
+
 	glPushMatrix();
 		glRotatef(world_x_angle, 1,0,0);
 		glRotatef(world_y_angle, 0,1,0);
@@ -262,24 +262,6 @@ void display() {
 			door_angle
 		);
 	glPopMatrix();
-
-	if (lamp_light) {
-		glEnable(GL_LIGHT0);
-		glutPostRedisplay();
-	}
-	else {
-		glDisable(GL_LIGHT0);
-		glutPostRedisplay();
-	}
-
-	if (wall_light) {
-		glEnable(GL_LIGHT1);
-		glutPostRedisplay();
-	}
-	else {
-		glDisable(GL_LIGHT1);
-		glutPostRedisplay();
-	}
 
 	glutSwapBuffers();
 }
@@ -491,6 +473,7 @@ void keyboard(unsigned char key, int x, int y) {
 		case 'l': {
 			lamp_light = not lamp_light; 
 			cout << "Lamp light is now " << (lamp_light ? "ON" : "OFF") << endl;
+			glutPostRedisplay();
 		}
 		break;
 
@@ -498,6 +481,7 @@ void keyboard(unsigned char key, int x, int y) {
 		case 'k': {
 			wall_light = not wall_light; 
 			cout << "Wall light is now " << (wall_light ? "ON" : "OFF") << endl;
+			glutPostRedisplay();
 		}
 		break;
 
