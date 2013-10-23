@@ -203,7 +203,7 @@ void initGL() {
 
 	glShadeModel(GL_SMOOTH);
 
-	GLfloat lamp_light_ambient[] = {0.2, 0.2, 0.2, 1.0};
+	GLfloat lamp_light_ambient[] = {1.0, 1.0, 1.0, 1.0};
 	GLfloat lamp_light_diffuse[] = {1.0, 1.0, 1.0, 1.0};
 	GLfloat lamp_light_specular[] = {1.0, 1.0, 1.0, 1.0};
 	GLfloat lamp_light_position[] = {-3,0,0,1};
@@ -216,12 +216,6 @@ void initGL() {
 	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 2);
 	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.1);
 	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.03);
-
-	if (lamp_light) glEnable(GL_LIGHT0);
-	else glDisable(GL_LIGHT0);
-
-	if (wall_light) glEnable(GL_LIGHT1);
-	else glDisable(GL_LIGHT1);
 
 	// GLfloat light1_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
 	// GLfloat light1_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -268,6 +262,24 @@ void display() {
 			door_angle
 		);
 	glPopMatrix();
+
+	if (lamp_light) {
+		glEnable(GL_LIGHT0);
+		glutPostRedisplay();
+	}
+	else {
+		glDisable(GL_LIGHT0);
+		glutPostRedisplay();
+	}
+
+	if (wall_light) {
+		glEnable(GL_LIGHT1);
+		glutPostRedisplay();
+	}
+	else {
+		glDisable(GL_LIGHT1);
+		glutPostRedisplay();
+	}
 
 	glutSwapBuffers();
 }

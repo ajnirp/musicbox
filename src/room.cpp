@@ -202,7 +202,7 @@ int define_table_top() {
 		GLfloat shininess[] = {5};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(4,0.25,2);
 			glutSolidCube(1);
@@ -220,7 +220,7 @@ int define_table_leg() {
 		GLfloat shininess[] = {0};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.125,2,0.125);
 			glutSolidCube(1);
@@ -239,7 +239,7 @@ int define_one_legged_table_top() {
 		GLfloat shininess[] = {10};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(2,0.1,2);
 			glutSolidCube(1);
@@ -256,7 +256,7 @@ int define_one_legged_table_leg() {
 		GLfloat shininess[] = {0};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.3,1.5,0.3);
 			glutSolidCube(1);
@@ -272,7 +272,7 @@ int define_one_legged_table_base() {
 		GLfloat shininess[] = {0};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(1.2,0.1,1.2);
 			glutSolidCube(1);
@@ -292,7 +292,7 @@ int define_chair_seat() {
 		GLfloat shininess[] = {0};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.7,0.1,0.7);
 			glutSolidCube(1);
@@ -310,7 +310,7 @@ int define_chair_leg() {
 		GLfloat shininess[] = {0};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.1,0.7,0.1);
 			glutSolidCube(1);
@@ -328,7 +328,7 @@ int define_chair_back() {
 		GLfloat shininess[] = {0};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.7,1.2,0.1);
 			glutSolidCube(1);
@@ -348,7 +348,7 @@ int define_lamp_stand() {
 		GLfloat shininess[] = {1};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			define_cylinder(0.05,0.05,3,-1);
 		glPopMatrix();
@@ -366,7 +366,7 @@ int define_lamp_head() {
 		GLfloat shininess[] = {5};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			define_cylinder(0.3,0.6,0.8,-1);
 		glPopMatrix();
@@ -383,7 +383,7 @@ int define_lamp_base() {
 		GLfloat shininess[] = {0};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.6,0.1,0.6);
 			glutSolidCube(1);
@@ -412,7 +412,7 @@ int define_stool_seat() {
 		GLfloat shininess[] = {10};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			define_cylinder(0.7,0.7,0.1,-1);
 			glPushMatrix();
@@ -448,7 +448,7 @@ int define_stool_leg() {
 		GLfloat shininess[] = {10};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			define_cylinder(0.05,0.05,1,-1);
 		glPopMatrix();
@@ -467,7 +467,7 @@ int define_wall_light_base() {
 		GLfloat shininess[] = {0};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.4,0.4,0.1);
 			glutSolidCube(1);
