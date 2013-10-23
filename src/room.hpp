@@ -4,7 +4,7 @@
 // Room walls
 int define_floor(bool is_textured, int texture);
 int define_ceiling(bool is_textured, int texture);
-int define_side_wall(int x);
+int define_side_wall(int x, bool left);
 int define_back_wall(bool is_textured);
 int define_front_wall(bool is_textured);
 int define_door();

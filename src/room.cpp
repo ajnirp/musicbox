@@ -24,6 +24,7 @@ int define_floor(bool is_textured, int texture) {
 			int front_z = 4;
 			int y = -3;
 			glBegin(GL_QUADS);
+				glNormal3d(0,1,0); // floor normal is upwards
 				glTexCoord2f(0.0, 0.0);glVertex3f(-6,y,front_z);
 				glTexCoord2f(1.0, 0.0);glVertex3f(9,y,front_z);
 				glTexCoord2f(1.0, 1.0);glVertex3f(9,y,back_z);
@@ -37,7 +38,7 @@ int define_floor(bool is_textured, int texture) {
 	return room_floor;
 }
 
-int define_celiling(bool is_textured, int texture) {
+int define_ceiling(bool is_textured, int texture) {
 	// GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
 	int room_floor = glGenLists(1);
 	glNewList(room_floor, GL_COMPILE);
@@ -51,6 +52,7 @@ int define_celiling(bool is_textured, int texture) {
 			int front_z = 4;
 			int y = 6;
 			glBegin(GL_QUADS);
+				glNormal3d(0,-1,0); // ceiling normal is downwards
 				glTexCoord2f(0.0, 0.0);glVertex3f(-6,y,front_z);
 				glTexCoord2f(1.0, 0.0);glVertex3f(9,y,front_z);
 				glTexCoord2f(1.0, 1.0);glVertex3f(9,y,back_z);
@@ -64,7 +66,7 @@ int define_celiling(bool is_textured, int texture) {
 	return room_floor;
 }
 
-int define_side_wall(int x) {
+int define_side_wall(int x, bool left) {
 	GLuint texture_walls = LoadTexture("tex/wood4.bmp");
 	int room_side_wall = glGenLists(1);
 	glNewList(room_side_wall, GL_COMPILE);
@@ -75,6 +77,8 @@ int define_side_wall(int x) {
 			int front_z = 4;
 			int back_z = -4;
 			glBegin(GL_QUADS);
+				if (left) glNormal3d(1,0,0); // left wall normal is along positive x-axis
+				else glNormal3d(-1,0,0); // right wall normal is along negative x-axis
 				glTexCoord2f(0.0, 0.0);glVertex3f(x,-3,front_z);
 				glTexCoord2f(1.0, 0.0);glVertex3f(x,-3,back_z);
 				glTexCoord2f(1.0, 1.0);glVertex3f(x,6,back_z);
@@ -97,6 +101,7 @@ int define_back_wall(bool is_textured) {
 		}
 		glPushMatrix();
 			glBegin(GL_QUADS);
+				glNormal3d(0,0,1); // back wall normal is along positive z-axis
 				glTexCoord2f(0.0, 0.0);glVertex3f(-6,-3,-4);
 				glTexCoord2f(1.0, 0.0);glVertex3f(9,-3,-4);
 				glTexCoord2f(1.0, 1.0);glVertex3f(9,6,-4);
@@ -125,32 +130,21 @@ int define_front_wall(bool is_textured) {
 		int door_bottom_y = -3;
 		int door_top_y = 2;
 		glBegin(GL_QUADS);
-			glTexCoord2f(0.0, 0.0);
-			glVertex3f(-6,door_bottom_y,z);
-			glTexCoord2f(0.6, 0.0);
-			glVertex3f(door_left_x,door_bottom_y,z);
-			glTexCoord2f(0.6, 1.0);
-			glVertex3f(door_left_x,6,z);
-			glTexCoord2f(0.0, 1.0);
-			glVertex3f(-6,6,z);
+			glNormal3d(0,0,-1); // front wall normal is along positive z-axis
+			glTexCoord2f(0.0, 0.0);glVertex3f(-6,door_bottom_y,z);
+			glTexCoord2f(0.6, 0.0);glVertex3f(door_left_x,door_bottom_y,z);
+			glTexCoord2f(0.6, 1.0);glVertex3f(door_left_x,6,z);
+			glTexCoord2f(0.0, 1.0);glVertex3f(-6,6,z);
 
-			glTexCoord2f(0.6, 0.42);
-			glVertex3f(door_left_x,door_top_y,z);
-			glTexCoord2f(0.8, 0.42);
-			glVertex3f(door_right_x,door_top_y,z);
-			glTexCoord2f(0.8, 1.0);
-			glVertex3f(door_right_x,6,z);
-			glTexCoord2f(0.6, 1.0);
-			glVertex3f(door_left_x,6,z);
+			glTexCoord2f(0.6, 0.42);glVertex3f(door_left_x,door_top_y,z);
+			glTexCoord2f(0.8, 0.42);glVertex3f(door_right_x,door_top_y,z);
+			glTexCoord2f(0.8, 1.0);glVertex3f(door_right_x,6,z);
+			glTexCoord2f(0.6, 1.0);glVertex3f(door_left_x,6,z);
 
-			glTexCoord2f(0.8, 0.0);
-			glVertex3f(door_right_x,door_bottom_y,z);
-			glTexCoord2f(1.0, 0.0);
-			glVertex3f(9,door_bottom_y,z);
-			glTexCoord2f(1.0, 1.0);
-			glVertex3f(9,6,z);
-			glTexCoord2f(0.8, 1.0);
-			glVertex3f(door_right_x,6,z);
+			glTexCoord2f(0.8, 0.0);glVertex3f(door_right_x,door_bottom_y,z);
+			glTexCoord2f(1.0, 0.0);glVertex3f(9,door_bottom_y,z);
+			glTexCoord2f(1.0, 1.0);glVertex3f(9,6,z);
+			glTexCoord2f(0.8, 1.0);glVertex3f(door_right_x,6,z);
 		glEnd();
 		if (is_textured) {
 			glDisable(GL_TEXTURE_2D);
@@ -202,7 +196,13 @@ int define_door() {
 int define_table_top() {
 	int table_top = glGenLists(1);
 	glNewList(table_top, GL_COMPILE);
-		glColor3ub(140,82,45);
+		// glColor3ub(140,82,45);
+		GLfloat color[] = {244/255.0f,164/255.0f,96/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {5};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(4,0.25,2);
 			glutSolidCube(1);
@@ -214,7 +214,13 @@ int define_table_top() {
 int define_table_leg() {
 	int table_leg = glGenLists(1);
 	glNewList(table_leg, GL_COMPILE);
-		glColor3ub(140,82,45);
+		// glColor3ub(140,82,45);
+		GLfloat color[] = {244/255.0f,164/255.0f,96/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.125,2,0.125);
 			glutSolidCube(1);
@@ -228,8 +234,12 @@ int define_table_leg() {
 int define_one_legged_table_top() {
 	int one_legged_table_top = glGenLists(1);
 	glNewList(one_legged_table_top, GL_COMPILE);
-		// define_cylinder(1.5,1.5,0.1,one_legged_table_texture);
-		glColor3ub(129,113,95);
+		GLfloat color[] = {139/255.0f,69/255.0f,19/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {10};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(2,0.1,2);
 			glutSolidCube(1);
@@ -241,8 +251,12 @@ int define_one_legged_table_top() {
 int define_one_legged_table_leg() {
 	int one_legged_table_leg = glGenLists(1);
 	glNewList(one_legged_table_leg, GL_COMPILE);
-		// define_cylinder(0.3,0.3,1.5,one_legged_table_texture);
-		glColor3ub(129,113,95);
+		GLfloat color[] = {160/255.0f,82/255.0f,45/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.3,1.5,0.3);
 			glutSolidCube(1);
@@ -253,8 +267,12 @@ int define_one_legged_table_leg() {
 int define_one_legged_table_base() {
 	int one_legged_table_base = glGenLists(1);
 	glNewList(one_legged_table_base, GL_COMPILE);
-		// define_cylinder(0.7,0.7,0.1,one_legged_table_texture);
-		glColor3ub(129,113,95);
+		GLfloat color[] = {139/255.0f,69/255.0f,19/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(1.2,0.1,1.2);
 			glutSolidCube(1);
@@ -268,7 +286,13 @@ int define_one_legged_table_base() {
 int define_chair_seat() {
 	int chair_seat = glGenLists(1);
 	glNewList(chair_seat, GL_COMPILE);
-		glColor3ub(150,120,90);
+		// glColor3ub(150,120,90);
+		GLfloat color[] = {205/255.0f,105/255.0f,0/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.7,0.1,0.7);
 			glutSolidCube(1);
@@ -280,7 +304,13 @@ int define_chair_seat() {
 int define_chair_leg() {
 	int chair_leg = glGenLists(1);
 	glNewList(chair_leg, GL_COMPILE);
-		glColor3ub(150,120,60);
+		// glColor3ub(150,120,60);
+		GLfloat color[] = {205/255.0f,133/255.0f,63/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.1,0.7,0.1);
 			glutSolidCube(1);
@@ -292,7 +322,13 @@ int define_chair_leg() {
 int define_chair_back() {
 	int chair_back = glGenLists(1);
 	glNewList(chair_back, GL_COMPILE);
-		glColor3ub(150,120,60);
+		// glColor3ub(150,120,60);
+		GLfloat color[] = {205/255.0f,133/255.0f,63/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.7,1.2,0.1);
 			glutSolidCube(1);
@@ -306,7 +342,13 @@ int define_chair_back() {
 int define_lamp_stand() {
 	int lamp_stand = glGenLists(1);
 	glNewList(lamp_stand, GL_COMPILE);
-		glColor3ub(50,50,50);
+		// glColor3ub(50,50,50);
+		GLfloat color[] = {1.0f,1.0f,0.5f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {1};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			define_cylinder(0.05,0.05,3,-1);
 		glPopMatrix();
@@ -318,7 +360,13 @@ int define_lamp_head() {
 	int lamp_head = glGenLists(1);
 	// int texture_lamp_head = LoadTexture("tex/lamp-head.bmp");
 	glNewList(lamp_head, GL_COMPILE);
-		glColor3ub(255,0,0);
+		// glColor3ub(255,0,0);
+		GLfloat color[] = {1.f,0.f,0.f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {5};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			define_cylinder(0.3,0.6,0.8,-1);
 		glPopMatrix();
@@ -329,11 +377,16 @@ int define_lamp_head() {
 int define_lamp_base() {
 	int lamp_base = glGenLists(1);
 	glNewList(lamp_base, GL_COMPILE);
-		glColor3ub(50,50,50);
+		// glColor3ub(50,50,50);
+		GLfloat color[] = {238/255.0f,221/255.0f,130/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
-			// define_cylinder(0.3,0.3,0.1,-1);
-		glScalef(0.6,0.1,0.6);
-		glutSolidCube(1);
+			glScalef(0.6,0.1,0.6);
+			glutSolidCube(1);
 		glPopMatrix();
 	glEndList();
 	return lamp_base;
@@ -343,7 +396,7 @@ int define_lamp_light() {
 	int lamp_light = glGenLists(1);
 	glNewList(lamp_light, GL_COMPILE);
 		glColor3f(1,1,1);
-		define_sphere(0.2,1);
+		define_sphere(0.2,-1);
 	glEndList();
 	return lamp_light;
 }
@@ -351,29 +404,36 @@ int define_lamp_light() {
 // Stool
 
 int define_stool_seat() {
-	int texture_stool_seat = LoadTexture("tex/wood.bmp");
+	// int texture_stool_seat = LoadTexture("tex/metal.bmp");
 	int stool_seat = glGenLists(1);
 	glNewList(stool_seat, GL_COMPILE);
+		GLfloat color[] = {0.5f,0.5f,0.5f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {10};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
-			define_cylinder(0.7,0.7,0.1,texture_stool_seat);
+			define_cylinder(0.7,0.7,0.1,-1);
 			glPushMatrix();
-				glEnable(GL_TEXTURE_2D);
-				glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-				glBindTexture(GL_TEXTURE_2D, texture_stool_seat);
+				// glEnable(GL_TEXTURE_2D);
+				// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+				// glBindTexture(GL_TEXTURE_2D, texture_stool_seat);
 
 				glTranslatef(0,0.05,0);
 				glRotatef(90,1,0,0);
 				glBegin(GL_POLYGON); // base of the stool
-				for (int i = 0 ; i < 360 ; i++) {
-					if (i==0) glTexCoord2f(0,0);
-					if (i==90) glTexCoord2f(0,1);
-					if (i==180) glTexCoord2f(1,1);
-					if (i==270) glTexCoord2f(1,0);
-					glVertex3f(0.7*cos(i),0.7*sin(i),0);
-				}
+					glNormal3d(0,1,0);
+					for (int i = 0 ; i < 360 ; i++) {
+						// if (i==0) glTexCoord2f(0,0);
+						// if (i==90) glTexCoord2f(0,1);
+						// if (i==180) glTexCoord2f(1,1);
+						// if (i==270) glTexCoord2f(1,0);
+						glVertex3f(0.7*cos(i),0.7*sin(i),0);
+					}
 
-				glDisable(GL_TEXTURE_2D);
-			glEnd();
+					// glDisable(GL_TEXTURE_2D);
+				glEnd();
 			glPopMatrix();
 		glPopMatrix();
 	glEndList();
@@ -381,11 +441,16 @@ int define_stool_seat() {
 }
 
 int define_stool_leg() {
-	int texture_stool_leg = LoadTexture("tex/wood.bmp");
 	int stool_leg = glGenLists(1);
 	glNewList(stool_leg, GL_COMPILE);
+		GLfloat color[] = {0.5f,0.5f,0.5f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {10};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
-			define_cylinder(0.05,0.05,1,texture_stool_leg);
+			define_cylinder(0.05,0.05,1,-1);
 		glPopMatrix();
 	glEndList();
 	return stool_leg;
@@ -396,7 +461,13 @@ int define_stool_leg() {
 int define_wall_light_base() {
 	int wall_light_base = glGenLists(1);
 	glNewList(wall_light_base, GL_COMPILE);
-		glColor3ub(90,90,90);
+		// glColor3ub(90,90,90);
+		GLfloat color[] = {200/255.0f,155/255.0f,100/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_DIFFUSE,color);
 		glPushMatrix();
 			glScalef(0.4,0.4,0.1);
 			glutSolidCube(1);
@@ -409,7 +480,6 @@ int define_wall_light_neck() {
 	int wall_light_neck = glGenLists(1);
 	int texture_wall_light_neck = LoadTexture("tex/metal.bmp");
 	glNewList(wall_light_neck, GL_COMPILE);
-		glColor3ub(90,90,90);
 		glPushMatrix();
 			// glScalef(0.05,0.05,0.4);
 			// glutSolidCube(1);

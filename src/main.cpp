@@ -100,7 +100,7 @@ bool move_left = true; // When true, keys affect the left side of the dancer. No
 short int curr_joint = 0; // Which joint to move
 
 /* Variables determining which light to turn on or off */
-bool lamp_light = false;
+bool lamp_light = true;
 bool wall_light = false;
 
 /* 
@@ -192,32 +192,36 @@ void renderGL(int, char**);
 void init() {
 	initGL(); // set up the camera, etc.
 	init_limits(); // set up the limits vector
-	// dancer_angles[3] = -90; // Heil Hitler!
+	// dancer_angles[3] = -90;
 }
 
 void initGL() {
 	glClearColor(0, 0, 0, 1.f);
 	glClearDepth(1.0);
 	glEnable(GL_DEPTH_TEST); // enable Z-buffer algorithm
+	glEnable(GL_LIGHTING);
 
-	// glEnable(GL_LIGHTING);
+	glShadeModel(GL_SMOOTH);
 
-	// GLfloat lamp_light_ambient[] = {0.0, 0.0, 0.0, 1.0};
-	// GLfloat lamp_light_diffuse[] = {1.0, 1.0, 1.0, 1.0};
-	// GLfloat lamp_light_specular[] = {0.0, 1.0, 0.0, 1.0};
-	// GLfloat lamp_light_position[] = {-3,0,0,1};
+	GLfloat lamp_light_ambient[] = {0.2, 0.2, 0.2, 1.0};
+	GLfloat lamp_light_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+	GLfloat lamp_light_specular[] = {1.0, 1.0, 1.0, 1.0};
+	GLfloat lamp_light_position[] = {-3,0,0,1};
 
-	// glLightfv(GL_LIGHT0, GL_AMBIENT, lamp_light_ambient);
-	// glLightfv(GL_LIGHT0, GL_DIFFUSE, lamp_light_diffuse);
-	// glLightfv(GL_LIGHT0, GL_SPECULAR, lamp_light_specular);
-	// glLightfv(GL_LIGHT0, GL_POSITION, lamp_light_position);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, lamp_light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lamp_light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, lamp_light_specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, lamp_light_position);
 
-	// glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.1);
-	// glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0);
-	// glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 2);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.1);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.03);
 
-	// glEnable(GL_LIGHT0);
+	if (lamp_light) glEnable(GL_LIGHT0);
+	else glDisable(GL_LIGHT0);
 
+	if (wall_light) glEnable(GL_LIGHT1);
+	else glDisable(GL_LIGHT1);
 
 	// GLfloat light1_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
 	// GLfloat light1_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -245,7 +249,8 @@ void display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0,0,7,0,0,0,0,1,0);
+	// gluLookAt(0,0,7,0,0,0,0,1,0);
+	gluLookAt(0,0,3,0,0,0,0,1,0);
 
 	// if (lamp_light)	glEnable(GL_LIGHT1);
 	// else glDisable(GL_LIGHT1);
@@ -263,11 +268,6 @@ void display() {
 			door_angle
 		);
 	glPopMatrix();
-
-	// glPushMatrix();
-	// 	glTranslatef(-3,0,0);
-	// 	glutSolidSphere(.5,10,10);
-	// glPopMatrix();
 
 	glutSwapBuffers();
 }

@@ -316,8 +316,8 @@ void draw_room(float door_angle) {
 	int room_floor = define_floor(true, texture_floor);
 	int room_ceiling = define_ceiling(true, texture_ceiling);
 
-	int room_left_wall = define_side_wall(-6);
-	int room_right_wall = define_side_wall(9);
+	int room_left_wall = define_side_wall(-6,true); // true because it is the left wall
+	int room_right_wall = define_side_wall(9,false); // false because it is the right wall
 
 	int room_front_wall = define_front_wall(true);
 	int room_back_wall = define_back_wall(true);
@@ -354,6 +354,7 @@ void draw_one_legged_table() {
 	int one_legged_table_leg = define_one_legged_table_leg();
 	int one_legged_table_base = define_one_legged_table_base();
 
+	// glMaterialfv()
 	glPushMatrix();
 		glCallList(one_legged_table_leg);
 		glPushMatrix();
@@ -424,11 +425,11 @@ void draw_stool() {
 			glCallList(stool_leg);
 		glPopMatrix();
 		glPushMatrix();
-			glTranslatef(-1*(0.35-0.025)*sqrt(3),-0.05-0.5,(0.35-0.025));
+			glTranslatef(-1*(0.35-0.035)*sqrt(3),-0.05-0.5,(0.35-0.035));
 			glCallList(stool_leg);
 		glPopMatrix();
 		glPushMatrix();
-			glTranslatef((0.35-0.025)*sqrt(3),-0.05-0.5,(0.35-0.025));
+			glTranslatef((0.35-0.035)*sqrt(3),-0.05-0.5,(0.35-0.035));
 			glCallList(stool_leg);
 		glPopMatrix();
 	glPopMatrix();
@@ -439,27 +440,27 @@ void draw_lamp() {
 	int lamp_stand = define_lamp_stand();
 	int lamp_head = define_lamp_head();
 	int lamp_base = define_lamp_base();
-	int lamp_light = define_lamp_light();
+	// int lamp_light = define_lamp_light();
 
 	// lamp stand
 	glPushMatrix();
 		// glTranslatef(0,-1,0);
 		glCallList(lamp_stand);
 		// lamp head
-		// glPushMatrix();
-		// 	glTranslatef(0,1.5,0);
-		// 	glCallList(lamp_head);
-		// glPopMatrix();
+		glPushMatrix();
+			glTranslatef(0,1.5,0);
+			glCallList(lamp_head);
+		glPopMatrix();
 		// lamp base
 		glPushMatrix();
 			glTranslatef(0,-1.5-0.05,0);
 			glCallList(lamp_base);
 		glPopMatrix();
 		// lamp light
-		glPushMatrix();
-			glTranslatef(0,1.5,0);
-			glCallList(lamp_light); // not actually visible because the lamp head is covering it
-		glPopMatrix();
+		// glPushMatrix();
+		// 	glTranslatef(0,1.5,0);
+		// 	glCallList(lamp_light); // not actually visible because the lamp head is covering it
+		// glPopMatrix();
 	glPopMatrix();
 }
 
