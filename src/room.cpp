@@ -16,7 +16,7 @@ int define_floor(bool is_textured, int texture) {
 	glNewList(room_floor, GL_COMPILE);
 		if (is_textured) {
 			glEnable(GL_TEXTURE_2D);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 			glBindTexture(GL_TEXTURE_2D, texture);
 		}
 		glPushMatrix();
@@ -44,7 +44,7 @@ int define_ceiling(bool is_textured, int texture) {
 	glNewList(room_floor, GL_COMPILE);
 		if (is_textured) {
 			glEnable(GL_TEXTURE_2D);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 			glBindTexture(GL_TEXTURE_2D, texture);
 		}
 		glPushMatrix();
@@ -71,7 +71,7 @@ int define_side_wall(int x, bool left) {
 	int room_side_wall = glGenLists(1);
 	glNewList(room_side_wall, GL_COMPILE);
 		glEnable(GL_TEXTURE_2D);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		glBindTexture(GL_TEXTURE_2D, texture_walls);
 		glPushMatrix();
 			int front_z = 4;
@@ -96,7 +96,7 @@ int define_back_wall(bool is_textured) {
 	glNewList(room_facing_wall, GL_COMPILE);
 		if (is_textured) {
 			glEnable(GL_TEXTURE_2D);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 			glBindTexture(GL_TEXTURE_2D, texture_walls);
 		}
 		glPushMatrix();
@@ -121,7 +121,7 @@ int define_front_wall(bool is_textured) {
 	glNewList(room_facing_wall, GL_COMPILE);
 		if (is_textured) {
 			glEnable(GL_TEXTURE_2D);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 			glBindTexture(GL_TEXTURE_2D, texture_walls);
 		}
 		int z = 4;
@@ -159,7 +159,7 @@ int define_door() {
 	glNewList(door, GL_COMPILE);
 		glPushMatrix();
 			glEnable(GL_TEXTURE_2D);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 			glBindTexture(GL_TEXTURE_2D, texture_door);
 			// glColor3ub(40,50,60);
 			int door_right_x = 5;
@@ -417,7 +417,7 @@ int define_stool_seat() {
 			define_cylinder(0.7,0.7,0.1,-1);
 			glPushMatrix();
 				// glEnable(GL_TEXTURE_2D);
-				// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+				// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 				// glBindTexture(GL_TEXTURE_2D, texture_stool_seat);
 
 				glTranslatef(0,0.05,0);
