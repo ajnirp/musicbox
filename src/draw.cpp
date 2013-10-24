@@ -9,6 +9,7 @@
 #include "dancer.hpp"
 #include "room.hpp"
 #include "texture.hpp"
+#include "plane.hpp"
 
 // Drawing function for the box
 void draw_box(double lid_degrees) {
@@ -485,11 +486,18 @@ void draw_wall_light() {
 	glPopMatrix();
 }
 
+// Drawing function for the plane
+void draw_plane(int z) {
+	int plane = define_plane(z);
+	glCallList(plane);
+}
+
 // Draw everything
 void draw_all_objects(
 	float lid_degrees,
 	float* dancer_angles, float dancer_angle,
-	float door_angle
+	float door_angle,
+	float plane_z
 ) {
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 	// Room walls and door
@@ -537,4 +545,9 @@ void draw_all_objects(
 		glRotatef(-90,0,1,0);
 		draw_wall_light();
 	glPopMatrix();
+
+	// Plane
+	// glPushMatrix();
+		draw_plane(plane_z);
+	// glPopMatrix();
 }

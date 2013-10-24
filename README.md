@@ -45,6 +45,7 @@ Keybindings
 -----------
 
 1. Exit the program: `Esc`
+2. Get help on keybindings: `F1`
 2. Toggle which object to move: `t` (when you start the program, the dancer is selected)
 3. Toggle which side to move: `r` (when you start the program, the left side is selected)
 4. Select joint: `0` to `9`
@@ -53,7 +54,9 @@ Keybindings
 7. Rotate about x-axis: `q` and `e`
 8. Rotate the entire dancer about the y-axis: `,` and `.`
 9. Display information: `i`
-10. Reset everything: `h`
+10. Switch on/switch off the lamp: `k`
+11. Switch on/switch off the wall light: `l`
+12. Reset everything: `F5`
 
 Walkthrough
 -----------
@@ -87,9 +90,9 @@ Once you've selected a joint and a side, the keybindings are simple. Use `w` and
 
 To rotate the entire dancer about the y-axis, use `,` and `.`. As you'd expect, these keys do nothing if the dancer is not selected.
 
-If at any point you lose track of which object and which joint is selected, simply press `i` and the required information will be printed to the terminal. In any case, whenever you change the selected side or change the selected object a message will be logged to the terminal.
+If at any point you lose track of which object and which joint is selected or which light is turned on, simply press `F1` and the required information will be printed to the terminal. In any case, whenever you change the selected side or change the selected object a message will be logged to the terminal.
 
-If you ever want to reset all changes you've made, simply press `h` and all angles will be reset to 0, like they where when the program started.
+If you ever want to reset all changes you've made, simply press `F5` and all angles will be reset to 0, like they where when the program started. Also, both lights will be turned off.
 
 Credits
 -------

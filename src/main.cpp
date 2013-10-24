@@ -94,6 +94,8 @@ float dancer_angle = 0;
 
 float door_angle = 0;
 
+float plane_z = -4;
+
 /* Variables determining which body part to move */
 bool move_box = false; // When true, keyboard keys affect the box. When false, they affect the dancer
 bool move_left = true; // When true, keys affect the left side of the dancer. Not valid for joints that have no left or right, for example, the head-neck joint
@@ -121,7 +123,7 @@ Joint Mappings
 int window_id;
 
 void display_info() {
-	cout << "-------INFORMATION-----------" << endl;
+	cout << endl << "-------INFORMATION-----------" << endl;
 
 	// Show selected object
 	cout << "Selected object:";
@@ -146,8 +148,29 @@ void display_info() {
 		if (move_left) cout << " left" << endl;
 		else cout << " right" << endl;
 	}
+	// Show state of the two lights
+	cout << "Lamp light is " << (lamp_light ? "ON" : "OFF") << endl;
+	cout << "Wall light is " << (wall_light ? "ON" : "OFF") << endl;
 
 	cout << "----------------------------" << endl << endl;
+}
+
+void display_keybindings_help() {
+	cout << endl << "       ------------Keybindings help------------" << endl << endl;
+	cout << "Exit the program                               Esc" << endl;
+	cout << "Get help on keybindings                        F1" << endl;
+	cout << "Toggle which object to move                    t" << endl;
+	cout << "Toggle which side to move                      r" << endl;
+	cout << "Select joint                                   0 to 9" << endl;
+	cout << "Rotate about x-axis                            w and s" << endl;
+	cout << "Rotate about x-axis                            a and d" << endl;
+	cout << "Rotate about x-axis                            q and e" << endl;
+	cout << "Rotate the entire dancer about the y-axis      , and ." << endl;
+	cout << "Display information                            i" << endl;
+	cout << "Switch on/switch off the lamp                  k" << endl;
+	cout << "Switch on/switch off the wall light            l" << endl;
+	cout << "Reset everything                               F5" << endl << endl;
+	cout << "       ----------------------------------------" << endl << endl;
 }
 
 // Find the index to change in the 'angles' vector
@@ -257,7 +280,8 @@ void display() {
 		draw_all_objects(
 			lid_angle,
 			dancer_angles, dancer_angle,
-			door_angle
+			door_angle,
+			plane_z
 		);
 		// glTranslatef(4.5,2.3,-5);
 		// glPushMatrix();
@@ -311,11 +335,6 @@ void keyboard(unsigned char key, int x, int y) {
 			move_left = not move_left;
 		}
 		break;
-
-		// Get current information
-		case 'i':
-			display_info();
-			break;
 
 		// Select a joint
 		case '0':   curr_joint = 0; cout << "Current joint: head-neck\n"; break;
@@ -462,15 +481,6 @@ void keyboard(unsigned char key, int x, int y) {
 		}
 		break;
 
-		// reset everything
-		case 'h': {
-			cout << "Resetting all angles..." << endl;
-			for (int i = 0 ; i < 40 ; i++) dancer_angles[i] = 0;
-			lid_angle = 0;
-			glutPostRedisplay();
-		}
-		break;
-
 		// toggle lamp light
 		case 'k': {
 			lamp_light = not lamp_light; 
@@ -503,6 +513,32 @@ void keyboard(unsigned char key, int x, int y) {
 			glutPostRedisplay();
 		}
 		break;
+
+		// Get current information
+		case 'i': {
+			display_info();
+		}
+		break;
+	}
+}
+
+void process_special_keys(int key, int x, int y) {
+	switch(key) {
+		// Get help
+		case GLUT_KEY_F1:
+			display_keybindings_help();
+			break;
+
+		// reset everything
+		case GLUT_KEY_F5: {
+			cout << "Resetting everything..." << endl;
+			for (int i = 0 ; i < 40 ; i++) dancer_angles[i] = 0;
+			lid_angle = 0;
+			lamp_light = false;
+			wall_light = false;
+			glutPostRedisplay();
+		}
+		break;
 	}
 }
 
@@ -521,6 +557,7 @@ void renderGL(int argc, char** argv) {
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
+	glutSpecialFunc(process_special_keys);
 	glutMouseFunc(mouse);
 
 	glutMainLoop();

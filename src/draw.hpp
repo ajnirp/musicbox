@@ -14,15 +14,19 @@ void draw_chair();
 void draw_one_legged_table();
 void draw_stool();
 
+// Lights
+void draw_lamp();
+void draw_wall_light();
+
+// Plane
+void draw_plane(int z);
+
 // Universal drawing function
 void draw_all_objects(
 	float lid_degrees,
 	float* dancer_angles, float dancer_angle,
-	float door_angle
+	float door_angle,
+	float plane_z
 );
-
-// Lights
-void draw_lamp();
-void draw_wall_light();
 
 #endif

@@ -236,7 +236,7 @@ int define_one_legged_table_top() {
 	glNewList(one_legged_table_top, GL_COMPILE);
 		GLfloat color[] = {139/255.0f,69/255.0f,19/255.0f,1.f};
 		GLfloat specular[] = {1.f,1.f,1.f,1.f};
-		GLfloat shininess[] = {10};
+		GLfloat shininess[] = {1};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
 		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
 		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
