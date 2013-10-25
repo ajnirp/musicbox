@@ -5,6 +5,7 @@
 // #include <GLUT/glut.h>
 
 #include "draw.hpp"
+#include "coordinate.hpp"
 
 using namespace std;
 
@@ -72,7 +73,6 @@ void init_limits() {
 	limits[76]=-140;limits[77]=0;
 	// right elbow
 	limits[78]=-140;limits[79]=0;
-
 }
 
 // each element in limits stores the extent to which the joint is allowed to rotate
@@ -94,7 +94,7 @@ float dancer_angle = 0;
 
 float door_angle = 0;
 
-float plane_z = -5.5;
+float plane_z = -4+0.001;
 
 /* Variables determining which body part to move */
 bool move_box = false; // When true, keyboard keys affect the box. When false, they affect the dancer
@@ -104,6 +104,8 @@ short int curr_joint = 0; // Which joint to move
 /* Variables determining which light to turn on or off */
 bool lamp_light = false;
 bool wall_light = false;
+
+vector<coordinate_t> control_points;
 
 /* 
 Joint Mappings 
@@ -122,6 +124,32 @@ Joint Mappings
 /* Window Parameters */
 int window_id;
 
+vector<double> GetOGLPos(int x, int y) {
+    GLint viewport[4];
+    GLdouble modelview[16];
+    GLdouble projection[16];
+    GLfloat winX, winY, winZ;
+    GLdouble posX, posY, posZ;
+ 
+    glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
+    glGetDoublev( GL_PROJECTION_MATRIX, projection );
+    glGetIntegerv( GL_VIEWPORT, viewport );
+ 
+    winX = (float)x;
+    winY = (float)viewport[3] - (float)y;
+    glReadPixels( x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
+ 
+    gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+ 	
+ 	vector<double> result;
+ 	result.push_back(posX);
+ 	result.push_back(posY);
+ 	result.push_back(posZ);
+
+ 	return result;
+}
+
+// Display information
 void display_info() {
 	cout << endl << "-------INFORMATION-----------" << endl;
 
@@ -221,12 +249,10 @@ void init() {
 void initGL() {
 	glClearColor(0, 0, 0, 1.f);
 	glClearDepth(1.0);
+	glEnable(GL_DEPTH);
 	glEnable(GL_DEPTH_TEST); // enable Z-buffer algorithm
 	glEnable(GL_ALPHA_TEST); // enable alpha value testing
 	glAlphaFunc(GL_GREATER,0);
-
-	glEnable (GL_BLEND);
-	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glEnable(GL_LIGHTING);
 
@@ -286,10 +312,23 @@ void display() {
 		draw_all_objects(
 			lid_angle,
 			dancer_angles, dancer_angle,
-			door_angle,
-			plane_z
+			door_angle
 		);
+		for (vector<coordinate_t>::iterator itr = control_points.begin(); itr != control_points.end(); itr++) {
+			glPushMatrix();
+				// cout << itr->xx << "..." << itr->yy << endl;
+				glTranslatef(itr->xx, itr->yy, itr->zz);
+				GLfloat color[] = {0.f,0.f,1.f,1.f};
+				// glEnable (GL_BLEND);
+				// glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
+				glutSolidSphere(0.1,10,10);
+				// glDisable(GL_BLEND);
+			glPopMatrix();
+		}
+		draw_plane(plane_z);
 	glPopMatrix();
+
 
 	glutSwapBuffers();
 }
@@ -557,7 +596,23 @@ void process_special_keys(int key, int x, int y) {
 	}
 }
 
-void mouse(int button, int state, int x, int y) {}
+void mouse(int button, int state, int x, int y) {
+	if (state == GLUT_DOWN) {
+		if (button == GLUT_DOWN) {
+			vector<double> actual_coords = GetOGLPos(x,y);
+			// cout << actual_coords[0] << " ";
+			// cout << actual_coords[1] << " ";
+			// cout << actual_coords[2] << " " << plane_z << "\n";
+			// cout << "Creating a sphere at " << x << " " << y << endl;
+			coordinate_t new_control_point;
+			new_control_point.xx = actual_coords[0];
+			new_control_point.yy = actual_coords[1];
+			new_control_point.zz = actual_coords[2];
+			control_points.push_back(new_control_point);
+		}
+		glutPostRedisplay();
+	}
+}
 
 void renderGL(int argc, char** argv) {
 	glutInit(&argc, argv);

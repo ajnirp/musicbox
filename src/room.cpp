@@ -19,6 +19,14 @@ int define_floor(bool is_textured, int texture) {
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 			glBindTexture(GL_TEXTURE_2D, texture);
 		}
+
+		GLfloat color[] = {1.f,1.f,1.f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
+
 		glPushMatrix();
 			int back_z = -4;
 			int front_z = 4;

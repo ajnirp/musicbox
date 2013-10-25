@@ -498,8 +498,7 @@ void draw_plane(float z) {
 void draw_all_objects(
 	float lid_degrees,
 	float* dancer_angles, float dancer_angle,
-	float door_angle,
-	float plane_z
+	float door_angle
 ) {
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
 	// Room walls and door
@@ -548,8 +547,6 @@ void draw_all_objects(
 		draw_wall_light();
 	glPopMatrix();
 
-	// Plane
-	// glPushMatrix();
-		draw_plane(plane_z);
-	// glPopMatrix();
+	// // Plane
+	// draw_plane(plane_z);
 }

@@ -19,14 +19,13 @@ void draw_lamp();
 void draw_wall_light();
 
 // Plane
-void draw_plane(int z);
+void draw_plane(float z);
 
 // Universal drawing function
 void draw_all_objects(
 	float lid_degrees,
 	float* dancer_angles, float dancer_angle,
-	float door_angle,
-	float plane_z
+	float door_angle
 );
 
 #endif

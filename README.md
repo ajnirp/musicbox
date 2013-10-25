@@ -41,8 +41,8 @@ Cleaning Up
 
 1. `make clean`
 
-Keybindings
------------
+Keybindings/Mouse actions
+-------------------------
 
 1. Exit the program: `Esc`
 2. Get help on keybindings: `F1`
@@ -57,6 +57,9 @@ Keybindings
 10. Switch on/switch off the lamp: `k`
 11. Switch on/switch off the wall light: `l`
 12. Reset everything: `F5`
+13. Move the control point selection plane along the z-axis: `↑` and `↓`
+14. Select a point to use as a control point: `mouse click`
+15. Start the animation: `Enter`
 
 Walkthrough
 -----------
