@@ -109,6 +109,7 @@ References
 
 1. http://www.opengl-tutorial.org/beginners-tutorials/tutorial-5-a-textured-cube/
 2. http://www.glprogramming.com/red/chapter09.html#name2
+3. http://nehe.gamedev.net/article/using_gluunproject/16013/ (Unprojecting points)
 
 License
 -------

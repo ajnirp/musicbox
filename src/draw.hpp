@@ -1,6 +1,11 @@
 #ifndef DRAW_H
 #define DRAW_H
 
+#include <vector>
+#include "coordinate.hpp"
+
+using namespace std;
+
 // Box and dancer
 void draw_box(double lid_degrees);
 void draw_dancer(float* angles, float dancer_angle);
@@ -27,5 +32,8 @@ void draw_all_objects(
 	float* dancer_angles, float dancer_angle,
 	float door_angle
 );
+
+// Bezier curve
+void draw_bezier_curve(vector<coordinate_t> curve_points, float spacing);
 
 #endif

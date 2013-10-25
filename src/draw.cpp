@@ -10,6 +10,7 @@
 #include "room.hpp"
 #include "texture.hpp"
 #include "plane.hpp"
+#include "bezier.hpp"
 
 // Drawing function for the box
 void draw_box(double lid_degrees) {
@@ -546,7 +547,10 @@ void draw_all_objects(
 		glRotatef(-90,0,1,0);
 		draw_wall_light();
 	glPopMatrix();
+}
 
-	// // Plane
-	// draw_plane(plane_z);
+// Draw the Bezier curve
+void draw_bezier_curve(vector<coordinate_t> curve_points, float spacing) {
+	int bezier = define_bezier_curve(curve_points, spacing);
+	glCallList(bezier);
 }

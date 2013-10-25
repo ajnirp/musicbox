@@ -2,10 +2,13 @@
 #include <vector>
 #include <GL/gl.h>
 #include <GL/glut.h>
+#include <cmath>
+#include <utility>
 // #include <GLUT/glut.h>
 
 #include "draw.hpp"
 #include "coordinate.hpp"
+#include "bezier.hpp"
 
 using namespace std;
 
@@ -105,7 +108,21 @@ short int curr_joint = 0; // Which joint to move
 bool lamp_light = false;
 bool wall_light = false;
 
+/* Boolean controlling whether the Bezier curve is drawn or not */
+bool draw_bezier = false;
+
+/* Boolean controlling whether the animation has started or not */
+bool move_camera = false;
+
+/* Camera coordinates */
+float camera_x = 0;
+float camera_y = 0;
+float camera_z = 3;
+
+int current_index = 0; // index of curve_points
+
 vector<coordinate_t> control_points;
+vector<coordinate_t> curve_points;
 
 /* 
 Joint Mappings 
@@ -236,14 +253,29 @@ int find_index_z() {
 void display();
 void reshape(int, int);
 void keyboard(unsigned char, int, int);
+void process_special_keys(int,int,int);
 void mouse(int, int, int, int);
 void initGL();
 void renderGL(int, char**);
+void timer(int value);
 
 void init() {
 	initGL(); // set up the camera, etc.
 	init_limits(); // set up the limits vector
 	// dancer_angles[3] = -90;
+}
+
+void timer(int value) {
+	if (move_camera) {
+		if (value < curve_points.size()) {
+			coordinate_t point = curve_points[value];
+			camera_x = point.xx;
+			camera_y = point.yy;
+			camera_z = point.zz;
+			current_index++; // now increment the global variable current index so that the next time
+			// this callback is called by glutTimerFunc, it is called with the next index of the curve_points vector
+		}
+	}
 }
 
 void initGL() {
@@ -297,7 +329,7 @@ void display() {
 	glLoadIdentity();
 
 	// gluLookAt(0,0,7,0,0,0,0,1,0);
-	gluLookAt(0,0,3,0,0,0,0,1,0);
+	gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
 	
 	if (lamp_light) glEnable(GL_LIGHT0);
 	else glDisable(GL_LIGHT0);
@@ -326,7 +358,12 @@ void display() {
 				// glDisable(GL_BLEND);
 			glPopMatrix();
 		}
-		draw_plane(plane_z);
+
+		if (draw_bezier) {
+			draw_bezier_curve(curve_points, 0.001);
+		}
+
+		if (not draw_bezier) draw_plane(plane_z);
 	glPopMatrix();
 
 
@@ -343,11 +380,6 @@ void reshape(int w, int h) {
 	glLoadIdentity();
 
 	gluPerspective(120, ratio, 1, 100);
-
-	// glMatrixMode(GL_MODELVIEW);
-	// glLoadIdentity();
-
-	// gluLookAt(0,0,3,0,0,0,0,1,0);
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -561,6 +593,17 @@ void keyboard(unsigned char key, int x, int y) {
 		}
 		break;
 
+		// Draw the approximated Bezier curve
+		case 'b': {
+			if (not draw_bezier) {
+				if (control_points.size() >= 2) {
+					draw_bezier = true;
+					curve_points = complete(control_points, 0.1);
+					glutPostRedisplay();
+				}
+			}
+		}
+		break;
 	}
 }
 
@@ -590,6 +633,14 @@ void process_special_keys(int key, int x, int y) {
 
 		case GLUT_KEY_UP: {
 			plane_z += 0.1;
+			glutPostRedisplay();
+		}
+		break;
+
+		// Start the animation
+		case GLUT_KEY_F3: {
+			cout << "FUCK YEEEAAAAAAHHHHHHHHHHHHHHHHHHHH\n";
+			move_camera = true;
 			glutPostRedisplay();
 		}
 		break;
@@ -629,6 +680,7 @@ void renderGL(int argc, char** argv) {
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(process_special_keys);
 	glutMouseFunc(mouse);
+	glutTimerFunc(2000,timer,current_index);
 
 	glutMainLoop();
 }
