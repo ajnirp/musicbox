@@ -261,9 +261,17 @@ void renderGL(int, char**);
 void timer(int value);
 
 void init() {
+	// initialize the control points vector
+	coordinate_t box_control_point;
+	box_control_point.xx = -1.8857;
+	box_control_point.yy = -0.093121;
+	box_control_point.zz = -2+0.5;
+
+	control_points.push_back(box_control_point);
+
 	initGL(); // set up the camera, etc.
+
 	init_limits(); // set up the limits vector
-	// dancer_angles[3] = -90;
 }
 
 void timer(int value) {
@@ -610,8 +618,15 @@ void keyboard(unsigned char key, int x, int y) {
 		// Draw the approximated Bezier curve
 		case 'b': {
 			if (not draw_bezier) {
-				if (control_points.size() >= 2) {
+				if (control_points.size() >= 3) {
 					draw_bezier = true;
+
+					coordinate_t door_control_point;
+					door_control_point.xx = 3.5;
+					door_control_point.yy = -0.5;
+					door_control_point.zz = 4;	
+
+					control_points.push_back(door_control_point);
 					curve_points = complete(control_points, 0.1);
 					glutPostRedisplay();
 				}
@@ -655,6 +670,7 @@ void process_special_keys(int key, int x, int y) {
 		case GLUT_KEY_F3: {
 			cout << "Animation started!\n";
 			move_camera = true;
+
 			current_index = curve_points.size() - 1;
 			// reverse(curve_points.begin(), curve_points.end());
 			glutPostRedisplay();

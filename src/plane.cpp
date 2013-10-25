@@ -12,7 +12,7 @@ int define_plane(float z) {
 		glEnable (GL_BLEND);
 		glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		GLfloat color[] = {255/255.0f,255/255.0f,255/255.0f,0.3f};
+		GLfloat color[] = {255/255.0f,255/255.0f,255/255.0f,0.1f};
 		GLfloat specular[] = {1.f,1.f,1.f,1.f};
 		GLfloat shininess[] = {0};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
