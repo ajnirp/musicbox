@@ -487,7 +487,9 @@ void draw_wall_light() {
 }
 
 // Drawing function for the plane
-void draw_plane(int z) {
+void draw_plane(float z) {
+	glPushMatrix();
+	glPopMatrix();
 	int plane = define_plane(z);
 	glCallList(plane);
 }

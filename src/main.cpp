@@ -94,7 +94,7 @@ float dancer_angle = 0;
 
 float door_angle = 0;
 
-float plane_z = -4;
+float plane_z = -5.5;
 
 /* Variables determining which body part to move */
 bool move_box = false; // When true, keyboard keys affect the box. When false, they affect the dancer
@@ -222,6 +222,12 @@ void initGL() {
 	glClearColor(0, 0, 0, 1.f);
 	glClearDepth(1.0);
 	glEnable(GL_DEPTH_TEST); // enable Z-buffer algorithm
+	glEnable(GL_ALPHA_TEST); // enable alpha value testing
+	glAlphaFunc(GL_GREATER,0);
+
+	glEnable (GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glEnable(GL_LIGHTING);
 
 	glShadeModel(GL_SMOOTH);
@@ -283,10 +289,6 @@ void display() {
 			door_angle,
 			plane_z
 		);
-		// glTranslatef(4.5,2.3,-5);
-		// glPushMatrix();
-		// 	glutSolidSphere(1,10,10);
-		// glPopMatrix();
 	glPopMatrix();
 
 	glutSwapBuffers();
@@ -519,6 +521,7 @@ void keyboard(unsigned char key, int x, int y) {
 			display_info();
 		}
 		break;
+
 	}
 }
 
@@ -536,6 +539,18 @@ void process_special_keys(int key, int x, int y) {
 			lid_angle = 0;
 			lamp_light = false;
 			wall_light = false;
+			glutPostRedisplay();
+		}
+		break;
+
+		case GLUT_KEY_DOWN: {
+			plane_z -= 0.1;
+			glutPostRedisplay();
+		}
+		break;
+
+		case GLUT_KEY_UP: {
+			plane_z += 0.1;
 			glutPostRedisplay();
 		}
 		break;
