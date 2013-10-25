@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include <cmath>
 #include <utility>
+#include <algorithm>
 // #include <GLUT/glut.h>
 
 #include "draw.hpp"
@@ -272,10 +273,19 @@ void timer(int value) {
 			camera_x = point.xx;
 			camera_y = point.yy;
 			camera_z = point.zz;
-			current_index++; // now increment the global variable current index so that the next time
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			gluLookAt(
+				camera_x,camera_y,camera_z,
+				-1.8857,-0.093121,-2,
+				0,1,0
+			);
+			current_index--; // now decrement the global variable current index so that the next time
 			// this callback is called by glutTimerFunc, it is called with the next index of the curve_points vector
 		}
+		glutPostRedisplay();
 	}
+	glutTimerFunc(500,timer,current_index);
 }
 
 void initGL() {
@@ -328,7 +338,6 @@ void display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	// gluLookAt(0,0,7,0,0,0,0,1,0);
 	gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
 	
 	if (lamp_light) glEnable(GL_LIGHT0);
@@ -380,6 +389,11 @@ void reshape(int w, int h) {
 	glLoadIdentity();
 
 	gluPerspective(120, ratio, 1, 100);
+
+	// glMatrixMode(GL_MODELVIEW);
+	// glLoadIdentity();
+
+	// gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -639,8 +653,10 @@ void process_special_keys(int key, int x, int y) {
 
 		// Start the animation
 		case GLUT_KEY_F3: {
-			cout << "FUCK YEEEAAAAAAHHHHHHHHHHHHHHHHHHHH\n";
+			cout << "Animation started!\n";
 			move_camera = true;
+			current_index = curve_points.size() - 1;
+			// reverse(curve_points.begin(), curve_points.end());
 			glutPostRedisplay();
 		}
 		break;
@@ -651,9 +667,9 @@ void mouse(int button, int state, int x, int y) {
 	if (state == GLUT_DOWN) {
 		if (button == GLUT_DOWN) {
 			vector<double> actual_coords = GetOGLPos(x,y);
-			// cout << actual_coords[0] << " ";
-			// cout << actual_coords[1] << " ";
-			// cout << actual_coords[2] << " " << plane_z << "\n";
+			cout << actual_coords[0] << " ";
+			cout << actual_coords[1] << " ";
+			cout << actual_coords[2] << "\n";
 			// cout << "Creating a sphere at " << x << " " << y << endl;
 			coordinate_t new_control_point;
 			new_control_point.xx = actual_coords[0];
@@ -680,7 +696,7 @@ void renderGL(int argc, char** argv) {
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(process_special_keys);
 	glutMouseFunc(mouse);
-	glutTimerFunc(2000,timer,current_index);
+	glutTimerFunc(500,timer,current_index);
 
 	glutMainLoop();
 }

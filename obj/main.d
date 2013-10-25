@@ -104,6 +104,10 @@
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/mathinline.h \
  /usr/include/c++/4.7/utility /usr/include/c++/4.7/bits/stl_relops.h \
+ /usr/include/c++/4.7/algorithm /usr/include/c++/4.7/bits/stl_algo.h \
+ /usr/include/c++/4.7/cstdlib /usr/include/c++/4.7/bits/algorithmfwd.h \
+ /usr/include/c++/4.7/bits/stl_heap.h \
+ /usr/include/c++/4.7/bits/stl_tempbuf.h \
  /host/Academic/5/cs475/assignments/musicbox/src/draw.hpp \
  /host/Academic/5/cs475/assignments/musicbox/src/coordinate.hpp \
  /host/Academic/5/cs475/assignments/musicbox/src/bezier.hpp
