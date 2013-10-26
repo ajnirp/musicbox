@@ -124,7 +124,7 @@ bool draw_front_wall = true;
 /* Camera coordinates */
 float camera_x = 0;
 float camera_y = 0;
-float camera_z = 4;
+float camera_z = 2;
 
 int current_index = 100; // index of curve_points
 
@@ -303,8 +303,8 @@ void timer(int value) {
 			}
 		}
 		else if ((value >= -40) and (value < -20)) {
-			if ((dancer_y+0.1) <= 1){
-				dancer_y+=0.1;
+			if ((dancer_y+0.05) <= 1){
+				dancer_y+=0.05;
 			}
 		}
 
@@ -660,7 +660,6 @@ void keyboard(unsigned char key, int x, int y) {
 					current_index = curve_points.size() - 1;
 
 					// cout << "Curve points" << endl;
-					cout << curve_points.size() << endl;
 					// for (int i = 0 ; i < curve_points.size() ; i++) {
 					// 	cout << curve_points[i].xx << " "
 					// 	     << curve_points[i].yy << " "
