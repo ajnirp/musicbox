@@ -119,14 +119,12 @@ bool draw_bezier = false;
 /* Boolean controlling whether the animation has started or not */
 bool move_camera = false;
 
-bool draw_front_wall = true;
-
 /* Camera coordinates */
 float camera_x = 0;
 float camera_y = 0;
-float camera_z = 2;
+float camera_z = 5;
 
-int current_index = 100; // index of curve_points
+int current_index = 20; // index of curve_points
 
 vector<coordinate_t> control_points;
 vector<coordinate_t> curve_points;
@@ -222,6 +220,8 @@ void display_keybindings_help() {
 	cout << "Display information                            i" << endl;
 	cout << "Switch on/switch off the lamp                  k" << endl;
 	cout << "Switch on/switch off the wall light            l" << endl;
+	cout << "Enter the room                                 g" << endl;
+	cout << "Start the animation                            Space" << endl;
 	cout << "Reset everything                               F5" << endl << endl;
 	cout << "       ----------------------------------------" << endl << endl;
 }
@@ -310,15 +310,13 @@ void timer(int value) {
 
 		glutPostRedisplay();
 		if (value >= -40) glutTimerFunc(GLUT_FRAME_TIME,timer,value-1);
-		else move_camera = false;
+		else glutTimerFunc(10000,timer, value);
+		// else return;
 	}
 	else {
 		glutTimerFunc(GLUT_FRAME_TIME,timer,value);
+		// return;
 	}
-	// cout << current_index << endl;
-	// if (value >= -10) {
-	// 	glutPostRedisplay();
-	// }
 }
 
 void initGL() {
@@ -388,13 +386,15 @@ void display() {
 			dancer_angles, dancer_angle, dancer_y,
 			door_angle
 		);
-		for (vector<coordinate_t>::iterator itr = control_points.begin(); itr != control_points.end(); itr++) {
-			glPushMatrix();
-				glTranslatef(itr->xx, itr->yy, itr->zz);
-				GLfloat color[] = {0.f,0.f,1.f,1.f};
-				glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
-				glutSolidSphere(0.1,10,10);
-			glPopMatrix();
+		if (not move_camera) {
+			for (vector<coordinate_t>::iterator itr = control_points.begin(); itr != control_points.end(); itr++) {
+				glPushMatrix();
+					glTranslatef(itr->xx, itr->yy, itr->zz);
+					GLfloat color[] = {0.f,0.f,1.f,1.f};
+					glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
+					glutSolidSphere(0.1,10,10);
+				glPopMatrix();
+			}
 		}
 
 		// if (draw_bezier) {
@@ -637,7 +637,7 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 
 		// Draw the approximated Bezier curve
-		case 'b': {
+		case ' ': {
 			if (not draw_bezier) {
 				if (control_points.size() >= 3) {
 					draw_bezier = true;
@@ -655,7 +655,7 @@ void keyboard(unsigned char key, int x, int y) {
 					// 	     << control_points[i].zz << "\n";
 					// }
 
-					curve_points = complete(control_points, 0.01);
+					curve_points = complete(control_points, 0.05);
 
 					current_index = curve_points.size() - 1;
 
@@ -675,9 +675,17 @@ void keyboard(unsigned char key, int x, int y) {
 		}
 		break;
 
-		case 'v': {
-			draw_front_wall = not draw_front_wall;
-			glutPostRedisplay();
+		// Enter the room
+		case 'g': {
+			if (not move_camera) {
+				cout << "Entering room...\n";
+				camera_z = 2.55;
+
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
+				gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
+				glutPostRedisplay();
+			}
 		}
 		break;
 	}
