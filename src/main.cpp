@@ -296,17 +296,17 @@ void timer(int value) {
 				-1.8857,-0.093121,-2,
 				0,1,0
 			);
-			current_index--;
-			// now decrement the global variable current_index so that the next time
-			// this callback is called by glutTimerFunc, it is called with the next index of the curve_points vector
 		}
-		else if ((value >= 50) and (value <= -1)) {
-			if (lid_angle + 2 <= 90) lid_angle += 2.f;
+		else if ((value >= 30) and (value <= -1)) {
+			if (lid_angle - 2 >= -90) lid_angle -= 2.f;
 		}
+		// now decrement the global variable current_index so that the next time
+		// this callback is called by glutTimerFunc, it is called with the next index of the curve_points vector
+		current_index--;
 		// if (current_index >= -50) glutTimerFunc(GLUT_FRAME_TIME,timer,current_index);
 	}
 	glutPostRedisplay();
-	if (current_index >= -50) glutTimerFunc(GLUT_FRAME_TIME,timer,current_index);
+	if (current_index >= -30) glutTimerFunc(GLUT_FRAME_TIME,timer,current_index);
 }
 
 void initGL() {
@@ -694,25 +694,20 @@ void process_special_keys(int key, int x, int y) {
 
 		// Start the animation
 		case GLUT_KEY_F3: {
-			if (move_camera) {
-				cout << "Animation started!\n";
+			cout << "Animation started!\n";
 
-				current_index = curve_points.size() - 1;
+			current_index = curve_points.size() - 1;
 
-				cout << "Curve points" << endl;
-				for (int i = 0 ; i < curve_points.size() ; i++) {
-					cout << curve_points[i].xx << " "
-					     << curve_points[i].yy << " "
-					     << curve_points[i].zz << endl;
-				}
-				cout << endl;
-
-				move_camera = true;
-				glutPostRedisplay();
+			cout << "Curve points" << endl;
+			for (int i = 0 ; i < curve_points.size() ; i++) {
+				cout << curve_points[i].xx << " "
+				     << curve_points[i].yy << " "
+				     << curve_points[i].zz << endl;
 			}
-			else {
-				cout << "Please draw the Bezier curve before starting the animation!\n";
-			}
+			cout << endl;
+
+			move_camera = true;
+			glutPostRedisplay();
 		}
 		break;
 	}
