@@ -59,10 +59,14 @@ Keybindings/Mouse actions
 12. Reset everything: `F5`
 13. Move the control point selection plane along the z-axis: `↑` and `↓`
 14. Select a point to use as a control point: `mouse click`
-15. Start the animation: `Enter`
+15. Draw the Bezier curve: `b`
+16. Start the animation: `F3`
 
 Walkthrough
 -----------
+
+For part 1
+----------
 
 When you run the program using `./bin/musicbox` you should see a wooden box and a wooden doll standing next to each other. You can move the box lid and various parts of the doll by pressing the keys `w`, `s`, `a`, `d`, `q` and `e`. The first two are for rotating about the x-axis, the next two are for rotating about the y-axis, and the last two are for rotating about the z-axis.
 
@@ -92,6 +96,11 @@ Once you've selected a joint, you have to select a side to move (in case the joi
 Once you've selected a joint and a side, the keybindings are simple. Use `w` and `s` to rotate about the x-axis. For the y-axis, `a` and `d`. For the z-axis, `q` and `e`. Note that each joint is restricted to a certain range of movement so that the whole doll looks realistic. Also note that pressing `a`, `d`, `q` or `e` will have no effect if you have selected a joint that has only 1 degree of freedom, like the doll's knees or its elbows.
 
 To rotate the entire dancer about the y-axis, use `,` and `.`. As you'd expect, these keys do nothing if the dancer is not selected.
+
+For part 2
+----------
+
+In part 2, the dancer has been placed inside the box, which in turn has been placed in a room with some furniture and two lights. To turn on the lamp, press `k`, and to turn on the wall light, press `l`. To move the selector plane, use the up and down arrow keys, and click on the selector plane when 
 
 If at any point you lose track of which object and which joint is selected or which light is turned on, simply press `F1` and the required information will be printed to the terminal. In any case, whenever you change the selected side or change the selected object a message will be logged to the terminal.
 

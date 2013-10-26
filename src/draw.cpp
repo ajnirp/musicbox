@@ -340,12 +340,13 @@ void draw_room(float door_angle) {
 			// glCallList(room_front_wall);
 		glPopMatrix();
 
-		// glPushMatrix();
-		// 	glTranslatef(5,0,4);
-		// 	glRotatef(door_angle,0,1,0);
-		// 	glTranslatef(-5,0,-4);
-		// 	glCallList(door);
-		// glPopMatrix();
+		glPushMatrix();
+			glTranslatef(5,0,4);
+			// glRotatef(door_angle,0,1,0);
+			glRotatef(90,0,1,0);
+			glTranslatef(-5,0,-4);
+			glCallList(door);
+		glPopMatrix();
 		
 	glPopMatrix();
 }
@@ -458,11 +459,6 @@ void draw_lamp() {
 			glTranslatef(0,-1.5-0.05,0);
 			glCallList(lamp_base);
 		glPopMatrix();
-		// lamp light
-		// glPushMatrix();
-		// 	glTranslatef(0,1.5,0);
-		// 	glCallList(lamp_light); // not actually visible because the lamp head is covering it
-		// glPopMatrix();
 	glPopMatrix();
 }
 

@@ -11,6 +11,8 @@
 #include "coordinate.hpp"
 #include "bezier.hpp"
 
+#define GLUT_FRAME_TIME 10
+
 using namespace std;
 
 int find_index_x();
@@ -98,7 +100,7 @@ float dancer_angle = 0;
 
 float door_angle = 0;
 
-float plane_z = -4+0.001;
+float plane_z = 0;
 
 /* Variables determining which body part to move */
 bool move_box = false; // When true, keyboard keys affect the box. When false, they affect the dancer
@@ -115,12 +117,14 @@ bool draw_bezier = false;
 /* Boolean controlling whether the animation has started or not */
 bool move_camera = false;
 
+bool draw_front_wall = true;
+
 /* Camera coordinates */
 float camera_x = 0;
 float camera_y = 0;
-float camera_z = 3;
+float camera_z = 4;
 
-int current_index = 0; // index of curve_points
+int current_index = 100; // index of curve_points
 
 vector<coordinate_t> control_points;
 vector<coordinate_t> curve_points;
@@ -158,6 +162,7 @@ vector<double> GetOGLPos(int x, int y) {
     glReadPixels( x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
  
     gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+    posZ = (plane_z * 0.9) - 2;
  	
  	vector<double> result;
  	result.push_back(posX);
@@ -167,7 +172,7 @@ vector<double> GetOGLPos(int x, int y) {
  	return result;
 }
 
-// Display information
+// Display in*formation
 void display_info() {
 	cout << endl << "-------INFORMATION-----------" << endl;
 
@@ -245,6 +250,7 @@ int find_index_y() {
 	return index;
 }
 
+
 int find_index_z() {
 	int index = find_index_y() + 1;
 	return index;
@@ -263,9 +269,9 @@ void timer(int value);
 void init() {
 	// initialize the control points vector
 	coordinate_t box_control_point;
-	box_control_point.xx = -1.8857;
-	box_control_point.yy = -0.093121;
-	box_control_point.zz = -2+0.5;
+	box_control_point.xx = -1.87471;
+	box_control_point.yy = 0.8;
+	box_control_point.zz = -1;
 
 	control_points.push_back(box_control_point);
 
@@ -275,8 +281,10 @@ void init() {
 }
 
 void timer(int value) {
+	// cout << "Timer function called with value " << value << endl;
+	if (value > curve_points.size()-1) return;
 	if (move_camera) {
-		if (value < curve_points.size()) {
+		if (value > -1) {
 			coordinate_t point = curve_points[value];
 			camera_x = point.xx;
 			camera_y = point.yy;
@@ -288,12 +296,17 @@ void timer(int value) {
 				-1.8857,-0.093121,-2,
 				0,1,0
 			);
-			current_index--; // now decrement the global variable current index so that the next time
+			current_index--;
+			// now decrement the global variable current_index so that the next time
 			// this callback is called by glutTimerFunc, it is called with the next index of the curve_points vector
 		}
-		glutPostRedisplay();
+		else if ((value >= 50) and (value <= -1)) {
+			if (lid_angle + 2 <= 90) lid_angle += 2.f;
+		}
+		// if (current_index >= -50) glutTimerFunc(GLUT_FRAME_TIME,timer,current_index);
 	}
-	glutTimerFunc(500,timer,current_index);
+	glutPostRedisplay();
+	if (current_index >= -50) glutTimerFunc(GLUT_FRAME_TIME,timer,current_index);
 }
 
 void initGL() {
@@ -343,10 +356,10 @@ void initGL() {
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	// glMatrixMode(GL_MODELVIEW);
+	// glLoadIdentity();
 
-	gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
+	// gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
 	
 	if (lamp_light) glEnable(GL_LIGHT0);
 	else glDisable(GL_LIGHT0);
@@ -398,10 +411,10 @@ void reshape(int w, int h) {
 
 	gluPerspective(120, ratio, 1, 100);
 
-	// glMatrixMode(GL_MODELVIEW);
-	// glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
-	// gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
+	gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -622,15 +635,28 @@ void keyboard(unsigned char key, int x, int y) {
 					draw_bezier = true;
 
 					coordinate_t door_control_point;
-					door_control_point.xx = 3.5;
-					door_control_point.yy = -0.5;
-					door_control_point.zz = 4;	
+					door_control_point.xx = 2.74009;
+					door_control_point.yy = -1.35724;
+					door_control_point.zz = 2.5;
 
 					control_points.push_back(door_control_point);
-					curve_points = complete(control_points, 0.1);
+
+					// for (int i = 0 ; i < control_points.size() ; i++) {
+					// 	cout << control_points[i].xx << " "
+					// 	     << control_points[i].yy << " "
+					// 	     << control_points[i].zz << "\n";
+					// }
+
+					curve_points = complete(control_points, 0.01);
 					glutPostRedisplay();
 				}
 			}
+		}
+		break;
+
+		case 'v': {
+			draw_front_wall = not draw_front_wall;
+			glutPostRedisplay();
 		}
 		break;
 	}
@@ -668,12 +694,25 @@ void process_special_keys(int key, int x, int y) {
 
 		// Start the animation
 		case GLUT_KEY_F3: {
-			cout << "Animation started!\n";
-			move_camera = true;
+			if (move_camera) {
+				cout << "Animation started!\n";
 
-			current_index = curve_points.size() - 1;
-			// reverse(curve_points.begin(), curve_points.end());
-			glutPostRedisplay();
+				current_index = curve_points.size() - 1;
+
+				cout << "Curve points" << endl;
+				for (int i = 0 ; i < curve_points.size() ; i++) {
+					cout << curve_points[i].xx << " "
+					     << curve_points[i].yy << " "
+					     << curve_points[i].zz << endl;
+				}
+				cout << endl;
+
+				move_camera = true;
+				glutPostRedisplay();
+			}
+			else {
+				cout << "Please draw the Bezier curve before starting the animation!\n";
+			}
 		}
 		break;
 	}
@@ -712,7 +751,7 @@ void renderGL(int argc, char** argv) {
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(process_special_keys);
 	glutMouseFunc(mouse);
-	glutTimerFunc(500,timer,current_index);
+	glutTimerFunc(GLUT_FRAME_TIME,timer,current_index);
 
 	glutMainLoop();
 }

@@ -43,5 +43,6 @@ vector<coordinate_t> complete(vector<coordinate_t> points, float spacing) {
 		coordinate_t point = deCasteljau(points, i);
 		curve_points.push_back(point);
 	}
+	curve_points.push_back(points[points.size()-1]);
 	return curve_points;
 }
