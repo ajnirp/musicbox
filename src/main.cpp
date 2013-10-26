@@ -11,7 +11,7 @@
 #include "coordinate.hpp"
 #include "bezier.hpp"
 
-#define GLUT_FRAME_TIME 10
+#define GLUT_FRAME_TIME 100
 
 using namespace std;
 
@@ -281,8 +281,7 @@ void init() {
 }
 
 void timer(int value) {
-	// cout << "Timer function called with value " << value << endl;
-	if (value > curve_points.size()-1) return;
+	// if (value > curve_points.size()-1) return;
 	if (move_camera) {
 		if (value > -1) {
 			coordinate_t point = curve_points[value];
@@ -297,16 +296,24 @@ void timer(int value) {
 				0,1,0
 			);
 		}
-		else if ((value >= 30) and (value <= -1)) {
-			if (lid_angle - 2 >= -90) lid_angle -= 2.f;
+		else {
+			if ((lid_angle-5) >= -90) {
+				lid_angle -= 5.f;
+			}
 		}
+		glutPostRedisplay();
+		if (value >= -20) glutTimerFunc(GLUT_FRAME_TIME,timer,value-1);
 		// now decrement the global variable current_index so that the next time
 		// this callback is called by glutTimerFunc, it is called with the next index of the curve_points vector
-		current_index--;
-		// if (current_index >= -50) glutTimerFunc(GLUT_FRAME_TIME,timer,current_index);
+		// current_index--;
 	}
-	glutPostRedisplay();
-	if (current_index >= -30) glutTimerFunc(GLUT_FRAME_TIME,timer,current_index);
+	else {
+		glutTimerFunc(GLUT_FRAME_TIME,timer,value);
+	}
+	// cout << current_index << endl;
+	// if (value >= -10) {
+	// 	glutPostRedisplay();
+	// }
 }
 
 void initGL() {
@@ -378,20 +385,16 @@ void display() {
 		);
 		for (vector<coordinate_t>::iterator itr = control_points.begin(); itr != control_points.end(); itr++) {
 			glPushMatrix();
-				// cout << itr->xx << "..." << itr->yy << endl;
 				glTranslatef(itr->xx, itr->yy, itr->zz);
 				GLfloat color[] = {0.f,0.f,1.f,1.f};
-				// glEnable (GL_BLEND);
-				// glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 				glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 				glutSolidSphere(0.1,10,10);
-				// glDisable(GL_BLEND);
 			glPopMatrix();
 		}
 
-		if (draw_bezier) {
-			draw_bezier_curve(curve_points, 0.001);
-		}
+		// if (draw_bezier) {
+		// 	draw_bezier_curve(curve_points, 0.001);
+		// }
 
 		if (not draw_bezier) draw_plane(plane_z);
 	glPopMatrix();
@@ -648,6 +651,20 @@ void keyboard(unsigned char key, int x, int y) {
 					// }
 
 					curve_points = complete(control_points, 0.01);
+
+					current_index = curve_points.size() - 1;
+
+					// cout << "Curve points" << endl;
+					cout << curve_points.size() << endl;
+					// for (int i = 0 ; i < curve_points.size() ; i++) {
+					// 	cout << curve_points[i].xx << " "
+					// 	     << curve_points[i].yy << " "
+					// 	     << curve_points[i].zz << endl;
+					// }
+					// cout << endl;
+
+					move_camera = true;
+
 					glutPostRedisplay();
 				}
 			}
@@ -694,20 +711,10 @@ void process_special_keys(int key, int x, int y) {
 
 		// Start the animation
 		case GLUT_KEY_F3: {
-			cout << "Animation started!\n";
+			// cout << "Animation started!\n";
 
-			current_index = curve_points.size() - 1;
-
-			cout << "Curve points" << endl;
-			for (int i = 0 ; i < curve_points.size() ; i++) {
-				cout << curve_points[i].xx << " "
-				     << curve_points[i].yy << " "
-				     << curve_points[i].zz << endl;
-			}
-			cout << endl;
-
-			move_camera = true;
-			glutPostRedisplay();
+			
+			// glutPostRedisplay();
 		}
 		break;
 	}
