@@ -283,7 +283,6 @@ void init() {
 }
 
 void timer(int value) {
-	cout << value << endl;
 	if (move_camera) {
 		if (value > -1) {
 			coordinate_t point = curve_points[value];

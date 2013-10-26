@@ -11,7 +11,14 @@
 int define_head() {
 	int head = glGenLists(1);
 	glNewList(head, GL_COMPILE);
-		glColor3ub(205,175,149);
+		// glColor3ub(205,175,149);
+
+	GLfloat color[] = {205/255.0f,175/255.0f,149/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {1};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
 		// Front face
 		glBegin(GL_POLYGON);
 			glVertex3f(-0.25,0,0);
@@ -299,7 +306,15 @@ int define_hand() {
 int define_hat() {
 	int hat = glGenLists(1);
 	glNewList(hat, GL_COMPILE);
-		glColor3ub(100,50,50);
+		// glColor3ub(100,50,50);
+
+		GLfloat color[] = {100/255.0f,50/255.0f,50/255.0f,1.f};
+		GLfloat specular[] = {1.f,1.f,1.f,1.f};
+		GLfloat shininess[] = {0};
+		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
+
 		GLUquadric* base = gluNewQuadric();
 		GLUquadric* top = gluNewQuadric();
 		glTranslatef(0,0,-0.25); // because depth of the head = 0.5
