@@ -98,6 +98,8 @@ float lid_angle_increment = 3.f;
 float dancer_angles[40] = {0};
 float dancer_angle = 0;
 
+float dancer_y = 0;
+
 float door_angle = 0;
 
 float plane_z = 0;
@@ -281,7 +283,7 @@ void init() {
 }
 
 void timer(int value) {
-	// if (value > curve_points.size()-1) return;
+	cout << value << endl;
 	if (move_camera) {
 		if (value > -1) {
 			coordinate_t point = curve_points[value];
@@ -296,16 +298,20 @@ void timer(int value) {
 				0,1,0
 			);
 		}
-		else {
+		else if ((value >= -20) and (value <= -1)) {
 			if ((lid_angle-5) >= -90) {
 				lid_angle -= 5.f;
 			}
 		}
+		else if ((value >= -40) and (value < -20)) {
+			if ((dancer_y+0.1) <= 1){
+				dancer_y+=0.1;
+			}
+		}
+
 		glutPostRedisplay();
-		if (value >= -20) glutTimerFunc(GLUT_FRAME_TIME,timer,value-1);
-		// now decrement the global variable current_index so that the next time
-		// this callback is called by glutTimerFunc, it is called with the next index of the curve_points vector
-		// current_index--;
+		if (value >= -40) glutTimerFunc(GLUT_FRAME_TIME,timer,value-1);
+		else move_camera = false;
 	}
 	else {
 		glutTimerFunc(GLUT_FRAME_TIME,timer,value);
@@ -380,7 +386,7 @@ void display() {
 		glRotatef(world_z_angle, 0,0,1);
 		draw_all_objects(
 			lid_angle,
-			dancer_angles, dancer_angle,
+			dancer_angles, dancer_angle, dancer_y,
 			door_angle
 		);
 		for (vector<coordinate_t>::iterator itr = control_points.begin(); itr != control_points.end(); itr++) {

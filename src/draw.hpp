@@ -29,7 +29,7 @@ void draw_plane(float z);
 // Universal drawing function
 void draw_all_objects(
 	float lid_degrees,
-	float* dancer_angles, float dancer_angle,
+	float* dancer_angles, float dancer_angle, float dancer_y,
 	float door_angle
 );
 

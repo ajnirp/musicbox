@@ -494,7 +494,7 @@ void draw_plane(float z) {
 // Draw everything
 void draw_all_objects(
 	float lid_degrees,
-	float* dancer_angles, float dancer_angle,
+	float* dancer_angles, float dancer_angle,float dancer_y,
 	float door_angle
 ) {
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
@@ -508,7 +508,7 @@ void draw_all_objects(
 		draw_box(lid_degrees);
 	glPopMatrix();
 	glPushMatrix();
-		glTranslatef(-2,0,-2.7);
+		glTranslatef(-2,dancer_y,-2.7);
 		draw_dancer(dancer_angles, dancer_angle);
 	glPopMatrix();
 
