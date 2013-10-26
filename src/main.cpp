@@ -365,11 +365,6 @@ void initGL() {
 /* Callback Definitions */
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// glMatrixMode(GL_MODELVIEW);
-	// glLoadIdentity();
-
-	// gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
 	
 	if (lamp_light) glEnable(GL_LIGHT0);
 	else glDisable(GL_LIGHT0);
@@ -648,25 +643,8 @@ void keyboard(unsigned char key, int x, int y) {
 					door_control_point.zz = 2.5;
 
 					control_points.push_back(door_control_point);
-
-					// for (int i = 0 ; i < control_points.size() ; i++) {
-					// 	cout << control_points[i].xx << " "
-					// 	     << control_points[i].yy << " "
-					// 	     << control_points[i].zz << "\n";
-					// }
-
 					curve_points = complete(control_points, 0.05);
-
 					current_index = curve_points.size() - 1;
-
-					// cout << "Curve points" << endl;
-					// for (int i = 0 ; i < curve_points.size() ; i++) {
-					// 	cout << curve_points[i].xx << " "
-					// 	     << curve_points[i].yy << " "
-					// 	     << curve_points[i].zz << endl;
-					// }
-					// cout << endl;
-
 					move_camera = true;
 
 					glutPostRedisplay();
@@ -745,6 +723,15 @@ void mouse(int button, int state, int x, int y) {
 			new_control_point.yy = actual_coords[1];
 			new_control_point.zz = actual_coords[2];
 			control_points.push_back(new_control_point);
+		}
+		else if (button == GLUT_RIGHT_BUTTON) {
+			if (control_points.size() >= 2) {
+				control_points.pop_back();
+				cout << "Deleted the last control point" << endl;
+			}
+			else {
+				cout << "Can't delete any more control points!" << endl;
+			}
 		}
 		glutPostRedisplay();
 	}

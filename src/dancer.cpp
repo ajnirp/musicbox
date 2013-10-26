@@ -11,9 +11,7 @@
 int define_head() {
 	int head = glGenLists(1);
 	glNewList(head, GL_COMPILE);
-		// glColor3ub(205,175,149);
-
-	GLfloat color[] = {205/255.0f,175/255.0f,149/255.0f,1.f};
+		GLfloat color[] = {205/255.0f,175/255.0f,149/255.0f,1.f};
 		GLfloat specular[] = {1.f,1.f,1.f,1.f};
 		GLfloat shininess[] = {1};
 		glMaterialfv(GL_FRONT,GL_SPECULAR,specular);
@@ -39,7 +37,8 @@ int define_head() {
 			glVertex3f(-0.35,0.25,-0.5);
 		glEnd();
 		// Scalp
-		glColor3ub(100,240,120);
+		GLfloat color2[] = {100/255.0f,240/255.0f,120/255.0f,1.f};
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color2);
 		glBegin(GL_QUADS);
 			glVertex3f(-0.3,0.5,0);
 			glVertex3f(0.3,0.5,0);
@@ -47,7 +46,8 @@ int define_head() {
 			glVertex3f(-0.3,0.5,-0.5);
 		glEnd();
 		// Top left side
-		glColor3ub(165, 112, 42);
+		GLfloat color3[] = {165/255.0f,112/255.0f,42/255.0f,1.f};
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color3);
 		glBegin(GL_QUADS);
 			glVertex3f(-0.3,0.5,0);
 			glVertex3f(-0.35,0.25,0);
@@ -55,7 +55,8 @@ int define_head() {
 			glVertex3f(-0.3,0.5,-0.5);
 		glEnd();
 		// Bottom left side
-		glColor3ub(100, 112, 200);
+		GLfloat color4[] = {100/255.0f,112/255.0f,200/255.0f,1.f};
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color4);
 		glBegin(GL_QUADS);
 			glVertex3f(-0.35,0.25,0);
 			glVertex3f(-0.25,0,0);
@@ -63,7 +64,8 @@ int define_head() {
 			glVertex3f(-0.35,0.25,-0.5);
 		glEnd();
 		// Top right side
-		glColor3ub(165, 112, 42);
+		GLfloat color5[] = {165/255.0f,112/255.0f,42/255.0f,1.f};
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color5);
 		glBegin(GL_QUADS);
 			glVertex3f(0.3,0.5,0);
 			glVertex3f(0.35,0.25,0);
@@ -71,7 +73,8 @@ int define_head() {
 			glVertex3f(0.3,0.5,-0.5);
 		glEnd();
 		// Bottom right side
-		glColor3ub(100, 112, 200);
+		GLfloat color6[] = {100/255.0f,112/255.0f,200/255.0f,1.f};
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color6);
 		glBegin(GL_QUADS);
 			glVertex3f(0.35,0.25,0);
 			glVertex3f(0.25,0,0);

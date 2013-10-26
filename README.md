@@ -58,15 +58,18 @@ Keybindings/Mouse actions
 11. Switch on/switch off the wall light: `l`
 12. Reset everything: `F5`
 13. Move the control point selection plane along the z-axis: `↑` and `↓`
-14. Select a point to use as a control point: `mouse click`
+14. Select a point to use as a control point: mouse click
 15. Draw the Bezier curve: `b`
 16. Start the animation: `F3`
+17. Delete the last created control points: right mouse click
 
 Walkthrough
 -----------
 
 For part 1
 ----------
+
+This section applies to part 1 of the assignment. Please skip ahead to "For part 2" for a description of how the program behaves and what to do when the program starts.
 
 When you run the program using `./bin/musicbox` you should see a wooden box and a wooden doll standing next to each other. You can move the box lid and various parts of the doll by pressing the keys `w`, `s`, `a`, `d`, `q` and `e`. The first two are for rotating about the x-axis, the next two are for rotating about the y-axis, and the last two are for rotating about the z-axis.
 
@@ -100,11 +103,15 @@ To rotate the entire dancer about the y-axis, use `,` and `.`. As you'd expect, 
 For part 2
 ----------
 
-In part 2, the dancer has been placed inside the box, which in turn has been placed in a room with some furniture and two lights. To turn on the lamp, press `k`, and to turn on the wall light, press `l`. To move the selector plane, use the up and down arrow keys, and click on the selector plane when 
+In part 2, the dancer has been placed inside the box, which in turn has been placed in a room with some furniture and two lights.
 
-If at any point you lose track of which object and which joint is selected or which light is turned on, simply press `F1` and the required information will be printed to the terminal. In any case, whenever you change the selected side or change the selected object a message will be logged to the terminal.
+When you start the program, you will see the front wall of the room, and a door. To open and close the door use `+` and `-`. When you're done, press `g` and you will now be inside the room. You can now see the room and the furniture inside it. In the far left, at the back of the room, you can see a table on which there is a box. This is the same box as in part 1 of the assignment. Inside the box (not visible yet) is a dancer, the same dancer as in part 1.
 
-If you ever want to reset all changes you've made, simply press `F5` and all angles will be reset to 0, like they where when the program started. Also, both lights will be turned off.
+The room also contains a lamp and a wall light. The lamp is to the left of the room and the wall light is on the back wall of the room and to the right. To turn on the lamp, press `k`, and to turn on the wall light, press `l`. To move the selector plane, use the up and down arrow keys, and click on the selector plane when you want to select a bezier control point. A small blue sphere will appear where you clicked. This allows you to see which control points you have selected so far. If you mistakenly click somewhere you didn't want to, you can always delete the last clicked control point by right clicking.
+
+If at any point you lose track of which object and which joint is selected or which light is turned on, simply press `F1` and the required information will be printed to the terminal. In any case, whenever you change the selected side or change the selected object a message will be logged to the terminal, so you can look at the terminal logs to see what transpired.
+
+Once you've selected the control points, press `Space` and watch the animation. The camera will pan through the room along a Bezier curve that is formed from the control points you clicked on. Then the box will open and the dancer will rise up.
 
 Credits
 -------
@@ -112,6 +119,7 @@ Credits
 All of the code was written entirely by the two of us, except for the following parts:
 
 1. `Makefile` is a modified version of the Makefile given to us in the Software Systems Lab course at IIT Bombay
+2. The code for getting the 3D point from the mouse click is a modified version of the GetOGLPos function given in the third [reference](http://nehe.gamedev.net/article/using_gluunproject/16013/).
 
 References
 ----------
