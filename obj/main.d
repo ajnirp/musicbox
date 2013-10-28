@@ -74,7 +74,16 @@
  /usr/include/c++/4.7/bits/locale_facets.tcc \
  /usr/include/c++/4.7/bits/basic_ios.tcc \
  /usr/include/c++/4.7/bits/ostream.tcc /usr/include/c++/4.7/istream \
- /usr/include/c++/4.7/bits/istream.tcc /usr/include/c++/4.7/vector \
+ /usr/include/c++/4.7/bits/istream.tcc /usr/include/c++/4.7/fstream \
+ /usr/include/c++/4.7/bits/codecvt.h /usr/include/c++/4.7/cstdio \
+ /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio2.h \
+ /usr/include/x86_64-linux-gnu/c++/4.7/./bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/4.7/./bits/c++io.h \
+ /usr/include/c++/4.7/bits/fstream.tcc /usr/include/c++/4.7/vector \
  /usr/include/c++/4.7/bits/stl_construct.h \
  /usr/include/c++/4.7/ext/alloc_traits.h \
  /usr/include/c++/4.7/bits/stl_uninitialized.h \
@@ -110,4 +119,5 @@
  /usr/include/c++/4.7/bits/stl_tempbuf.h \
  /host/Academic/5/cs475/assignments/musicbox/src/draw.hpp \
  /host/Academic/5/cs475/assignments/musicbox/src/coordinate.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/bezier.hpp
+ /host/Academic/5/cs475/assignments/musicbox/src/bezier.hpp \
+ /host/Academic/5/cs475/assignments/musicbox/src/helpers.hpp
