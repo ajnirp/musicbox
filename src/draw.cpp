@@ -546,7 +546,7 @@ void draw_all_objects(
 }
 
 // Draw the Bezier curve
-void draw_bezier_curve(vector<coordinate_t> curve_points, float spacing) {
-	int bezier = define_bezier_curve(curve_points, spacing);
+void draw_bezier_curve(vector<coordinate_t> curve_points) {
+	int bezier = define_bezier_curve(curve_points);
 	glCallList(bezier);
 }

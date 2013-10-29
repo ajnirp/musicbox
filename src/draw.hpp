@@ -34,6 +34,6 @@ void draw_all_objects(
 );
 
 // Bezier curve
-void draw_bezier_curve(vector<coordinate_t> curve_points, float spacing);
+void draw_bezier_curve(vector<coordinate_t> curve_points);
 
 #endif

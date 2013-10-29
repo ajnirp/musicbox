@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int define_bezier_curve(vector<coordinate_t> curve_points, float spacing) {
+int define_bezier_curve(vector<coordinate_t> curve_points) {
 	int bezier = glGenLists(1);
 	glNewList(bezier, GL_COMPILE);
 		// glColor4f(1,1,1,1);

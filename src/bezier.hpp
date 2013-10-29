@@ -3,6 +3,6 @@
 
 #include "coordinate.hpp"
 
-int define_bezier_curve(vector<coordinate_t> points, float spacing);
+int define_bezier_curve(vector<coordinate_t> points);
 
 #endif

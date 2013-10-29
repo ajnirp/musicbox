@@ -13,7 +13,8 @@
 #include "bezier.hpp"
 #include "helpers.hpp"
 
-#define GLUT_FRAME_TIME 100
+#define GLUT_FRAME_TIME 50
+#define NUM_SAMPLES 50
 
 using namespace std;
 
@@ -84,7 +85,7 @@ float camera_x = 0;
 float camera_y = 0;
 float camera_z = 5;
 
-int current_index = 20; // index of curve_points
+int current_index = NUM_SAMPLES; // index of curve_points
 
 vector<coordinate_t> control_points;
 vector<coordinate_t> curve_points;
@@ -206,10 +207,7 @@ void display() {
 			}
 		}
 
-		if (draw_bezier) {
-			draw_bezier_curve(curve_points, 0.001);
-		}
-
+		if (draw_bezier) draw_bezier_curve(curve_points);
 		if (not draw_bezier) draw_plane(plane_z);
 	glPopMatrix();
 
@@ -463,7 +461,7 @@ void keyboard(unsigned char key, int x, int y) {
 					door_control_point.zz = 2.5;
 
 					control_points.push_back(door_control_point);
-					curve_points = complete(control_points, 0.05);
+					curve_points = complete(control_points, 1.0f/NUM_SAMPLES);
 					current_index = curve_points.size() - 1;
 					move_camera = true;
 
