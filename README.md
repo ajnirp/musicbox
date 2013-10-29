@@ -57,10 +57,10 @@ Keybindings/Mouse actions
 10. Switch on/switch off the lamp: `k`
 11. Switch on/switch off the wall light: `l`
 12. Reset everything: `F5`
-13. Move the control point selection plane along the z-axis: `↑` and `↓`
-14. Select a point to use as a control point: mouse click
-15. Draw the Bezier curve: `b`
-16. Start the animation: `F3`
+13. Enter the room: `Enter`
+14. Move the control point selection plane along the z-axis: `↑` and `↓`
+15. Select a point to use as a control point: mouse click
+16. Start the animation: `Space`
 17. Delete the last created control points: right mouse click
 
 Walkthrough

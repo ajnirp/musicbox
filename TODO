@@ -1,0 +1,3 @@
+Separate out gl and glut callbacks into a different file 'callbacks.cpp'
+Ensure that pressing 'Enter' to enter the room is done in a cross-OS compatible way
+currently i'm using carriage return ('\r')

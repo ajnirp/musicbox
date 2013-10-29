@@ -176,3 +176,47 @@ init_limits(float* limits) {
 	// right elbow
 	limits[78]=-140;limits[79]=0;
 }
+
+// Find the index to change in the 'angles' vector
+int
+find_index_x(
+	int& curr_joint,
+	bool move_left
+) {
+	int index = 0;
+	if (curr_joint <= 7) index = find_index_y(curr_joint, move_left) - 1;
+	else {
+		if (curr_joint == 8) index = (move_left ? 36 : 37);
+		if (curr_joint == 9) index = (move_left ? 38 : 39);
+	}
+	return index;
+}
+
+int
+find_index_y(
+	int& curr_joint,
+	bool move_left
+) {
+	int index = 0;
+	switch (curr_joint) {
+		case 0: index = 1; break;
+		case 1: index = (move_left ? 4 : 7); break;
+		case 2: index = 10; break;
+		case 3: index = 13; break;
+		case 4: index = 16; break;
+		case 5: index = (move_left ? 19 : 22); break;
+		case 6: index = (move_left ? 25 : 28); break;
+		case 7: index = (move_left ? 31 : 34); break;
+	}
+	return index;
+}
+
+
+int
+find_index_z(
+	int& curr_joint,
+	bool move_left
+) {
+	int index = find_index_y(curr_joint, move_left) + 1;
+	return index;
+}

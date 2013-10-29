@@ -2,8 +2,7 @@
 #define HELPERS_H
 
 // Display current information about the program (current joint, which lights are on/off etc.)
-void
-display_info(
+void display_info(
 	short int curr_joint,
 	bool move_box,
 	bool move_left,
@@ -12,15 +11,17 @@ display_info(
 );
 
 // Display help on what key to press to perform a certain task
-void
-display_keybindings_help();
+void display_keybindings_help();
 
 // Configure OpenGL
-void
-initGL();
+void initGL();
 
 // Initialize the limits array
-void
-init_limits(float* limits);
+void init_limits(float* limits);
+
+// Find the index to change in the 'angles' vector
+int find_index_x(int& curr_joint, bool move_left);
+int find_index_y(int& curr_joint, bool move_left);
+int find_index_z(int& curr_joint, bool move_left);
 
 #endif

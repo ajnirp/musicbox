@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// Add two coordinates together
 coordinate_t
 coordinate_t::add(coordinate_t c) {
 	coordinate_t result;
@@ -12,6 +13,7 @@ coordinate_t::add(coordinate_t c) {
 	return result;
 }
 
+// Scalar multiply a coordinate with a float
 coordinate_t
 coordinate_t::scalarMult(float t) {
 	coordinate_t result;
@@ -21,7 +23,10 @@ coordinate_t::scalarMult(float t) {
 	return result;
 }
 
-coordinate_t deCasteljau(vector<coordinate_t> points, float t) {
+// Using the de Casteljau algorithm, calculate the point on the curve
+// corresponding to the parameter t
+coordinate_t
+deCasteljau(vector<coordinate_t> points, float t) {
 	int n = points.size() - 1;
 	if (n == 0) return points[0];
 	else {

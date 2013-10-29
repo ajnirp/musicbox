@@ -17,10 +17,6 @@
 
 using namespace std;
 
-int find_index_x();
-int find_index_y();
-int find_index_z();
-
 float limits[80] = {0};
 
 // each element in limits stores the extent to which the joint is allowed to rotate
@@ -49,7 +45,7 @@ float plane_z = 0;
 /* Variables determining which body part to move */
 bool move_box = false; // When true, keyboard keys affect the box. When false, they affect the dancer
 bool move_left = true; // When true, keys affect the left side of the dancer. Not valid for joints that have no left or right, for example, the head-neck joint
-short int curr_joint = 0; // Which joint to move. This int takes values between 0 and 9, both included
+int curr_joint = 0; // Which joint to move. This int takes values between 0 and 9, both included
 
 /*
 These are the key-to-joint mappings:
@@ -96,7 +92,8 @@ vector<coordinate_t> curve_points;
 /* Window Parameters */
 int window_id;
 
-vector<double> GetOGLPos(int x, int y) {
+vector<double>
+GetOGLPos(int x, int y) {
     GLint viewport[4];
     GLdouble modelview[16];
     GLdouble projection[16];
@@ -122,45 +119,12 @@ vector<double> GetOGLPos(int x, int y) {
  	return result;
 }
 
-// Find the index to change in the 'angles' vector
-int find_index_x() {
-	int index = 0;
-	if (curr_joint <= 7) index = find_index_y() - 1;
-	else {
-		if (curr_joint == 8) index = (move_left ? 36 : 37);
-		if (curr_joint == 9) index = (move_left ? 38 : 39);
-	}
-	return index;
-}
-
-int find_index_y() {
-	int index = 0;
-	switch (curr_joint) {
-		case 0: index = 1; break;
-		case 1: index = (move_left ? 4 : 7); break;
-		case 2: index = 10; break;
-		case 3: index = 13; break;
-		case 4: index = 16; break;
-		case 5: index = (move_left ? 19 : 22); break;
-		case 6: index = (move_left ? 25 : 28); break;
-		case 7: index = (move_left ? 31 : 34); break;
-	}
-	return index;
-}
-
-
-int find_index_z() {
-	int index = find_index_y() + 1;
-	return index;
-}
-
 /* Callback Declarations */
 void display();
 void reshape(int, int);
 void keyboard(unsigned char, int, int);
 void process_special_keys(int,int,int);
 void mouse(int, int, int, int);
-void renderGL(int, char**);
 void timer(int value);
 
 void init() {
@@ -173,7 +137,6 @@ void init() {
 	control_points.push_back(box_control_point);
 
 	initGL(); // set up the camera, etc.
-
 	init_limits(limits); // set up the limits vector
 }
 
@@ -205,8 +168,7 @@ void timer(int value) {
 
 		glutPostRedisplay();
 		if (value >= -40) glutTimerFunc(GLUT_FRAME_TIME,timer,value-1);
-		else glutTimerFunc(10000,timer, value);
-		// else return;
+		// else glutTimerFunc(10000,timer, value);
 	}
 	else {
 		glutTimerFunc(GLUT_FRAME_TIME,timer,value);
@@ -326,7 +288,7 @@ void keyboard(unsigned char key, int x, int y) {
 				// all joints whether they have 1 or 3 dofs can rotate
 				// about the x-axis
 				else {
-					int index = find_index_x();
+					int index = find_index_x(curr_joint,move_left);
 					if (dancer_angles[index]+3 <= limits[2*index+1]) {
 						dancer_angles[index] += 3;
 					}
@@ -349,7 +311,7 @@ void keyboard(unsigned char key, int x, int y) {
 				// all joints whether they have 1 or 3 dofs can rotate
 				// about the x-axis
 				else {
-					int index = find_index_x();
+					int index = find_index_x(curr_joint,move_left);
 					if (dancer_angles[index]-3 >= limits[2*index]) {
 						dancer_angles[index] -= 3;
 					}
@@ -366,7 +328,7 @@ void keyboard(unsigned char key, int x, int y) {
 			}
 			else {
 				if (not(move_box) and curr_joint <= 7) {
-					int index = find_index_y();
+					int index = find_index_y(curr_joint,move_left);
 					if (dancer_angles[index]-3 >= limits[2*index]) {
 						dancer_angles[index] -= 3;
 					}
@@ -383,7 +345,7 @@ void keyboard(unsigned char key, int x, int y) {
 			else {
 				// check if we have to move the box
 				if (not(move_box) and curr_joint <= 7) {
-					int index = find_index_y();
+					int index = find_index_y(curr_joint,move_left);
 					if (dancer_angles[index]+3 <= limits[2*index+1]) {
 						dancer_angles[index] += 3;
 					}
@@ -402,7 +364,7 @@ void keyboard(unsigned char key, int x, int y) {
 			else {
 				if (move_box) {}
 				else if (curr_joint <= 7) {
-					int index = find_index_z();
+					int index = find_index_z(curr_joint,move_left);
 					if (dancer_angles[index]+3 <= limits[2*index+1]) {
 						dancer_angles[index] += 3;
 					}
@@ -418,7 +380,7 @@ void keyboard(unsigned char key, int x, int y) {
 			else {
 				if (move_box) {}
 				else if (curr_joint <= 7) {
-					int index = find_index_z();
+					int index = find_index_z(curr_joint,move_left);
 					if (dancer_angles[index]-3 >= limits[2*index]) {
 						dancer_angles[index] -= 3;
 					}
@@ -512,7 +474,7 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 
 		// Enter the room
-		case 'g': {
+		case '\r': { // works on Ubuntu. Need to ensure that pressing Enter is cross-compatible
 			if (not move_camera) {
 				cout << "Entering room...\n";
 				camera_z = 2.55;
