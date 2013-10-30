@@ -120,4 +120,5 @@
  /host/Academic/5/cs475/assignments/musicbox/src/draw.hpp \
  /host/Academic/5/cs475/assignments/musicbox/src/coordinate.hpp \
  /host/Academic/5/cs475/assignments/musicbox/src/bezier.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/helpers.hpp
+ /host/Academic/5/cs475/assignments/musicbox/src/helpers.hpp \
+ /host/Academic/5/cs475/assignments/musicbox/src/file.hpp

@@ -91,8 +91,13 @@ setup:
 	@$(ECHO) "Setting up the compilation..."
 	@mkdir -p obj
 	@mkdir -p bin
+	@echo > keyframes.txt
 	@$(ECHO) "Done setting up."
 	
+clear:
+	@$(ECHO) "Clearing keyframes.txt..."
+	@$(ECHO) -n "" > keyframes.txt
+
 clean:
 	@$(PRINTF) "Cleaning up:"; $(ECHO)
 	@$(PRINTF) "$(MESG_COLOR)Removing: $(FILE_COLOR)obj"; $(RM) -rf obj

@@ -21,6 +21,11 @@ Link to Report for Part 2
 
 The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox2.html)
 
+Link to Report for Part 3
+-------------------------
+
+The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox3.html)
+
 Installation
 ------------
 
@@ -40,6 +45,11 @@ Cleaning Up
 -----------
 
 1. `make clean`
+
+Clearing out the Keyframes File
+-------------------------------
+
+1. `make clear`
 
 Keybindings/Mouse actions
 -------------------------
@@ -62,6 +72,8 @@ Keybindings/Mouse actions
 15. Select a point to use as a control point: mouse click
 16. Start the animation: `Space`
 17. Delete the last created control points: right mouse click
+18. Clear the keyframes file while the program is running: `F4`
+19. Save the cuurent keyframe to the keyframes file: `F3`
 
 Walkthrough
 -----------
@@ -112,6 +124,17 @@ The room also contains a lamp and a wall light. The lamp is to the left of the r
 If at any point you lose track of which object and which joint is selected or which light is turned on, simply press `F1` and the required information will be printed to the terminal. In any case, whenever you change the selected side or change the selected object a message will be logged to the terminal, so you can look at the terminal logs to see what transpired.
 
 Once you've selected the control points, press `Space` and watch the animation. The camera will pan through the room along a Bezier curve that is formed from the control points you clicked on. Then the box will open and the dancer will rise up.
+
+For part 3
+----------
+
+The problem statement can be found in the file `problem-statement-3.pdf`. For this part we had to create keyframes and save them to a keyframes file, then play them back. The following information is stored as part of each keyframe (in this order):
+
++ The `dancer_angles` vector which stores information about the dancer
++ The extent to which the box lid is open, namely `lid_angle`
++ The state of the two lights: `wall_light` and `lamp_light`
+
+This data is stored in the file `keyframes.txt` located in the root directory of the project. When the program starts, it clears out this file. At any point during the program, you can press `F3` and the keyframe will be saved to the file. Pressing `F4` will clear out the file. 
 
 Credits
 -------

@@ -12,6 +12,7 @@
 #include "coordinate.hpp"
 #include "bezier.hpp"
 #include "helpers.hpp"
+#include "file.hpp"
 
 #define GLUT_FRAME_TIME 50
 #define NUM_SAMPLES 50
@@ -76,9 +77,6 @@ bool draw_bezier = false;
 
 /* Boolean controlling whether the animation has started or not */
 bool move_camera = false;
-
-/* Boolean controlling whether file writing is enabled or not */
-bool write_enabled = false;
 
 /* Camera coordinates */
 float camera_x = 0;
@@ -518,21 +516,20 @@ void process_special_keys(int key, int x, int y) {
 		}
 		break;
 
-		// Save a keyframe
+		// Save a keyframe to the keyframes file
 		case GLUT_KEY_F3: {
-			// If writing is disabled, enable it and return control
-			if (not write_enabled) {
-				write_enabled = true;
-				cout << "You can now start saving keyframes! Press F3 to save a keyframe\n";
-			}
-			else {
-				// If writing is enabled, allow user to either save keyframes or clear the file
-				// Hold down Shift to clear the file
-				if (mod == GLUT_ACTIVE_SHIFT) {
-					cout << "Clearing out the file...\n";
-				}
-				cout << "Saved a keyframe\n";
-			}
+			write_file(
+				dancer_angles,
+				lid_angle,
+				wall_light,
+				lamp_light
+			);
+		}
+		break;
+
+		// Clear the keyframes file
+		case GLUT_KEY_F4: {
+			clear_file();
 		}
 		break;
 	}
@@ -586,6 +583,7 @@ void renderGL(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
+	if (not file_is_empty()) clear_file();
 	renderGL(argc, argv);
 	return 0;
 }
