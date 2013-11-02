@@ -74,6 +74,7 @@ Keybindings/Mouse actions
 17. Delete the last created control points: right mouse click
 18. Clear the keyframes file while the program is running: `F4`
 19. Save the cuurent keyframe to the keyframes file: `F3`
+20. Start playback: `p`
 
 Walkthrough
 -----------
@@ -143,6 +144,7 @@ All of the code was written entirely by the two of us, except for the following 
 
 1. `Makefile` is a modified version of the Makefile given to us in the Software Systems Lab course at IIT Bombay
 2. The code for getting the 3D point from the mouse click is a modified version of the GetOGLPos function given in the third [reference](http://nehe.gamedev.net/article/using_gluunproject/16013/).
+3. The code for checking whether a file is empty or not was taken from [here](http://www.cplusplus.com/forum/windows/10853/)
 
 References
 ----------

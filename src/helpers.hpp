@@ -7,7 +7,8 @@ void display_info(
 	bool move_box,
 	bool move_left,
 	bool lamp_light,
-	bool wall_light
+	bool wall_light,
+	bool record_mode
 );
 
 // Display help on what key to press to perform a certain task

@@ -2,7 +2,8 @@
 #include <iostream>
 #include <string>
 
-// for stat() (man 2 stat)
+// for stat() we need to include the next three libraries
+// also see the man page: man 2 stat
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>

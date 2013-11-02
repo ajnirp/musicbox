@@ -13,9 +13,13 @@ display_info(
 	bool move_box,
 	bool move_left,
 	bool lamp_light,
-	bool wall_light
+	bool wall_light,
+	bool record_mode
 ) {
-	cout << endl << "-------INFORMATION-----------" << endl;
+	cout << endl << "                -------INFORMATION-----------\n\n";
+
+	// Show current mode
+	cout << "Current mode: " << (record_mode ? "RECORD" : "PLAYBACK") << endl;
 
 	// Show selected object
 	cout << "Selected object:";
@@ -44,29 +48,35 @@ display_info(
 	cout << "Lamp light is " << (lamp_light ? "ON" : "OFF") << endl;
 	cout << "Wall light is " << (wall_light ? "ON" : "OFF") << endl;
 
-	cout << "----------------------------" << endl << endl;
+	cout << "\n                ----------------------------\n\n";
 }
 
 // Display help on what key to press to perform a certain task
 void
 display_keybindings_help() {
 	cout << endl << "       ------------Keybindings help------------" << endl << endl;
-	cout << "Exit the program                               Esc" << endl;
-	cout << "Get help on keybindings                        F1" << endl;
-	cout << "Toggle which object to move                    t" << endl;
-	cout << "Toggle which side to move                      r" << endl;
-	cout << "Select joint                                   0 to 9" << endl;
-	cout << "Rotate about x-axis                            w and s" << endl;
-	cout << "Rotate about x-axis                            a and d" << endl;
-	cout << "Rotate about x-axis                            q and e" << endl;
-	cout << "Rotate the entire dancer about the y-axis      , and ." << endl;
-	cout << "Display information                            i" << endl;
-	cout << "Switch on/switch off the lamp                  k" << endl;
-	cout << "Switch on/switch off the wall light            l" << endl;
-	cout << "Enter the room                                 g" << endl;
-	cout << "Start the animation                            Space" << endl;
-	cout << "Reset everything                               F5" << endl << endl;
-	cout << "       ----------------------------------------" << endl << endl;
+	cout << "Exit the program: `Esc`";
+	cout << "Get help on keybindings: `F1`";
+	cout << "Toggle which object to move: `t` (when you start the program, the dancer is selected)";
+	cout << "Toggle which side to move: `r` (when you start the program, the left side is selected)";
+	cout << "Select joint: `0` to `9`";
+	cout << "Rotate about x-axis: `w` and `s`";
+	cout << "Rotate about x-axis: `a` and `d`";
+	cout << "Rotate about x-axis: `q` and `e`";
+	cout << "Rotate the entire dancer about the y-axis: `,` and `.`";
+	cout << "Display information: `i`";
+	cout << "Switch on/switch off the lamp: `k`";
+	cout << "Switch on/switch off the wall light: `l`";
+	cout << "Reset everything: `F5`";
+	cout << "Enter the room: `Enter`";
+	cout << "Move the control point selection plane along the z-axis: `↑` and `↓`";
+	cout << "Select a point to use as a control point: mouse click";
+	cout << "Start the animation: `Space`";
+	cout << "Delete the last created control points: right mouse click";
+	cout << "Clear the keyframes file while the program is running: `F4`";
+	cout << "Save the cuurent keyframe to the keyframes file: `F3`";
+	cout << "Start playback: `p`";
+	cout << "\n       ----------------------------------------" << endl << endl;
 }
 
 // Configure OpenGL

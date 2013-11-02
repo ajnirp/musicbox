@@ -27,6 +27,8 @@ float limits[80] = {0};
 
 /* Global vars */
 
+bool record_mode = true;
+
 float world_x_angle = 0;
 float world_y_angle = 0;
 float world_z_angle = 0;
@@ -442,7 +444,8 @@ void keyboard(unsigned char key, int x, int y) {
 				move_box,
 				move_left,
 				lamp_light,
-				wall_light
+				wall_light,
+				record_mode
 			);
 		}
 		break;
@@ -486,7 +489,6 @@ void keyboard(unsigned char key, int x, int y) {
 }
 
 void process_special_keys(int key, int x, int y) {
-	int mod = glutGetModifiers();
 	switch(key) {
 		// Get help
 		case GLUT_KEY_F1:
@@ -518,12 +520,17 @@ void process_special_keys(int key, int x, int y) {
 
 		// Save a keyframe to the keyframes file
 		case GLUT_KEY_F3: {
-			write_file(
-				dancer_angles,
-				lid_angle,
-				wall_light,
-				lamp_light
-			);
+			if (record_mode) {
+				write_file(
+					dancer_angles,
+					lid_angle,
+					wall_light,
+					lamp_light
+				);
+			}
+			else {
+				cout << "Currently in playback mode, cannot save keyframes!\n";
+			}
 		}
 		break;
 
@@ -583,7 +590,26 @@ void renderGL(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
-	if (not file_is_empty()) clear_file();
+	if (argc < 2) {
+		cout << "Started program in RECORD MODE...\n";
+		record_mode = true;
+		clear_file();
+	}
+	else {
+		if (string(argv[1]) == "--playback") {
+			cout << "Started program in PLAYBACK MODE...\n";
+			record_mode = false;
+		}
+		else if (string(argv[1]) == "--record") {
+			cout << "Started program in RECORD MODE...\n";
+			record_mode = true;
+			clear_file();
+		}
+		else if (string(argv[1]) == "--help") {
+			cout << "For help on how to use the program, please read the README in the Github repo: https://wenderen/github/musicbox\n";
+			exit(0);
+		}
+	}
 	renderGL(argc, argv);
 	return 0;
 }
