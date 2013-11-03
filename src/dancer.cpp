@@ -88,14 +88,6 @@ int define_head() {
 			glVertex3f(0.25,0,-0.5);
 			glVertex3f(-0.25,0,-0.5);
 		glEnd();
-		// Hitler moustache
-		// glColor3f(0,0,0);
-		// glBegin(GL_QUADS);
-		// 	glVertex3f(-0.1,0.12,0.01);
-		// 	glVertex3f(0.1,0.12,0.01);
-		// 	glVertex3f(0.1,0.19,0.01);
-		// 	glVertex3f(-0.1,0.19,0.01);
-		// glEnd();
 	glEndList();
 	return head;
 }
@@ -106,11 +98,9 @@ int define_neck() {
 	GLuint texture_neck = LoadTexture("tex/wood2.bmp");
 	glNewList(neck, GL_COMPILE);
 		glColor3f(1,1,1);
-		// glScalef(0.25,0.375,0.25);
-		// glutSolidCube(1);
-		// glScalef(4,2.67,4); // anti-scale to prevent the head from scaling
 		define_cylinder(.125,.125,.375,texture_neck);
 	glEndList();
+	glDeleteTextures(1, &texture_neck);
 	return neck;
 }
 
@@ -122,6 +112,7 @@ int define_torso1() {
 		glColor3f(1,1,1);
 		define_cylinder(0.5,0.4,1,texture_torso1);
 	glEndList();
+	glDeleteTextures(1, &texture_torso1);
 	return torso1;
 }
 
@@ -133,6 +124,7 @@ int define_torso2() {
 		glColor3f(1,1,1);
 		define_cylinder(.4,.4,.4,texture_torso2);
 	glEndList();
+	glDeleteTextures(1, &texture_torso2);
 	return torso2;
 }
 
@@ -143,8 +135,8 @@ int define_torso3() {
 	glNewList(torso3, GL_COMPILE);
 		glColor3f(1,1,1);
 		define_cylinder(.4,.4,.5,texture_torso3);
-
 	glEndList();
+	glDeleteTextures(1, &texture_torso3);
 	return torso3;
 }
 
@@ -160,17 +152,19 @@ int define_hip() {
 		// glScalef(8,8,8);
 		define_sphere(.125,texture_hip);
 	glEndList();
+	glDeleteTextures(1, &texture_hip);
 	return hip;
 }
 
 // Either of the thighs of the dancer
 int define_thigh() {
 	int thigh = glGenLists(1);
-	GLuint texture_denim = LoadTexture("tex/wood2.bmp");
+	GLuint texture_thigh = LoadTexture("tex/wood2.bmp");
 	glNewList(thigh, GL_COMPILE);
 		glColor3f(1,1,1);
-		define_cylinder(.125,.125,.8,texture_denim);
+		define_cylinder(.125,.125,.8,texture_thigh);
 	glEndList();
+	glDeleteTextures(1, &texture_thigh);
 	return thigh;
 }
 
@@ -182,17 +176,19 @@ int define_knee() {
 		glColor3f(1,1,1);
 		define_sphere(.1,texture_knee);
 	glEndList();
+	glDeleteTextures(1, &texture_knee);
 	return knee;
 }
 
 // Either of the legs of the dancer
 int define_leg() {
 	int leg = glGenLists(1);
-	GLuint texture_denim = LoadTexture("tex/wood2.bmp");
+	GLuint texture_leg = LoadTexture("tex/wood2.bmp");
 	glNewList(leg, GL_COMPILE);
 		glColor3f(1, 1, 1);
-		define_cylinder(.125,.125,1,texture_denim);
+		define_cylinder(.125,.125,1,texture_leg);
 	glEndList();
+	glDeleteTextures(1, &texture_leg);
 	return leg;
 }
 
@@ -252,6 +248,7 @@ int define_shoulder() {
 		glColor3f(1,1,1);
 		define_sphere(.13,texture_shoulder);
 	glEndList();
+	glDeleteTextures(1, &texture_shoulder);
 	return shoulder;
 }
 
@@ -262,6 +259,7 @@ int define_upper_arm() {
 		glColor3f(1,1,1);
 		define_cylinder(.1,.1,.8,texture_upper_arm);
 	glEndList();
+	glDeleteTextures(1, &texture_upper_arm);
 	return upper_arm;
 }
 
@@ -272,6 +270,7 @@ int define_elbow() {
 		glColor3f(1,1,1);
 		define_sphere(.1,texture_elbow);
 	glEndList();
+	glDeleteTextures(1, &texture_elbow);
 	return elbow;
 }
 
@@ -282,6 +281,7 @@ int define_lower_arm() {
 		glColor3f(1,1,1);
 		define_cylinder(.1,.1,.6,texture_lower_arm);
 	glEndList();
+	glDeleteTextures(1, &texture_lower_arm);
 	return lower_arm;
 }
 
@@ -292,6 +292,7 @@ int define_wrist() {
 		glColor3f(1,1,1);
 		define_sphere(.1,texture_wrist);
 	glEndList();
+	glDeleteTextures(1, &texture_wrist);
 	return wrist;
 }
 
@@ -342,5 +343,6 @@ int define_stick() {
 		glColor3f(1,1,1);
 		define_cylinder(.05,.05,2,texture_stick);
 	glEndList();
+	glDeleteTextures(1, &texture_stick);
 	return stick;
 }

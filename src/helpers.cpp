@@ -10,7 +10,6 @@ using namespace std;
 void
 display_info(
 	short int curr_joint,
-	bool move_box,
 	bool move_left,
 	bool lamp_light,
 	bool wall_light,
@@ -20,11 +19,6 @@ display_info(
 
 	// Show current mode
 	cout << "Current mode: " << (record_mode ? "RECORD" : "PLAYBACK") << endl;
-
-	// Show selected object
-	cout << "Selected object:";
-	if (move_box) cout << " box" << endl;
-	else cout << " dancer" << endl;
 	// Show which body joint is active
 	switch(curr_joint) {
 		case 0: cout << "Current joint: head-neck\n"; break;
@@ -229,4 +223,19 @@ find_index_z(
 ) {
 	int index = find_index_y(curr_joint, move_left) + 1;
 	return index;
+}
+
+int define_marker_sphere() {
+	int marker = glGenLists(1);
+	glNewList(marker, GL_COMPILE);
+		GLfloat color[] = {0.f,0.f,1.f,1.f};
+		glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,color);
+		glutSolidSphere(0.1,10,10);
+	glEndList();
+	return marker;
+}
+
+void draw_marker_sphere() {
+	int marker = define_marker_sphere();
+	glCallList(marker);
 }

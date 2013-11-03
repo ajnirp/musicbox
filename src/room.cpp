@@ -95,6 +95,7 @@ int define_side_wall(int x, bool left) {
 		glPopMatrix();
 		glDisable(GL_TEXTURE_2D);
 	glEndList();
+	// glDeleteTextures(1, &texture_walls);
 	return room_side_wall;
 }
 
@@ -120,6 +121,7 @@ int define_back_wall(bool is_textured) {
 			glDisable(GL_TEXTURE_2D);
 		}
 	glEndList();
+	// glDeleteTextures(1, &texture_walls);
 	return room_facing_wall;
 }
 
@@ -158,6 +160,7 @@ int define_front_wall(bool is_textured) {
 			glDisable(GL_TEXTURE_2D);
 		}
 	glEndList();
+	// glDeleteTextures(1, &texture_walls);
 	return room_facing_wall;
 }
 
@@ -196,6 +199,7 @@ int define_door() {
 		glEnd();
 		glPopMatrix();
 	glEndList();
+	// glDeleteTextures(1, &texture_door);
 	return door;
 }
 
@@ -366,7 +370,6 @@ int define_lamp_stand() {
 
 int define_lamp_head() {
 	int lamp_head = glGenLists(1);
-	// int texture_lamp_head = LoadTexture("tex/lamp-head.bmp");
 	glNewList(lamp_head, GL_COMPILE);
 		// glColor3ub(255,0,0);
 		GLfloat color[] = {1.f,0.f,0.f,1.f};
@@ -485,26 +488,26 @@ int define_wall_light_base() {
 }
 
 int define_wall_light_neck() {
-	int wall_light_neck = glGenLists(1);
-	int texture_wall_light_neck = LoadTexture("tex/metal.bmp");
+	GLuint wall_light_neck = glGenLists(1);
+	GLuint texture_wall_light_neck = LoadTexture("tex/metal.bmp");
 	glNewList(wall_light_neck, GL_COMPILE);
 		glPushMatrix();
-			// glScalef(0.05,0.05,0.4);
-			// glutSolidCube(1);
 			glRotatef(90,1,0,0);
 			define_cylinder(0.025,0.025,0.4,texture_wall_light_neck);
 		glPopMatrix();
 	glEndList();
+	glDeleteTextures(1, &texture_wall_light_neck);
 	return wall_light_neck;
 }
 
 int define_wall_light_head() {
-	int texture_wall_light_head = LoadTexture("tex/metal.bmp");
-	int wall_light_head = glGenLists(1);
+	GLuint texture_wall_light_head = LoadTexture("tex/metal.bmp");
+	GLuint wall_light_head = glGenLists(1);
 	glNewList(wall_light_head, GL_COMPILE);
 		glPushMatrix();
 			define_cylinder(0.2,0.2,0.5,texture_wall_light_head);
 		glPopMatrix();
 	glEndList();
+	glDeleteTextures(1, &texture_wall_light_head);
 	return wall_light_head;
 }

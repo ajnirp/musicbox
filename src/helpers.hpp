@@ -4,7 +4,6 @@
 // Display current information about the program (current joint, which lights are on/off etc.)
 void display_info(
 	short int curr_joint,
-	bool move_box,
 	bool move_left,
 	bool lamp_light,
 	bool wall_light,
@@ -24,5 +23,8 @@ void init_limits(float* limits);
 int find_index_x(int& curr_joint, bool move_left);
 int find_index_y(int& curr_joint, bool move_left);
 int find_index_z(int& curr_joint, bool move_left);
+
+int define_marker_sphere();
+void draw_marker_sphere();
 
 #endif

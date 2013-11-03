@@ -278,7 +278,6 @@ void draw_dancer(float* angles, float dancer_angle) {
 				glPopMatrix();
 			glPopMatrix();
 		glPopMatrix();
-		// glPopMatrix();
 	glPopMatrix();
 }
 

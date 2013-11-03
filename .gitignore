@@ -3,3 +3,4 @@ notes.txt
 *.gch
 *.d
 .swp
+.fuse_hidden*

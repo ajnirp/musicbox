@@ -17,6 +17,8 @@ void define_cylinder(float bottom_radius, float top_radius, float height, int te
 	if (texture_id != -1) {
 		glDisable(GL_TEXTURE_2D);
 	}
+
+	gluDeleteQuadric(quad);
 }
 
 void define_sphere(float radius, int texture_id) {
@@ -30,4 +32,6 @@ void define_sphere(float radius, int texture_id) {
 	if (texture_id != -1) {
 		glDisable(GL_TEXTURE_2D);
 	}
+	
+	gluDeleteQuadric(quad);
 }

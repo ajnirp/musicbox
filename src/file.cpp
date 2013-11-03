@@ -1,3 +1,5 @@
+// This file contains methods pertaining to file IO, or checking file properties
+
 #include <fstream>
 #include <iostream>
 #include <string>
