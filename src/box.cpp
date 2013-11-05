@@ -62,6 +62,7 @@ int define_base_and_walls() {
 
 		glDisable(GL_TEXTURE_2D);
 	glEndList();
+	// glDeleteTextures(1, &texture_base_and_walls);
 	
 	return base_and_walls;
 }

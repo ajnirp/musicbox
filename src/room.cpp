@@ -10,7 +10,7 @@
 
 // Room walls
 
-int define_floor(bool is_textured, int texture) {
+int define_floor(bool is_textured, GLuint texture) {
 	// GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
 	int room_floor = glGenLists(1);
 	glNewList(room_floor, GL_COMPILE);
@@ -46,7 +46,7 @@ int define_floor(bool is_textured, int texture) {
 	return room_floor;
 }
 
-int define_ceiling(bool is_textured, int texture) {
+int define_ceiling(bool is_textured, GLuint texture) {
 	// GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
 	int room_floor = glGenLists(1);
 	glNewList(room_floor, GL_COMPILE);
@@ -75,7 +75,7 @@ int define_ceiling(bool is_textured, int texture) {
 }
 
 int define_side_wall(int x, bool left) {
-	GLuint texture_walls = LoadTexture("tex/wood4.bmp");
+	int texture_walls = LoadTexture("tex/wood4.bmp");
 	int room_side_wall = glGenLists(1);
 	glNewList(room_side_wall, GL_COMPILE);
 		glEnable(GL_TEXTURE_2D);
@@ -99,7 +99,7 @@ int define_side_wall(int x, bool left) {
 	return room_side_wall;
 }
 
-int define_back_wall(bool is_textured) {
+GLuint define_back_wall(bool is_textured, GLuint texture) {
 	GLuint texture_walls = LoadTexture("tex/wood4.bmp");
 	int room_facing_wall = glGenLists(1);
 	glNewList(room_facing_wall, GL_COMPILE);
@@ -125,14 +125,14 @@ int define_back_wall(bool is_textured) {
 	return room_facing_wall;
 }
 
-int define_front_wall(bool is_textured) {
-	GLuint texture_walls = LoadTexture("tex/wood4.bmp");
+int define_front_wall(bool is_textured, GLuint texture) {
+	// GLuint texture_walls = LoadTexture("tex/wood4.bmp");
 	int room_facing_wall = glGenLists(1);
 	glNewList(room_facing_wall, GL_COMPILE);
 		if (is_textured) {
 			glEnable(GL_TEXTURE_2D);
 			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			glBindTexture(GL_TEXTURE_2D, texture_walls);
+			glBindTexture(GL_TEXTURE_2D, texture);
 		}
 		int z = 4;
 		int door_left_x = 2;
@@ -496,7 +496,7 @@ int define_wall_light_neck() {
 			define_cylinder(0.025,0.025,0.4,texture_wall_light_neck);
 		glPopMatrix();
 	glEndList();
-	glDeleteTextures(1, &texture_wall_light_neck);
+	// glDeleteTextures(1, &texture_wall_light_neck);
 	return wall_light_neck;
 }
 
@@ -508,6 +508,6 @@ int define_wall_light_head() {
 			define_cylinder(0.2,0.2,0.5,texture_wall_light_head);
 		glPopMatrix();
 	glEndList();
-	glDeleteTextures(1, &texture_wall_light_head);
+	// glDeleteTextures(1, &texture_wall_light_head);
 	return wall_light_head;
 }

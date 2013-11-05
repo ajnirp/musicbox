@@ -13,7 +13,7 @@ GLuint LoadTexture(const char* filepath) {
   unsigned int position;
   unsigned int width;
   unsigned int height;
-  unsigned int imagesize; 
+  unsigned int imagesize;
   unsigned char* pixel;
 
   FILE * bmpfile;
@@ -29,7 +29,7 @@ GLuint LoadTexture(const char* filepath) {
   if (imagesize == 0) imagesize = width*height*3;
   if (position == 0) position = 54;
 
-  cout << "Allocating an array of size " << imagesize << endl;
+  // cout << "Allocating an array of size " << imagesize << endl;
   pixel = new unsigned char[imagesize];
   fread(pixel,1,imagesize,bmpfile);
   fclose(bmpfile);
@@ -42,6 +42,15 @@ GLuint LoadTexture(const char* filepath) {
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T, GL_REPEAT);
+
   delete [] pixel; // prevent memory leaks due to repeated heap allocation
   return texture;
+}
+
+GLuint texture_room1() {
+  return LoadTexture("tex/room-cropped.bmp");
+}
+
+GLuint texture_room2() {
+  return LoadTexture("tex/wood4.bmp");
 }

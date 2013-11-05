@@ -311,17 +311,17 @@ void draw_table() {
 
 // Drawing function for the room walls
 void draw_room(float door_angle) {
-	int texture_floor = LoadTexture("tex/room-cropped.bmp");
-	int texture_ceiling = LoadTexture("tex/wood4.bmp");
+	GLuint texture_floor = LoadTexture("tex/room-cropped.bmp");
+	GLuint texture_ceiling_walls = LoadTexture("tex/wood4.bmp");
 
 	int room_floor = define_floor(true, texture_floor);
-	int room_ceiling = define_ceiling(true, texture_ceiling);
+	int room_ceiling = define_ceiling(true, texture_ceiling_walls);
 
 	int room_left_wall = define_side_wall(-6,true); // true because it is the left wall
 	int room_right_wall = define_side_wall(9,false); // false because it is the right wall
 
-	int room_front_wall = define_front_wall(true);
-	int room_back_wall = define_back_wall(true);
+	int room_front_wall = define_front_wall(true, texture_ceiling_walls);
+	int room_back_wall = define_back_wall(true, texture_ceiling_walls);
 
 	int door = define_door();
 	glPushMatrix();
@@ -348,6 +348,9 @@ void draw_room(float door_angle) {
 		glPopMatrix();
 		
 	glPopMatrix();
+
+	// glDeleteTextures(1, &texture_floor);
+	// glDeleteTextures(1, &texture_ceiling);
 }
 
 // Drawing function for the one_legged table
@@ -379,12 +382,6 @@ void draw_chair() {
 	glPushMatrix();
 		glScalef(2,2,2);
 		glPushMatrix();
-			// glTranslatef(0,-1,0);
-			// glRotatef(60,0,1,0);
-			// glRotatef(90,1,0,0);
-			// glRotatef(90,0,0,1);
-			// glScalef(2,2,2);
-			// glTranslatef(0,-1,0);
 			// chair seat
 			glCallList(chair_seat);
 			// front left leg
