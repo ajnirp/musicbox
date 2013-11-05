@@ -11,7 +11,10 @@ void draw_box(double lid_degrees);
 void draw_dancer(float* angles, float dancer_angle);
 
 // Room walls and door
-void draw_room(float door_angle);
+void draw_room(
+	int* room_display_lists,
+	float door_angle
+);
 
 // Furniture
 void draw_table();
@@ -28,6 +31,7 @@ void draw_plane(float z);
 
 // Universal drawing function
 void draw_all_objects(
+	int* room_display_lists,
 	float lid_degrees,
 	float* dancer_angles, float dancer_angle, float dancer_y,
 	float door_angle

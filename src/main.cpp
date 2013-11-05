@@ -8,6 +8,10 @@
 #include <algorithm>
 // #include <GLUT/glut.h> // uncomment this to compile on OS X
 
+#include "room.hpp"
+#include "dancer.hpp"
+#include "box.hpp"
+
 #include "draw.hpp"
 #include "coordinate.hpp"
 #include "bezier.hpp"
@@ -93,6 +97,10 @@ vector<coordinate_t> curve_points;
 /* Window Parameters */
 int window_id;
 
+/* Display lists */
+int room_display_lists[6];
+
+// Find the coordinates that were clicked
 vector<double>
 GetOGLPos(int x, int y) {
     GLint viewport[4];
@@ -139,6 +147,7 @@ void init() {
 
 	initGL(); // set up the camera, etc.
 	init_limits(limits); // set up the limits vector
+	init_lists(room_display_lists); // set up the display lists
 }
 
 void timer(int value) {
@@ -195,6 +204,7 @@ void display() {
 		glRotatef(world_y_angle, 0,1,0);
 		glRotatef(world_z_angle, 0,0,1);
 		draw_all_objects(
+			room_display_lists,
 			lid_angle,
 			dancer_angles, dancer_angle, dancer_y,
 			door_angle

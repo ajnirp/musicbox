@@ -12,6 +12,14 @@
 #include "plane.hpp"
 #include "bezier.hpp"
 
+extern int room_floor;
+extern int room_ceiling;
+extern int room_left_wall;
+extern int room_right_wall;
+extern int room_front_wall;
+extern int room_back_wall;
+extern int door;
+
 // Drawing function for the box
 void draw_box(double lid_degrees) {
 	int base_and_walls = define_base_and_walls();
@@ -310,20 +318,22 @@ void draw_table() {
 }
 
 // Drawing function for the room walls
-void draw_room(float door_angle) {
+void draw_room(
+	int* room_display_lists,
+	float door_angle
+) {
 	GLuint texture_floor = LoadTexture("tex/room-cropped.bmp");
 	GLuint texture_ceiling_walls = LoadTexture("tex/wood4.bmp");
 
-	int room_floor = define_floor(true, texture_floor);
-	int room_ceiling = define_ceiling(true, texture_ceiling_walls);
-
-	int room_left_wall = define_side_wall(-6,true); // true because it is the left wall
-	int room_right_wall = define_side_wall(9,false); // false because it is the right wall
-
-	int room_front_wall = define_front_wall(true, texture_ceiling_walls);
-	int room_back_wall = define_back_wall(true, texture_ceiling_walls);
+	int room_floor = room_display_lists[0];
+	int room_ceiling = room_display_lists[1];
+	int room_left_wall = room_display_lists[2];
+	int room_right_wall = room_display_lists[3];
+	int room_front_wall = room_display_lists[4];
+	int room_back_wall = room_display_lists[5];
 
 	int door = define_door();
+
 	glPushMatrix();
 		glTranslatef(0,-1,-2);
 		glScalef(0.9,0.9,0.9);
@@ -489,13 +499,15 @@ void draw_plane(float z) {
 
 // Draw everything
 void draw_all_objects(
+	int* room_display_lists,
 	float lid_degrees,
 	float* dancer_angles, float dancer_angle,float dancer_y,
 	float door_angle
 ) {
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // comment this out to enable normal fill drawing of polygons
+	// int* room_display_lists = all_display_lists[0];
+
 	// Room walls and door
-	draw_room(door_angle);
+	draw_room(room_display_lists, door_angle);
 
 	// Box and dancer
 	glPushMatrix();

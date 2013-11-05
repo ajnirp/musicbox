@@ -3,6 +3,7 @@
 #include <GL/glut.h>
 
 #include "helpers.hpp"
+#include "room.hpp"
 
 using namespace std;
 
@@ -238,4 +239,15 @@ int define_marker_sphere() {
 void draw_marker_sphere() {
 	int marker = define_marker_sphere();
 	glCallList(marker);
+}
+
+void init_lists(
+	int* room_display_lists
+) {
+	room_display_lists[0] = define_floor();
+	room_display_lists[1] = define_ceiling();
+	room_display_lists[2] = define_side_wall(-6,true);
+	room_display_lists[3] = define_side_wall(9,false);
+	room_display_lists[4] = define_front_wall();
+	room_display_lists[5] = define_back_wall();
 }

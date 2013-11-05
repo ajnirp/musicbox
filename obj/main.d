@@ -117,6 +117,9 @@
  /usr/include/c++/4.7/cstdlib /usr/include/c++/4.7/bits/algorithmfwd.h \
  /usr/include/c++/4.7/bits/stl_heap.h \
  /usr/include/c++/4.7/bits/stl_tempbuf.h \
+ /host/Academic/5/cs475/assignments/musicbox/src/room.hpp \
+ /host/Academic/5/cs475/assignments/musicbox/src/dancer.hpp \
+ /host/Academic/5/cs475/assignments/musicbox/src/box.hpp \
  /host/Academic/5/cs475/assignments/musicbox/src/draw.hpp \
  /host/Academic/5/cs475/assignments/musicbox/src/coordinate.hpp \
  /host/Academic/5/cs475/assignments/musicbox/src/bezier.hpp \

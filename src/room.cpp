@@ -10,15 +10,13 @@
 
 // Room walls
 
-int define_floor(bool is_textured, GLuint texture) {
-	// GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
+int define_floor() {
+	GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
 	int room_floor = glGenLists(1);
 	glNewList(room_floor, GL_COMPILE);
-		if (is_textured) {
-			glEnable(GL_TEXTURE_2D);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			glBindTexture(GL_TEXTURE_2D, texture);
-		}
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glBindTexture(GL_TEXTURE_2D, texture_walls);
 
 		GLfloat color[] = {1.f,1.f,1.f,1.f};
 		GLfloat specular[] = {1.f,1.f,1.f,1.f};
@@ -39,22 +37,18 @@ int define_floor(bool is_textured, GLuint texture) {
 				glTexCoord2f(0.0, 1.0);glVertex3f(-6,y,back_z);
 			glEnd();
 		glPopMatrix();
-		if (is_textured) {
-			glDisable(GL_TEXTURE_2D);
-		}
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return room_floor;
 }
 
-int define_ceiling(bool is_textured, GLuint texture) {
-	// GLuint texture_walls = LoadTexture("tex/room-cropped.bmp");
+int define_ceiling() {
+	GLuint texture_walls = LoadTexture("tex/wood4.bmp");
 	int room_floor = glGenLists(1);
 	glNewList(room_floor, GL_COMPILE);
-		if (is_textured) {
-			glEnable(GL_TEXTURE_2D);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			glBindTexture(GL_TEXTURE_2D, texture);
-		}
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glBindTexture(GL_TEXTURE_2D, texture_walls);
 		glPushMatrix();
 			int back_z = -4;
 			int front_z = 4;
@@ -67,9 +61,7 @@ int define_ceiling(bool is_textured, GLuint texture) {
 				glTexCoord2f(0.0, 1.0);glVertex3f(-6,y,back_z);
 			glEnd();
 		glPopMatrix();
-		if (is_textured) {
-			glDisable(GL_TEXTURE_2D);
-		}
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
 	return room_floor;
 }
@@ -99,15 +91,13 @@ int define_side_wall(int x, bool left) {
 	return room_side_wall;
 }
 
-GLuint define_back_wall(bool is_textured, GLuint texture) {
+int define_back_wall() {
 	GLuint texture_walls = LoadTexture("tex/wood4.bmp");
 	int room_facing_wall = glGenLists(1);
 	glNewList(room_facing_wall, GL_COMPILE);
-		if (is_textured) {
-			glEnable(GL_TEXTURE_2D);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			glBindTexture(GL_TEXTURE_2D, texture_walls);
-		}
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glBindTexture(GL_TEXTURE_2D, texture_walls);
 		glPushMatrix();
 			glBegin(GL_QUADS);
 				glNormal3d(0,0,1); // back wall normal is along positive z-axis
@@ -117,23 +107,19 @@ GLuint define_back_wall(bool is_textured, GLuint texture) {
 				glTexCoord2f(0.0, 1.0);glVertex3f(-6,6,-4);
 			glEnd();
 		glPopMatrix();
-		if (is_textured) {
-			glDisable(GL_TEXTURE_2D);
-		}
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
 	// glDeleteTextures(1, &texture_walls);
 	return room_facing_wall;
 }
 
-int define_front_wall(bool is_textured, GLuint texture) {
-	// GLuint texture_walls = LoadTexture("tex/wood4.bmp");
+int define_front_wall() {
+	GLuint texture_walls = LoadTexture("tex/wood4.bmp");
 	int room_facing_wall = glGenLists(1);
 	glNewList(room_facing_wall, GL_COMPILE);
-		if (is_textured) {
-			glEnable(GL_TEXTURE_2D);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			glBindTexture(GL_TEXTURE_2D, texture);
-		}
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glBindTexture(GL_TEXTURE_2D, texture_walls);
 		int z = 4;
 		int door_left_x = 2;
 		int door_right_x = 5;
@@ -156,9 +142,7 @@ int define_front_wall(bool is_textured, GLuint texture) {
 			glTexCoord2f(1.0, 1.0);glVertex3f(9,6,z);
 			glTexCoord2f(0.8, 1.0);glVertex3f(door_right_x,6,z);
 		glEnd();
-		if (is_textured) {
-			glDisable(GL_TEXTURE_2D);
-		}
+		glDisable(GL_TEXTURE_2D);
 	glEndList();
 	// glDeleteTextures(1, &texture_walls);
 	return room_facing_wall;

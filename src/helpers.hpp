@@ -19,6 +19,10 @@ void initGL();
 // Initialize the limits array
 void init_limits(float* limits);
 
+void init_lists(
+	int* room_display_lists
+);
+
 // Find the index to change in the 'angles' vector
 int find_index_x(int& curr_joint, bool move_left);
 int find_index_y(int& curr_joint, bool move_left);
