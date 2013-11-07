@@ -98,7 +98,7 @@ vector<coordinate_t> curve_points;
 int window_id;
 
 /* Display lists */
-int room_display_lists[6];
+int room_display_lists[45];
 
 // Find the coordinates that were clicked
 vector<double>

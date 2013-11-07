@@ -21,8 +21,8 @@ extern int room_back_wall;
 extern int door;
 
 // Drawing function for the box
-void draw_box(double lid_degrees) {
-	int base_and_walls = define_base_and_walls();
+void draw_box(int* room_display_lists, double lid_degrees) {
+	int base_and_walls = room_display_lists[6];
 	int lid = define_lid();
 	glPushMatrix();
 		// glTranslatef(0,2,2);
@@ -40,44 +40,44 @@ void draw_box(double lid_degrees) {
 }
 
 // Drawing function for the dancer
-void draw_dancer(float* angles, float dancer_angle) {
+void draw_dancer(int* room_display_lists, float* angles, float dancer_angle) {
 	// define the various components of the dancer
-	int head = define_head();
-	int neck = define_neck();
+	int head = room_display_lists[7];
+	int neck = room_display_lists[8];
 
-	int torso1 = define_torso1();
-	int torso2 = define_torso2();
-	int torso3 = define_torso3();
+	int torso1 = room_display_lists[9];
+	int torso2 = room_display_lists[10];
+	int torso3 = room_display_lists[11];
 
-	int left_hip = define_hip();
-	int right_hip = define_hip();
+	int left_hip = room_display_lists[12];
+	int right_hip = room_display_lists[13];
 
-	int left_thigh = define_thigh();
-	int right_thigh = define_thigh();
-	int left_knee = define_knee();
-	int right_knee = define_knee();
-	int left_ankle = define_ankle();
-	int right_ankle = define_ankle();
-	int left_leg = define_leg();
-	int right_leg = define_leg();
-	int left_foot = define_foot();
-	int right_foot = define_foot();
+	int left_thigh = room_display_lists[14];
+	int right_thigh = room_display_lists[14];
+	int left_knee = room_display_lists[15];
+	int right_knee = room_display_lists[15];
+	int left_ankle = room_display_lists[16];
+	int right_ankle = room_display_lists[16];
+	int left_leg = room_display_lists[17];
+	int right_leg = room_display_lists[17];
+	int left_foot = room_display_lists[18];
+	int right_foot = room_display_lists[18];
 
-	int left_shoulder = define_shoulder();
-	int right_shoulder = define_shoulder();
-	int left_upper_arm = define_upper_arm();
-	int right_upper_arm = define_upper_arm();
-	int left_elbow = define_elbow();
-	int right_elbow = define_elbow();
-	int left_lower_arm = define_lower_arm();
-	int right_lower_arm = define_lower_arm();
-	int left_wrist = define_wrist();
-	int right_wrist = define_wrist();
-	int left_hand = define_hand();
-	int right_hand = define_hand();
+	int left_shoulder = room_display_lists[19];
+	int right_shoulder = room_display_lists[19];
+	int left_upper_arm = room_display_lists[20];
+	int right_upper_arm = room_display_lists[20];
+	int left_elbow = room_display_lists[21];
+	int right_elbow = room_display_lists[21];
+	int left_lower_arm = room_display_lists[22];
+	int right_lower_arm = room_display_lists[22];
+	int left_wrist = room_display_lists[23];
+	int right_wrist = room_display_lists[23];
+	int left_hand = room_display_lists[24];
+	int right_hand = room_display_lists[24];
 
-	int hat = define_hat();
-	int stick = define_stick();
+	int hat = room_display_lists[25];
+	int stick = room_display_lists[26];
 
 	// torso3 and onwards
 	glPushMatrix();
@@ -290,9 +290,9 @@ void draw_dancer(float* angles, float dancer_angle) {
 }
 
 // Drawing function for the table
-void draw_table() {
-	int table_top = define_table_top();
-	int table_leg = define_table_leg();
+void draw_table(int* room_display_lists) {
+	int table_top = room_display_lists[27];
+	int table_leg = room_display_lists[28];
 
 	glPushMatrix();
 		// glTranslatef(0,-1.5,0);
@@ -364,10 +364,10 @@ void draw_room(
 }
 
 // Drawing function for the one_legged table
-void draw_one_legged_table() {
-	int one_legged_table_top = define_one_legged_table_top();
-	int one_legged_table_leg = define_one_legged_table_leg();
-	int one_legged_table_base = define_one_legged_table_base();
+void draw_one_legged_table(int* room_display_lists) {
+	int one_legged_table_top = room_display_lists[29];
+	int one_legged_table_leg = room_display_lists[30];
+	int one_legged_table_base = room_display_lists[31];
 
 	// glMaterialfv()
 	glPushMatrix();
@@ -384,10 +384,10 @@ void draw_one_legged_table() {
 }
 
 // Drawing function for the chair
-void draw_chair() {
-	int chair_seat = define_chair_seat();
-	int chair_leg = define_chair_leg();
-	int chair_back = define_chair_back();
+void draw_chair(int* room_display_lists) {
+	int chair_seat = room_display_lists[32];
+	int chair_leg = room_display_lists[33];
+	int chair_back = room_display_lists[34];
 
 	glPushMatrix();
 		glScalef(2,2,2);
@@ -423,9 +423,9 @@ void draw_chair() {
 }
 
 // Drawing function for the stool
-void draw_stool() {
-	int stool_seat = define_stool_seat();
-	int stool_leg = define_stool_leg();
+void draw_stool(int* room_display_lists) {
+	int stool_seat = room_display_lists[35];
+	int stool_leg = room_display_lists[36];
 	glPushMatrix();
 		// glTranslatef(4,0,0);
 		glCallList(stool_seat);
@@ -445,10 +445,10 @@ void draw_stool() {
 }
 
 // Drawing function for the lamp
-void draw_lamp() {
-	int lamp_stand = define_lamp_stand();
-	int lamp_head = define_lamp_head();
-	int lamp_base = define_lamp_base();
+void draw_lamp(int* room_display_lists) {
+	int lamp_stand = room_display_lists[37];
+	int lamp_head = room_display_lists[38];
+	int lamp_base = room_display_lists[39];
 	// int lamp_light = define_lamp_light();
 
 	// lamp stand
@@ -469,10 +469,10 @@ void draw_lamp() {
 }
 
 // Drawing function for the wall light
-void draw_wall_light() {
-	int wall_light_base = define_wall_light_base();
-	int wall_light_neck = define_wall_light_neck();
-	int wall_light_head = define_wall_light_head();
+void draw_wall_light(int* room_display_lists) {
+	int wall_light_base = room_display_lists[40];
+	int wall_light_neck = room_display_lists[41];
+	int wall_light_head = room_display_lists[42];
 
 	glPushMatrix();
 		glRotatef(90,0,1,0);
@@ -513,43 +513,43 @@ void draw_all_objects(
 	glPushMatrix();
 		// glTranslatef(0,2.6001,1.7);
 		glTranslatef(-2,2.1+.001,-1);
-		draw_box(lid_degrees);
+		draw_box(room_display_lists ,lid_degrees);
 	glPopMatrix();
 	glPushMatrix();
 		glTranslatef(-2,dancer_y,-2.7);
-		draw_dancer(dancer_angles, dancer_angle);
+		draw_dancer(room_display_lists, dancer_angles, dancer_angle);
 	glPopMatrix();
 
 	// Furniture
 	glPushMatrix();
 		glTranslatef(-2,-1,-2.7);
-		draw_table();
+		draw_table(room_display_lists);
 	glPopMatrix();
 	glPushMatrix();
 		glTranslatef(5,-2.05,0);
-		draw_one_legged_table();
+		draw_one_legged_table(room_display_lists);
 	glPopMatrix();
 	glPushMatrix();
 		glTranslatef(4.5,-2,-2.5);
 		glRotatef(-90,0,1,0);
-		draw_chair();
+		draw_chair(room_display_lists);
 	glPopMatrix();
 	glPushMatrix();
 		glTranslatef(0,-2,0);
-		draw_stool();
+		draw_stool(room_display_lists);
 	glPopMatrix();
 
 	// Lights
 	// lamp
 	glPushMatrix();
 		glTranslatef(-3,-1.5,0);
-		draw_lamp();
+		draw_lamp(room_display_lists);
 	glPopMatrix();
 	// wall light
 	glPushMatrix();
 		glTranslatef(4,2,-5);
 		glRotatef(-90,0,1,0);
-		draw_wall_light();
+		draw_wall_light(room_display_lists);
 	glPopMatrix();
 }
 
