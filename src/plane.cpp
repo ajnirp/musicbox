@@ -6,7 +6,7 @@
 #include "shapes.hpp"
 #include "texture.hpp"
 
-int define_plane(float z) {
+int define_plane() {
 	int plane =  glGenLists(1);
 	glNewList(plane, GL_COMPILE);
 		glEnable (GL_BLEND);
@@ -24,10 +24,10 @@ int define_plane(float z) {
 			glScalef(0.9,0.9,0.9);
 
 			glBegin(GL_QUADS);
-				glVertex3f(-6,-3,z);
-				glVertex3f(9,-3,z);
-				glVertex3f(9,6,z);
-				glVertex3f(-6,6,z);
+				glVertex3f(-6,-3,0);
+				glVertex3f(9,-3,0);
+				glVertex3f(9,6,0);
+				glVertex3f(-6,6,0);
 			glEnd();
 		glPopMatrix();
 

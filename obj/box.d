@@ -1,6 +1,4 @@
-/host/Academic/5/cs475/assignments/musicbox/obj/box.o: \
- /host/Academic/5/cs475/assignments/musicbox/src/box.cpp \
- /usr/include/GL/gl.h /usr/include/GL/glext.h \
+obj/box.o: src/box.cpp /usr/include/GL/gl.h /usr/include/GL/glext.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stddef.h \
  /usr/include/inttypes.h /usr/include/features.h \
  /usr/include/stdc-predef.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
@@ -27,7 +25,5 @@
  /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h \
- /host/Academic/5/cs475/assignments/musicbox/src/box.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/shapes.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/texture.hpp
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h src/box.hpp src/shapes.hpp \
+ src/texture.hpp

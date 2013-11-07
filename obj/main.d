@@ -1,6 +1,4 @@
-/host/Academic/5/cs475/assignments/musicbox/obj/main.o: \
- /host/Academic/5/cs475/assignments/musicbox/src/main.cpp \
- /usr/include/c++/4.7/iostream \
+obj/main.o: src/main.cpp /usr/include/c++/4.7/iostream \
  /usr/include/x86_64-linux-gnu/c++/4.7/./bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/4.7/./bits/os_defines.h \
  /usr/include/features.h /usr/include/stdc-predef.h \
@@ -83,18 +81,9 @@
  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
  /usr/include/x86_64-linux-gnu/c++/4.7/./bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/4.7/./bits/c++io.h \
- /usr/include/c++/4.7/bits/fstream.tcc /usr/include/c++/4.7/vector \
- /usr/include/c++/4.7/bits/stl_construct.h \
- /usr/include/c++/4.7/ext/alloc_traits.h \
- /usr/include/c++/4.7/bits/stl_uninitialized.h \
- /usr/include/c++/4.7/bits/stl_vector.h \
- /usr/include/c++/4.7/bits/stl_bvector.h \
- /usr/include/c++/4.7/bits/vector.tcc /usr/include/GL/gl.h \
- /usr/include/GL/glext.h /usr/include/inttypes.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdint.h /usr/include/stdint.h \
- /usr/include/GL/glut.h /usr/include/GL/freeglut_std.h \
- /usr/include/GL/glu.h /usr/include/stdlib.h \
- /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/c++/4.7/bits/fstream.tcc /usr/include/c++/4.7/sstream \
+ /usr/include/c++/4.7/bits/sstream.tcc /usr/include/c++/4.7/cstdlib \
+ /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/sys/types.h \
  /usr/include/x86_64-linux-gnu/sys/select.h \
@@ -103,7 +92,13 @@
  /usr/include/x86_64-linux-gnu/bits/select2.h \
  /usr/include/x86_64-linux-gnu/sys/sysmacros.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/c++/4.7/cmath \
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/c++/4.7/vector \
+ /usr/include/c++/4.7/bits/stl_construct.h \
+ /usr/include/c++/4.7/ext/alloc_traits.h \
+ /usr/include/c++/4.7/bits/stl_uninitialized.h \
+ /usr/include/c++/4.7/bits/stl_vector.h \
+ /usr/include/c++/4.7/bits/stl_bvector.h \
+ /usr/include/c++/4.7/bits/vector.tcc /usr/include/c++/4.7/cmath \
  /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/huge_val.h \
  /usr/include/x86_64-linux-gnu/bits/huge_valf.h \
  /usr/include/x86_64-linux-gnu/bits/huge_vall.h \
@@ -113,16 +108,9 @@
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/mathinline.h \
  /usr/include/c++/4.7/utility /usr/include/c++/4.7/bits/stl_relops.h \
- /usr/include/c++/4.7/algorithm /usr/include/c++/4.7/bits/stl_algo.h \
- /usr/include/c++/4.7/cstdlib /usr/include/c++/4.7/bits/algorithmfwd.h \
- /usr/include/c++/4.7/bits/stl_heap.h \
- /usr/include/c++/4.7/bits/stl_tempbuf.h \
- /host/Academic/5/cs475/assignments/musicbox/src/room.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/dancer.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/box.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/draw.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/coordinate.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/bezier.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/helpers.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/file.hpp \
- /host/Academic/5/cs475/assignments/musicbox/src/frames.hpp
+ /usr/include/GL/gl.h /usr/include/GL/glext.h /usr/include/inttypes.h \
+ /usr/lib/gcc/x86_64-linux-gnu/4.7/include/stdint.h /usr/include/stdint.h \
+ /usr/include/GL/freeglut.h /usr/include/GL/freeglut_std.h \
+ /usr/include/GL/glu.h /usr/include/GL/freeglut_ext.h src/room.hpp \
+ src/dancer.hpp src/box.hpp src/draw.hpp src/coordinate.hpp \
+ src/bezier.hpp src/helpers.hpp src/file.hpp

@@ -46,11 +46,3 @@ GLuint LoadTexture(const char* filepath) {
   delete [] pixel; // prevent memory leaks due to repeated heap allocation
   return texture;
 }
-
-GLuint texture_room1() {
-  return LoadTexture("tex/room-cropped.bmp");
-}
-
-GLuint texture_room2() {
-  return LoadTexture("tex/wood4.bmp");
-}

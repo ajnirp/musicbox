@@ -490,11 +490,12 @@ void draw_wall_light(int* room_display_lists) {
 }
 
 // Drawing function for the plane
-void draw_plane(float z) {
+void draw_plane(int* room_display_lists, float plane_z) {
+	int plane = room_display_lists[43];
 	glPushMatrix();
+		glTranslatef(0,0,plane_z);
+		glCallList(plane);
 	glPopMatrix();
-	int plane = define_plane(z);
-	glCallList(plane);
 }
 
 // Draw everything

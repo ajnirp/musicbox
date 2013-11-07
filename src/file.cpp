@@ -16,18 +16,16 @@ using namespace std;
 
 void write_file(
 	float* dancer_angles,
-	float lid_angle,
-	bool wall_light,
-	bool lamp_light
+	float dancer_y,
+	float lid_angle
 ) {
 	ofstream keyframes_file;
 	string filename = "keyframes.txt";
 	keyframes_file.open(filename.c_str(), fstream::app);
 
 	for (int i = 0 ; i < 40 ; i++) keyframes_file << dancer_angles[i] << " ";
-	keyframes_file << lid_angle << " ";
-	keyframes_file << (wall_light ? 1 : 0) << " ";
-	keyframes_file << (lamp_light ? 1 : 0) << "\n";
+	keyframes_file << dancer_y << " ";
+	keyframes_file << lid_angle << "\n";
 
 	cout << "Saved keyframe to keyframes.txt\n";
 

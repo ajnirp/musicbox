@@ -303,6 +303,7 @@ int define_hand() {
 		GLUquadric* quad = gluNewQuadric();
 		glRotatef(90,1,0,0);
 		gluCylinder(quad,0.1,0.15,0.2,10,10);
+		gluDeleteQuadric(quad);
 	glEndList();
 	return hand;
 }
@@ -332,6 +333,9 @@ int define_hat() {
 		glPushMatrix();
 			gluCylinder(top,0.4,0.4,0.4,10,10); // top wall
 		glPopMatrix();
+
+		gluDeleteQuadric(base);
+		gluDeleteQuadric(top);
 	glEndList();
 	return hat;
 }

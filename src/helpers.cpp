@@ -5,6 +5,10 @@
 #include "helpers.hpp"
 #include "room.hpp"
 
+#include "dancer.hpp"
+#include "box.hpp"
+#include "plane.hpp"
+
 using namespace std;
 
 // Display current information about the program (current joint, which lights are on/off etc.)
@@ -287,4 +291,5 @@ void init_lists(
 	room_display_lists[40] = define_wall_light_base();
 	room_display_lists[41] = define_wall_light_neck();
 	room_display_lists[42] = define_wall_light_head();
+	room_display_lists[43] = define_plane();
 }

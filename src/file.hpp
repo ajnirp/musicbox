@@ -3,9 +3,8 @@
 
 void write_file(
 	float* dancer_angles,
-	float lid_angles,
-	bool wall_light,
-	bool lamp_light
+	float dancer_y,
+	float lid_angles
 );
 
 void clear_file();

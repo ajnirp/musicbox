@@ -17,7 +17,7 @@ TARGETexe     = musicbox
 
 # Project Paths
 INSTALL_PATH  =$(PROJECT_ROOT)/bin
-PROJECT_ROOT  =/host/Academic/5/cs475/assignments/musicbox
+PROJECT_ROOT  =.
 SRCDIR        =$(PROJECT_ROOT)/src
 OBJDIR        =$(PROJECT_ROOT)/obj
 BINDIR        =$(PROJECT_ROOT)/bin

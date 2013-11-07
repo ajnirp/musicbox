@@ -1,30 +1,36 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <sstream>
+#include <cstdlib>
 #include <vector>
-#include <GL/gl.h>
-#include <GL/glut.h>
 #include <cmath>
 #include <utility>
-#include <algorithm>
+
+#include <GL/gl.h>
+#include <GL/freeglut.h>
 // #include <GLUT/glut.h> // uncomment this to compile on OS X
 
 #include "room.hpp"
 #include "dancer.hpp"
 #include "box.hpp"
-
 #include "draw.hpp"
 #include "coordinate.hpp"
 #include "bezier.hpp"
 #include "helpers.hpp"
 #include "file.hpp"
-#include "frames.hpp"
 
 #define GLUT_FRAME_TIME 50
 #define NUM_SAMPLES 50
+#define FRAMES_PER_SECOND 30
 
 using namespace std;
 
 float limits[80] = {0};
+
+// the current and previous keyframes of the animation
+vector<float> keyframe1;
+vector<float> keyframe2;
 
 // each element in limits stores the extent to which the joint is allowed to rotate
 // for joint k, the values limits[2*k] and limits[2*k+1] give the min and max limits respectively
@@ -33,50 +39,25 @@ float limits[80] = {0};
 /* Global vars */
 
 bool record_mode = false;
-
 float world_x_angle = 0;
 float world_y_angle = 0;
 float world_z_angle = 0;
-
 float lid_angle = 0;
 float box_angle = 0;
 float lid_angle_increment = 3.f;
-
 float dancer_angles[40] = {0};
 float dancer_angle = 0;
-
 float dancer_y = 0;
-
 float door_angle = 0;
-
 float plane_z = 0;
 
 /* Variables determining which body part to move */
 bool move_left = true; // When true, keys affect the left side of the dancer. Not valid for joints that have no left or right, for example, the head-neck joint
 int curr_joint = 0; // Which joint to move. This int takes values between 0 and 9, both included
 
-/*
-These are the key-to-joint mappings:
-   -----------------------
-    Key |     Joint
-   -----------------------
-    0   |     head-neck
-	1   |     shoulder
-	2   |     neck-torso1
-	3   |     torso1-torso2
-	4   |     torso2-torso3
-	5   |     hip
-	6   |     ankle
-	7   |     wrist
-	8   |     knee
-	9   |     elbow
-	----------------------
-*/
-
-
 /* Variables determining which light to turn on or off */
-bool lamp_light = false; // controls the lamp on the left
-bool wall_light = false; // controls the wall light on the back wall
+bool lamp_light = true;
+bool wall_light = true;
 
 /* Boolean controlling whether the Bezier curve is drawn or not */
 bool draw_bezier = false;
@@ -89,16 +70,15 @@ float camera_x = 0;
 float camera_y = 0;
 float camera_z = 5;
 
-int current_index = NUM_SAMPLES; // index of curve_points
-
-vector<coordinate_t> control_points;
-vector<coordinate_t> curve_points;
-
 /* Window Parameters */
 int window_id;
 
 /* Display lists */
 int room_display_lists[45];
+
+ifstream keyframes_file;
+
+bool animate();
 
 // Find the coordinates that were clicked
 vector<double>
@@ -137,13 +117,12 @@ void mouse(int, int, int, int);
 void timer(int value);
 
 void init() {
-	// initialize the control points vector
-	coordinate_t box_control_point;
-	box_control_point.xx = -1.87471;
-	box_control_point.yy = 0.8;
-	box_control_point.zz = -1;
-
-	control_points.push_back(box_control_point);
+	keyframes_file.open("keyframes.txt");
+	if (!keyframes_file.is_open()) { cout << "Error opening keyframes.txt\n"; exit(1); }
+	for (int i = 0 ; i < 42 ; i++) {
+		keyframe1.push_back(0);
+		keyframe2.push_back(0);
+	}
 
 	initGL(); // set up the camera, etc.
 	init_limits(limits); // set up the limits vector
@@ -151,41 +130,22 @@ void init() {
 }
 
 void timer(int value) {
-	if (move_camera) {
-		if (value > -1) {
-			coordinate_t point = curve_points[value];
-			camera_x = point.xx;
-			camera_y = point.yy;
-			camera_z = point.zz;
-			glMatrixMode(GL_MODELVIEW);
-			glLoadIdentity();
-			gluLookAt(
-				camera_x,camera_y,camera_z,
-				-1.8857,-0.093121,-2,
-				0,1,0
-			);
-		}
-		else if ((value >= -20) and (value <= -1)) {
-			if ((lid_angle-5) >= -90) {
-				lid_angle -= 5.f;
-			}
-		}
-		else if ((value >= -40) and (value < -20)) {
-			if ((dancer_y+0.05) <= 1){
-				dancer_y+=0.05;
-			}
-		}
-
+	bool animation_continue = true;
+	if (value == 30) {
+		value = 0;
+		animation_continue = animate();
+	}
+	if (animation_continue) {
+		for (int i = 0 ; i < 40 ; i++) dancer_angles[i] += (keyframe2[i]-keyframe1[i])/30.0f;
+		dancer_y += (keyframe2[40]-keyframe1[40])/30.f;
+		lid_angle += (keyframe2[41]-keyframe1[41])/30.f;
+		value++;
 		glutPostRedisplay();
-		if (value >= -40) glutTimerFunc(GLUT_FRAME_TIME,timer,value-1);
-		else {
-			record_mode = true;
-			cout << "Recording turned ON. Press F3 to record a keyframe!\n";
-		}
+		glutTimerFunc(1000.f/30.f,timer,value);
 	}
 	else {
-		glutTimerFunc(GLUT_FRAME_TIME,timer,value);
-		// return;
+		cout << "Animation over\n";
+		return;
 	}
 }
 
@@ -193,6 +153,16 @@ void timer(int value) {
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	// bring camera in front of the box
+	camera_x = -2;
+	camera_y = 0.9;
+	camera_z = -0.8;
+	gluLookAt(camera_x,camera_y,camera_z,
+		      camera_x,camera_y,camera_z-1,
+		      0,1,0);
+
 	if (lamp_light) glEnable(GL_LIGHT0);
 	else glDisable(GL_LIGHT0);
 
@@ -209,19 +179,7 @@ void display() {
 			dancer_angles, dancer_angle, dancer_y,
 			door_angle
 		);
-		if (not move_camera) {
-			for (vector<coordinate_t>::iterator itr = control_points.begin(); itr != control_points.end(); itr++) {
-				glPushMatrix();
-					glTranslatef(itr->xx, itr->yy, itr->zz);
-					draw_marker_sphere();
-				glPopMatrix();
-			}
-		}
-
-		if (draw_bezier) draw_bezier_curve(curve_points);
-		else draw_plane(plane_z);
 	glPopMatrix();
-
 
 	glutSwapBuffers();
 }
@@ -239,8 +197,6 @@ void reshape(int w, int h) {
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -249,7 +205,7 @@ void keyboard(unsigned char key, int x, int y) {
 		case 27: {
 			cout << "Exiting the program...\n";
 			glutDestroyWindow(window_id);
-			exit(0);
+			// exit(0);
 		}
 		break;
 
@@ -278,20 +234,20 @@ void keyboard(unsigned char key, int x, int y) {
 			// all joints whether they have 1 or 3 dofs can rotate
 			// about the x-axis
 			int index = find_index_x(curr_joint,move_left);
-			if (dancer_angles[index]+3 <= limits[2*index+1]) {
+			// if (dancer_angles[index]+3 <= limits[2*index+1]) {
 				dancer_angles[index] += 3;
 				glutPostRedisplay();
-			}
+			// }
 		}
 		break;
 		case 'w': {
 			// all joints whether they have 1 or 3 dofs can rotate
 			// about the x-axis
 			int index = find_index_x(curr_joint,move_left);
-			if (dancer_angles[index]-3 >= limits[2*index]) {
+			// if (dancer_angles[index]-3 >= limits[2*index]) {
 				dancer_angles[index] -= 3;
 				glutPostRedisplay();
-			}
+			// }
 		}
 		break;
 
@@ -299,10 +255,10 @@ void keyboard(unsigned char key, int x, int y) {
 		case 'a': {
 			if (curr_joint <= 7) {
 				int index = find_index_y(curr_joint,move_left);
-				if (dancer_angles[index]-3 >= limits[2*index]) {
+				// if (dancer_angles[index]-3 >= limits[2*index]) {
 					dancer_angles[index] -= 3;
 					glutPostRedisplay();
-				}
+				// }
 			}
 			// nothing for 8 and 9 because the knee and elbow rotate about the z-axis only
 		}
@@ -311,10 +267,10 @@ void keyboard(unsigned char key, int x, int y) {
 			// check if we have to move the box
 			if (curr_joint <= 7) {
 				int index = find_index_y(curr_joint,move_left);
-				if (dancer_angles[index]+3 <= limits[2*index+1]) {
+				// if (dancer_angles[index]+3 <= limits[2*index+1]) {
 					dancer_angles[index] += 3;
 					glutPostRedisplay();
-				}
+				// }
 			}
 			// nothing for 8 and 9 because the knee and elbow rotate about the z-axis only
 		}
@@ -324,20 +280,20 @@ void keyboard(unsigned char key, int x, int y) {
 		case 'q': {
 			if (curr_joint <= 7) {
 				int index = find_index_z(curr_joint,move_left);
-				if (dancer_angles[index]+3 <= limits[2*index+1]) {
+				// if (dancer_angles[index]+3 <= limits[2*index+1]) {
 					dancer_angles[index] += 3;
 					glutPostRedisplay();
-				}
+				// }
 			}
 		}
 		break;
 		case 'e': {
 			if (curr_joint <= 7) {
 				int index = find_index_z(curr_joint,move_left);
-				if (dancer_angles[index]-3 >= limits[2*index]) {
+				// if (dancer_angles[index]-3 >= limits[2*index]) {
 					dancer_angles[index] -= 3;
 					glutPostRedisplay();
-				}
+				// }
 			}
 		}
 		break;
@@ -403,49 +359,57 @@ void keyboard(unsigned char key, int x, int y) {
 		}
 		break;
 
-		// Draw the approximated Bezier curve
-		case ' ': {
-			if (not draw_bezier) {
-				if (control_points.size() >= 3) {
-					draw_bezier = true;
-
-					coordinate_t door_control_point;
-					door_control_point.xx = 2.74009;
-					door_control_point.yy = -1.35724;
-					door_control_point.zz = 2.5;
-
-					control_points.push_back(door_control_point);
-					curve_points = complete(control_points, 1.0f/NUM_SAMPLES);
-					current_index = curve_points.size() - 1;
-					move_camera = true;
-
-					glutPostRedisplay();
-				}
-			}
+		// Move the camera around
+		case 't': {
+			camera_z -= 0.1;
+			glutPostRedisplay();
+		}
+		break;
+		case 'g': {
+			camera_z += 0.1;
+			glutPostRedisplay();
+		}
+		break;
+		case 'f': {
+			camera_x -= 0.1;
+			glutPostRedisplay();
+		}
+		break;
+		case 'h': {
+			camera_x += 0.1;
+			glutPostRedisplay();
 		}
 		break;
 
-		// Enter the room
-		case '\r': { // works on Ubuntu. Need to ensure that pressing Enter is cross-compatible
-			if (not move_camera) {
-				cout << "Entering room...\n";
-				camera_z = 2.55;
-
-				glMatrixMode(GL_MODELVIEW);
-				glLoadIdentity();
-				gluLookAt(camera_x,camera_y,camera_z,0,0,0,0,1,0);
-				glutPostRedisplay();
-			}
+		// Open and close the box
+		case 'z': {
+			lid_angle -= 2;
+			glutPostRedisplay();
+		}
+		break;
+		case 'x': {
+			lid_angle += 2;
+			glutPostRedisplay();
 		}
 		break;
 
-		// Playback
-		case 'p': {
-			if (record_mode) {
-				cout << "We are in record mode right now, cannot start playback yet!\n";
-				interpolate_frames();
-			}
+		// Move the dancer up and down
+		case 'c': {
+			dancer_y += 0.1;
+			glutPostRedisplay();
 		}
+		break;
+		case 'v': {
+			dancer_y -= 0.1;
+			glutPostRedisplay();
+		}
+		break;
+
+		// Output camera coordinates
+		case '`': {
+			cout << camera_x << " " << camera_y << " " << camera_z << endl;
+		}
+		break;
 	}
 }
 
@@ -468,13 +432,15 @@ void process_special_keys(int key, int x, int y) {
 		break;
 
 		case GLUT_KEY_DOWN: {
-			plane_z -= 0.1;
+			camera_y -= 0.1;
+			// plane_z -= 0.1;
 			glutPostRedisplay();
 		}
 		break;
 
 		case GLUT_KEY_UP: {
-			plane_z += 0.1;
+			// plane_z += 0.1;
+			camera_y += 0.1;
 			glutPostRedisplay();
 		}
 		break;
@@ -484,9 +450,8 @@ void process_special_keys(int key, int x, int y) {
 			if (record_mode) {
 				write_file(
 					dancer_angles,
-					lid_angle,
-					wall_light,
-					lamp_light
+					dancer_y,
+					lid_angle
 				);
 			}
 			else {
@@ -496,7 +461,7 @@ void process_special_keys(int key, int x, int y) {
 		break;
 
 		// Clear the keyframes file
-		case GLUT_KEY_F4: {
+		case GLUT_KEY_F11: {
 			clear_file();
 		}
 		break;
@@ -504,34 +469,11 @@ void process_special_keys(int key, int x, int y) {
 }
 
 void mouse(int button, int state, int x, int y) {
-	if (state == GLUT_DOWN) {
-		if (button == GLUT_DOWN) {
-			vector<double> actual_coords = GetOGLPos(x,y);
-			cout << actual_coords[0] << " ";
-			cout << actual_coords[1] << " ";
-			cout << actual_coords[2] << "\n";
-			// cout << "Creating a sphere at " << x << " " << y << endl;
-			coordinate_t new_control_point;
-			new_control_point.xx = actual_coords[0];
-			new_control_point.yy = actual_coords[1];
-			new_control_point.zz = actual_coords[2];
-			control_points.push_back(new_control_point);
-		}
-		else if (button == GLUT_RIGHT_BUTTON) {
-			if (control_points.size() >= 2) {
-				control_points.pop_back();
-				cout << "Deleted the last control point" << endl;
-			}
-			else {
-				cout << "Can't delete any more control points!" << endl;
-			}
-		}
-		glutPostRedisplay();
-	}
 }
 
 void renderGL(int argc, char** argv) {
 	glutInit(&argc, argv);
+	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE,GLUT_ACTION_CONTINUE_EXECUTION);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_RGBA | GLUT_DOUBLE);
 	glutInitWindowSize(glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
 	glutInitWindowPosition(0, 0);
@@ -545,21 +487,46 @@ void renderGL(int argc, char** argv) {
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(process_special_keys);
 	glutMouseFunc(mouse);
-	glutTimerFunc(GLUT_FRAME_TIME,timer,current_index);
+	
+	if (!record_mode) glutTimerFunc(3000,timer,30);
 
 	glutMainLoop();
 }
 
+// Animate function
+bool animate() {
+	keyframe1 = keyframe2;
+	if (keyframes_file.good()) {
+		// get a new line
+		string line;
+		getline(keyframes_file, line);
+		// clear keyframe2 and read the new split line into it
+		string buffer;
+		stringstream ss(line);
+		keyframe2.clear();
+		while (ss >> buffer) keyframe2.push_back(atof(buffer.c_str())); // convert buffer to a float before pushing into keyframe2
+		return true;
+	}
+	else return false;
+}
+
 int main(int argc, char** argv) {
 	if (argc < 2) {
-		cout << "Started program in RECORD MODE...\n";
-		record_mode = true;
-		clear_file();
+		cout << "Insufficient number of arguments\n";
+		exit(1);
 	}
 	else {
 		if (string(argv[1]) == "--help") {
 			cout << "For help on how to use the program, please read the README in the Github repo: https://wenderen/github/musicbox\n";
 			exit(0);
+		}
+		else if (string(argv[1]) == "--playback") {
+			cout << "Started program in PLAYBACK MODE...\n";
+			record_mode = false;
+		}
+		else if (string(argv[1]) == "--record") {
+			cout << "Started program in RECORD MODE...\n";
+			record_mode = true;
 		}
 		else {
 			cout << "ERROR: unrecognized option " << argv[1] << endl;
@@ -567,5 +534,6 @@ int main(int argc, char** argv) {
 		}
 	}
 	renderGL(argc, argv);
+	keyframes_file.close();
 	return 0;
 }

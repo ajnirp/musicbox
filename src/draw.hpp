@@ -27,7 +27,7 @@ void draw_lamp();
 void draw_wall_light();
 
 // Plane
-void draw_plane(float z);
+void draw_plane(int* room_display_lists, float plane_z);
 
 // Universal drawing function
 void draw_all_objects(
