@@ -25,7 +25,7 @@ Link to Report for Part 3
 -------------------------
 
 The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox3.html).
-The YouTube video of our animation is [here](needtofillthisin)
+The YouTube video of our animation is [here](http://www.youtube.com/watch?v=AV051Oyuoa0)
 
 Installation
 ------------
@@ -167,7 +167,7 @@ All of the code was written entirely by the two of us, except for the following 
 3. The code for checking whether a file is empty or not (that is, the `file_is_empty()` function in `src/file.cpp`) was taken from [here](http://www.cplusplus.com/forum/windows/10853/)
 4. The frame capture code was supplied to us by our course instructor. It can be found [here]()
 5. The music we used for our video was taken from [Open Game Art](http://opengameart.org/content/sage-of-corinth-music).
-6. Swamp painting taken also [Open Game Art](from http://opengameart.org/content/rhythos-modified-lpc-assets)
+6. Swamp painting (not used) taken also from [Open Game Art](from http://opengameart.org/content/rhythos-modified-lpc-assets)
 
 References
 ----------

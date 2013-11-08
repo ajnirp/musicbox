@@ -484,7 +484,7 @@ void renderGL(int argc, char** argv) {
 	glutSpecialFunc(process_special_keys);
 	glutMouseFunc(mouse);
 	
-	if (!record_mode) glutTimerFunc(10000,timer,30);
+	if (!record_mode) glutTimerFunc(1000,timer,30);
 
 	glutMainLoop();
 }
@@ -537,7 +537,9 @@ int main(int argc, char** argv) {
 	}
 	else {
 		if (string(argv[1]) == "--help" or (string(argv[1]) == "-h")) {
-			cout << "For help on how to use the program, please read the README in the Github repo: https://wenderen/github/musicbox\n";
+			cout <<
+			"USAGE: ./bin/musicbox <flag> where flag is one of\n             -p   --playback\n             -r   --record\n             -h   --help\n";
+			cout << "For detailed help on how to use the program, please read the README in the Github repo: https://wenderen/github/musicbox\n";
 			exit(0);
 		}
 		else if (string(argv[1]) == "--playback" or (string(argv[1]) == "-p")) {
