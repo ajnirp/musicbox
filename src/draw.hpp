@@ -40,4 +40,8 @@ void draw_all_objects(
 // Bezier curve
 void draw_bezier_curve(vector<coordinate_t> curve_points);
 
+// Painting
+void draw_painting(int* room_display_lists);
+
+
 #endif

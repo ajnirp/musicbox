@@ -11,26 +11,22 @@
 #include "texture.hpp"
 #include "plane.hpp"
 #include "bezier.hpp"
+#include "painting.hpp"
 
-extern int room_floor;
-extern int room_ceiling;
-extern int room_left_wall;
-extern int room_right_wall;
-extern int room_front_wall;
-extern int room_back_wall;
-extern int door;
+#include <iostream>
+using namespace std;
 
 // Drawing function for the box
 void draw_box(int* room_display_lists, double lid_degrees) {
 	int base_and_walls = room_display_lists[6];
 	int lid = define_lid();
 	glPushMatrix();
-		// glTranslatef(0,2,2);
 		glScalef(0.5,0.85,0.5);
+		// glRotatef(90,0,1,0);
 		// draw the lid
 		glPushMatrix();
 			glTranslatef(0, -2, -5);
-			glRotatef(lid_degrees, 1, 0, 0);
+			glRotatef(lid_degrees,1,0,0);
 			glTranslatef(0, 2, 5);
 			glCallList(lid);
 		glPopMatrix();
@@ -322,9 +318,6 @@ void draw_room(
 	int* room_display_lists,
 	float door_angle
 ) {
-	GLuint texture_floor = LoadTexture("tex/room-cropped.bmp");
-	GLuint texture_ceiling_walls = LoadTexture("tex/wood4.bmp");
-
 	int room_floor = room_display_lists[0];
 	int room_ceiling = room_display_lists[1];
 	int room_left_wall = room_display_lists[2];
@@ -473,7 +466,6 @@ void draw_wall_light(int* room_display_lists) {
 	int wall_light_base = room_display_lists[40];
 	int wall_light_neck = room_display_lists[41];
 	int wall_light_head = room_display_lists[42];
-
 	glPushMatrix();
 		glRotatef(90,0,1,0);
 		glScalef(1.5,1.5,1.5);
@@ -496,6 +488,13 @@ void draw_plane(int* room_display_lists, float plane_z) {
 		glTranslatef(0,0,plane_z);
 		glCallList(plane);
 	glPopMatrix();
+}
+
+// Drawing function for the painting
+void draw_painting(int* room_display_lists) {
+	int painting = room_display_lists[44];
+	cout << "Drawing painting" << endl;
+	glCallList(painting);
 }
 
 // Draw everything
@@ -552,6 +551,13 @@ void draw_all_objects(
 		glRotatef(-90,0,1,0);
 		draw_wall_light(room_display_lists);
 	glPopMatrix();
+
+	// painting
+	// glPushMatrix();
+	// 	glTranslatef(0,-1,-2);
+	// 	glScalef(0.9,0.9,0.9);
+	// 	draw_painting(room_display_lists);
+	// glPopMatrix();
 }
 
 // Draw the Bezier curve

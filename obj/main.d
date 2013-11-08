@@ -113,4 +113,4 @@ obj/main.o: src/main.cpp /usr/include/c++/4.7/iostream \
  /usr/include/GL/freeglut.h /usr/include/GL/freeglut_std.h \
  /usr/include/GL/glu.h /usr/include/GL/freeglut_ext.h src/room.hpp \
  src/dancer.hpp src/box.hpp src/draw.hpp src/coordinate.hpp \
- src/bezier.hpp src/helpers.hpp src/file.hpp
+ src/bezier.hpp src/helpers.hpp src/file.hpp src/callbacks.hpp

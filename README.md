@@ -24,7 +24,8 @@ The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox2.html)
 Link to Report for Part 3
 -------------------------
 
-The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox3.html)
+The report can be found [here](http://www.cse.iitb.ac.in/~rohanp/musicbox3.html).
+The YouTube video of our animation is [here](needtofillthisin)
 
 Installation
 ------------
@@ -54,27 +55,39 @@ Clearing out the Keyframes File
 Keybindings/Mouse actions
 -------------------------
 
+These keybindings apply to parts 1 and 2 of the assignment.
+
 1. Exit the program: `Esc`
 2. Get help on keybindings: `F1`
-2. Toggle which object to move: `t` (when you start the program, the dancer is selected)
-3. Toggle which side to move: `r` (when you start the program, the left side is selected)
-4. Select joint: `0` to `9`
-5. Rotate about x-axis: `w` and `s`
-6. Rotate about x-axis: `a` and `d`
-7. Rotate about x-axis: `q` and `e`
-8. Rotate the entire dancer about the y-axis: `,` and `.`
-9. Display information: `i`
-10. Switch on/switch off the lamp: `k`
-11. Switch on/switch off the wall light: `l`
-12. Reset everything: `F5`
-13. Enter the room: `Enter`
-14. Move the control point selection plane along the z-axis: `↑` and `↓`
-15. Select a point to use as a control point: mouse click
-16. Start the animation: `Space`
-17. Delete the last created control points: right mouse click
-18. Clear the keyframes file while the program is running: `F4`
-19. Save the cuurent keyframe to the keyframes file: `F3`
-20. Start playback: `p`
+3. Toggle which object to move: `t` (when you start the program, the dancer is selected)
+4. Toggle which side to move: `r` (when you start the program, the left side is selected)
+5. Select joint: `0` to `9`
+6. Rotate about x-axis: `w` and `s`
+7. Rotate about x-axis: `a` and `d`
+8. Rotate about x-axis: `q` and `e`
+9. Rotate the entire dancer about the y-axis: `,` and `.`
+10. Display information: `i`
+11. Switch on/switch off the lamp: `k`
+12. Switch on/switch off the wall light: `l`
+13. Reset everything: `F5`
+14. Enter the room: `Enter`
+15. Move the control point selection plane along the z-axis: `↑` and `↓`
+16. Select a point to use as a control point: mouse click
+17. Start the animation: `Space`
+18. Delete the last created control points: right mouse click
+
+These keybindings apply to part 3 of the assignment
+
+1. Exit the program: `Esc`
+2. Get help on keybindings: `F1`
+3. Open and close the box lid: `z` and `x`
+4. Move the dancer up and down: `c` and `v`
+5. Select joint: `0` to `9`
+6. Rotate about x-axis: `w` and `s`
+7. Rotate about x-axis: `a` and `d`
+8. Rotate about x-axis: `q` and `e`
+9. Save a keyframe: `F3`
+10. Clear the keyframes file: `F11`
 
 Walkthrough
 -----------
@@ -129,13 +142,20 @@ Once you've selected the control points, press `Space` and watch the animation. 
 For part 3
 ----------
 
-The problem statement can be found in the file `problem-statement-3.pdf`. For this part we had to create keyframes and save them to a keyframes file, then play them back. The following information is stored as part of each keyframe (in this order):
+**Note** The code for part 3 is contained completely within the `navigate` branch of this repo. This means that the `master` branch contains the code for parts 2 and 1 together.
+
+Compilation is as usual, but to execute you must now supply an option. If you don't, the program complains about a lack of arguments and quits.
+
++ `./bin/musicbox --help` prints help and exits.
++ `./bin/musicbox --record` opens the program in record mode. In this mode you can save keyframes by pressing `F3`
++ `./bin/musicbox --playblack` plays the animation with interpolation between the keyframes. To dump frames while the program is running, press `p`. Press `p` again to turn off dumping. Image dumping is an expensive operation, so doing so will slow the program noticeably. The end result is that a number of `.ppm` files will be written to the `frm` directory.
+
+Standard workflow is to first open the program in record mode (with the `--record` flag), save a few keyframes by moving the dancer around, then close the program and reopen it in playback mode (with the `--playback` flag).
+
+The `keyframes.txt` file contains the following space-separated values:
 
 + The `dancer_angles` vector which stores information about the dancer
 + The extent to which the box lid is open, namely `lid_angle`
-+ The state of the two lights: `wall_light` and `lamp_light`
-
-This data is stored in the file `keyframes.txt` located in the root directory of the project. When the program starts, it clears out this file. At any point during the program, you can press `F3` and the keyframe will be saved to the file. Pressing `F4` will clear out the file. 
 
 Credits
 -------
@@ -143,8 +163,11 @@ Credits
 All of the code was written entirely by the two of us, except for the following parts:
 
 1. `Makefile` is a modified version of the Makefile given to us in the Software Systems Lab course at IIT Bombay
-2. The code for getting the 3D point from the mouse click is a modified version of the GetOGLPos function given in the third [reference](http://nehe.gamedev.net/article/using_gluunproject/16013/).
-3. The code for checking whether a file is empty or not was taken from [here](http://www.cplusplus.com/forum/windows/10853/)
+2. The code for getting the 3D point from the mouse click is a modified version of the `GetOGLPos` function written [here](http://nehe.gamedev.net/article/using_gluunproject/16013/).
+3. The code for checking whether a file is empty or not (that is, the `file_is_empty()` function in `src/file.cpp`) was taken from [here](http://www.cplusplus.com/forum/windows/10853/)
+4. The frame capture code was supplied to us by our course instructor. It can be found [here]()
+5. The music we used for our video was taken from [Open Game Art](http://opengameart.org/content/sage-of-corinth-music).
+6. Swamp painting taken also [Open Game Art](from http://opengameart.org/content/rhythos-modified-lpc-assets)
 
 References
 ----------

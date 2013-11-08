@@ -20,6 +20,8 @@
 #include "helpers.hpp"
 #include "file.hpp"
 
+#include "callbacks.hpp"
+
 #define GLUT_FRAME_TIME 50
 #define NUM_SAMPLES 50
 #define FRAMES_PER_SECOND 30
@@ -27,6 +29,8 @@
 using namespace std;
 
 float limits[80] = {0};
+
+int num_frames = 30;
 
 // the current and previous keyframes of the animation
 vector<float> keyframe1;
@@ -51,6 +55,10 @@ float dancer_y = 0;
 float door_angle = 0;
 float plane_z = 0;
 
+unsigned char* pRGB;
+unsigned int framenum = 0;
+bool dump_frames = false;
+
 /* Variables determining which body part to move */
 bool move_left = true; // When true, keys affect the left side of the dancer. Not valid for joints that have no left or right, for example, the head-neck joint
 int curr_joint = 0; // Which joint to move. This int takes values between 0 and 9, both included
@@ -74,11 +82,12 @@ float camera_z = 5;
 int window_id;
 
 /* Display lists */
-int room_display_lists[45];
+int room_display_lists[46];
 
 ifstream keyframes_file;
 
 bool animate();
+void capture_frame(unsigned int);
 
 // Find the coordinates that were clicked
 vector<double>
@@ -108,14 +117,6 @@ GetOGLPos(int x, int y) {
  	return result;
 }
 
-/* Callback Declarations */
-void display();
-void reshape(int, int);
-void keyboard(unsigned char, int, int);
-void process_special_keys(int,int,int);
-void mouse(int, int, int, int);
-void timer(int value);
-
 void init() {
 	keyframes_file.open("keyframes.txt");
 	if (!keyframes_file.is_open()) { cout << "Error opening keyframes.txt\n"; exit(1); }
@@ -123,6 +124,8 @@ void init() {
 		keyframe1.push_back(0);
 		keyframe2.push_back(0);
 	}
+	keyframe1.push_back(30);
+	keyframe2.push_back(30);
 
 	initGL(); // set up the camera, etc.
 	init_limits(limits); // set up the limits vector
@@ -131,14 +134,15 @@ void init() {
 
 void timer(int value) {
 	bool animation_continue = true;
-	if (value == 30) {
+	if (value == num_frames) {
 		value = 0;
 		animation_continue = animate();
 	}
 	if (animation_continue) {
-		for (int i = 0 ; i < 40 ; i++) dancer_angles[i] += (keyframe2[i]-keyframe1[i])/30.0f;
-		dancer_y += (keyframe2[40]-keyframe1[40])/30.f;
-		lid_angle += (keyframe2[41]-keyframe1[41])/30.f;
+		num_frames = keyframe1[42];
+		for (int i = 0 ; i < 40 ; i++) dancer_angles[i] += (float)(keyframe2[i]-keyframe1[i])/(float)(num_frames);
+		dancer_y += (float)(keyframe2[40]-keyframe1[40])/(float)(num_frames);
+		lid_angle += (float)(keyframe2[41]-keyframe1[41])/(float)(num_frames);
 		value++;
 		glutPostRedisplay();
 		glutTimerFunc(1000.f/30.f,timer,value);
@@ -181,6 +185,7 @@ void display() {
 		);
 	glPopMatrix();
 
+	if (dump_frames) capture_frame(framenum++);
 	glutSwapBuffers();
 }
 
@@ -298,22 +303,6 @@ void keyboard(unsigned char key, int x, int y) {
 		}
 		break;
 
-		// case ',': {
-		// 	if (dancer_angle - 3 >= -90) {
-		// 		dancer_angle -= 3;
-		// 		glutPostRedisplay();
-		// 	}
-		// }
-		// break;
-
-		// case '.': {
-		// 	if (dancer_angle + 3 <= 90) {
-		// 		dancer_angle += 3;
-		// 		glutPostRedisplay();
-		// 	}
-		// }
-		// break;
-
 		// toggle lamp light
 		case 'k': {
 			lamp_light = not lamp_light; 
@@ -410,6 +399,13 @@ void keyboard(unsigned char key, int x, int y) {
 			cout << camera_x << " " << camera_y << " " << camera_z << endl;
 		}
 		break;
+
+		// Dump frames
+		case 'p': {
+			dump_frames = not dump_frames;
+			glutPostRedisplay();
+		}
+		break;
 	}
 }
 
@@ -488,7 +484,7 @@ void renderGL(int argc, char** argv) {
 	glutSpecialFunc(process_special_keys);
 	glutMouseFunc(mouse);
 	
-	if (!record_mode) glutTimerFunc(3000,timer,30);
+	if (!record_mode) glutTimerFunc(10000,timer,30);
 
 	glutMainLoop();
 }
@@ -510,21 +506,45 @@ bool animate() {
 	else return false;
 }
 
+void capture_frame(unsigned int framenum) {
+  //global pointer float *pRGB
+	int SCREEN_WIDTH = glutGet(GLUT_SCREEN_WIDTH);
+	int SCREEN_HEIGHT = glutGet(GLUT_SCREEN_HEIGHT);
+	pRGB = new unsigned char [3 * (SCREEN_WIDTH+1) * (SCREEN_HEIGHT + 1) ];
+	// set the framebuffer to read
+	//default for double buffered
+	glReadBuffer(GL_BACK);
+
+	glPixelStoref(GL_PACK_ALIGNMENT,1);//for word allignment
+
+	glReadPixels(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, pRGB);
+	char filename[200];
+	sprintf(filename,"frm/frame_%04d.ppm",framenum);
+	ofstream out(filename, std::ios::out);
+	out<<"P6"<<endl;
+	out<<SCREEN_WIDTH<<" "<<SCREEN_HEIGHT<<" 255"<<std::endl;
+	out.write(reinterpret_cast<char const *>(pRGB), (3 * (SCREEN_WIDTH+1) * (SCREEN_HEIGHT + 1)) * sizeof(int));
+	out.close();
+
+	//function to store pRGB in a file named count
+	delete pRGB;
+}
+
 int main(int argc, char** argv) {
 	if (argc < 2) {
 		cout << "Insufficient number of arguments\n";
 		exit(1);
 	}
 	else {
-		if (string(argv[1]) == "--help") {
+		if (string(argv[1]) == "--help" or (string(argv[1]) == "-h")) {
 			cout << "For help on how to use the program, please read the README in the Github repo: https://wenderen/github/musicbox\n";
 			exit(0);
 		}
-		else if (string(argv[1]) == "--playback") {
+		else if (string(argv[1]) == "--playback" or (string(argv[1]) == "-p")) {
 			cout << "Started program in PLAYBACK MODE...\n";
 			record_mode = false;
 		}
-		else if (string(argv[1]) == "--record") {
+		else if (string(argv[1]) == "--record" or (string(argv[1]) == "-r")) {
 			cout << "Started program in RECORD MODE...\n";
 			record_mode = true;
 		}

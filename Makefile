@@ -14,6 +14,7 @@ CD      = cd
 
 # Project Name
 TARGETexe     = musicbox
+ANIMATION     = animation.mp4
 
 # Project Paths
 INSTALL_PATH  =$(PROJECT_ROOT)/bin
@@ -21,6 +22,7 @@ PROJECT_ROOT  =.
 SRCDIR        =$(PROJECT_ROOT)/src
 OBJDIR        =$(PROJECT_ROOT)/obj
 BINDIR        =$(PROJECT_ROOT)/bin
+FRMDIR        =$(PROJECT_ROOT)/frm
 LIBDIR        =/usr/lib
 
 # Library Paths
@@ -52,6 +54,7 @@ WARN_FMT    ="${WARN_COLOR}%30s\n${NO_COLOR}"
 SRCS        :=$(wildcard $(SRCDIR)/*.cpp)
 INCS        :=$(wildcard $(SRCDIR)/*.hpp)
 OBJS        :=$(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+FRAMES      :=$(wildcard $(FRMDIR)/*.jpg)
 
 MAIN        =$(OBJDIR)/main.o
 
@@ -91,7 +94,6 @@ setup:
 	@$(ECHO) "Setting up the compilation..."
 	@mkdir -p obj
 	@mkdir -p bin
-	@echo > keyframes.txt
 	@$(ECHO) "Done setting up."
 	
 clear:
@@ -105,3 +107,8 @@ clean:
 	@$(PRINTF) "$(MESG_COLOR)Removing: $(FILE_COLOR)bin"; $(RM) -rf bin
 	@$(PRINTF) "                   $(OK_COLOR)[OK]$(NO_COLOR)"; $(ECHO)
 	@$(PRINTF) "All removed, done."; $(ECHO)
+
+animation: $(FRAMES) $(ANIMATION)
+
+$(ANIMATION):
+	@avconv -i frm/frame_%04d.jpg -r 30 -b 65536k $(ANIMATION)
