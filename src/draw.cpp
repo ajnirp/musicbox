@@ -4,6 +4,8 @@
 #include <GL/glut.h>
 #include <cmath>
 
+#include <iostream>
+
 #include "draw.hpp"
 #include "box.hpp"
 #include "dancer.hpp"
@@ -13,23 +15,39 @@
 #include "bezier.hpp"
 #include "painting.hpp"
 
-#include <iostream>
 using namespace std;
 
 // Drawing function for the box
 void draw_box(int* room_display_lists, double lid_degrees) {
 	int base_and_walls = room_display_lists[6];
-	int lid = define_lid();
+	int lid_half = define_lid_half();
 	glPushMatrix();
 		glScalef(0.5,0.85,0.5);
 		// glRotatef(90,0,1,0);
 		// draw the lid
 		glPushMatrix();
-			glTranslatef(0, -2, -5);
+			glTranslatef(1.5, -2, -3.5);
+			glRotatef(lid_degrees,0,0,1);
+			glRotatef(90,0,1,0);
+			glTranslatef(0, 2, 3.5);
+			glCallList(lid_half);
+		glPopMatrix();
+		glPushMatrix();
+			// glTranslatef(0,0,2.5);
+			glTranslatef(-1.5, -2, -3.5);
+			glRotatef(90,0,1,0);
 			glRotatef(lid_degrees,1,0,0);
 			glTranslatef(0, 2, 5);
-			glCallList(lid);
+			glCallList(lid_half);
 		glPopMatrix();
+		// glPushMatrix();
+		// 	glTranslatef(0,0,3);
+		// 	glTranslatef(0, -2, -5);
+		// 	glRotatef(180,0,1,0);
+		// 	glRotatef(lid_degrees,1,0,0);
+		// 	glTranslatef(0, 2, 5);
+		// 	glCallList(lid_half);
+		// glPopMatrix();
 		// draw the base and walls
 		glCallList(base_and_walls);
 	glPopMatrix();
@@ -345,7 +363,6 @@ void draw_room(
 		glPushMatrix();
 			glTranslatef(5,0,4);
 			glRotatef(door_angle,0,1,0);
-			// glRotatef(90,0,1,0);
 			glTranslatef(-5,0,-4);
 			glCallList(door);
 		glPopMatrix();
@@ -511,8 +528,9 @@ void draw_all_objects(
 
 	// Box and dancer
 	glPushMatrix();
-		// glTranslatef(0,2.6001,1.7);
+		// glTranslatef(2,-2.1-.001,1);
 		glTranslatef(-2,2.1+.001,-1);
+		// glRotatef(90,0,1,0);
 		draw_box(room_display_lists ,lid_degrees);
 	glPopMatrix();
 	glPushMatrix();

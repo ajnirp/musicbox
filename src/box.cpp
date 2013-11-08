@@ -66,7 +66,7 @@ int define_base_and_walls() {
 	return base_and_walls;
 }
 
-int define_lid() {
+int define_lid_half() {
 	int lid = glGenLists(1);
 	GLuint texture_lid = LoadTexture("tex/wood2.bmp");
 	glNewList(lid, GL_COMPILE);
@@ -79,15 +79,15 @@ int define_lid() {
 		glScalef(3,3,3);
 		// Right wall
 		glBegin(GL_QUADS);
-			glTexCoord2f(0.0, 0.0);glVertex3f(1,0,0);
+			glTexCoord2f(0.0, 0.0);glVertex3f(1,0,-0.5);
 			glTexCoord2f(0.0, 1.0);glVertex3f(1,0,-1);
 			glTexCoord2f(1.0, 1.0);glVertex3f(1,0.05,-1);
-			glTexCoord2f(1.0, 0.0);glVertex3f(1,0.05,0);
+			glTexCoord2f(1.0, 0.0);glVertex3f(1,0.05,-0.5);
 		glEnd();
 		// Left wall
 		glBegin(GL_QUADS);
-			glTexCoord2f(0.0, 0.0);glVertex3f(0,0,0);
-			glTexCoord2f(0.0, 1.0);glVertex3f(0,0.05,0);
+			glTexCoord2f(0.0, 0.0);glVertex3f(0,0,-0.5);
+			glTexCoord2f(0.0, 1.0);glVertex3f(0,0.05,-0.5);
 			glTexCoord2f(1.0, 1.0);glVertex3f(0,0.05,-1);
 			glTexCoord2f(1.0, 0.0);glVertex3f(0,0,-1);
 		glEnd();
@@ -100,18 +100,18 @@ int define_lid() {
 		glEnd();
 		// Top wall
 		glBegin(GL_QUADS);
-			glTexCoord2f(0.0, 0.0);glVertex3f(0,0.05,0);
-			glTexCoord2f(0.0, 1.0);glVertex3f(1,0.05,0);
+			glTexCoord2f(0.0, 0.0);glVertex3f(0,0.05,-0.5);
+			glTexCoord2f(0.0, 1.0);glVertex3f(1,0.05,-0.5);
 			glTexCoord2f(1.0, 1.0);glVertex3f(1,0.05,-1);
 			glTexCoord2f(1.0, 0.0);glVertex3f(0,0.05,-1);
 		glEnd();
 		// Front wall
 		// Back wall
 		glBegin(GL_QUADS);
-			glTexCoord2f(0.0, 0.0);glVertex3f(0,0,0);
-			glTexCoord2f(0.0, 1.0);glVertex3f(1,0,0);
-			glTexCoord2f(1.0, 1.0);glVertex3f(1,0.05,0);
-			glTexCoord2f(1.0, 0.0);glVertex3f(0,0.05,0);
+			glTexCoord2f(0.0, 0.0);glVertex3f(0,0,-0.5);
+			glTexCoord2f(0.0, 1.0);glVertex3f(1,0,-0.5);
+			glTexCoord2f(1.0, 1.0);glVertex3f(1,0.05,-0.5);
+			glTexCoord2f(1.0, 0.0);glVertex3f(0,0.05,-0.5);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 	glEndList();
